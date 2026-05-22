@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Clock, Send, Facebook, Instagram, Youtube, CheckCircle } from 'lucide-react';
+import {
+  Phone, Mail, MapPin, Clock, Send, Facebook, Instagram,
+  CheckCircle, ExternalLink, Navigation,
+} from 'lucide-react';
 import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
-import { fadeUp, staggerFast, cardHover, defaultTransition } from '../lib/motion';
+import { fadeUp, staggerFast, defaultTransition } from '../lib/motion';
+
+const MAP_EMBED_URL =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31538.01264890282!2d80.00193!3d9.66845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe53fd7de963a3%3A0x9cdbb5d91c5bb580!2sJaffna%2C%20Sri%20Lanka!5e0!3m2!1sen!2slk!4v1683456789';
+
+const MAP_DIRECTIONS_URL = 'https://www.google.com/maps/search/?api=1&query=123+Hospital+Road+Jaffna+Sri+Lanka';
 
 const contactDetails = [
   {
@@ -25,6 +33,7 @@ const contactDetails = [
     label: 'Address',
     primary: '123 Hospital Road, Jaffna',
     secondary: 'Northern Province, Sri Lanka',
+    href: MAP_DIRECTIONS_URL,
   },
   {
     icon: Clock,
@@ -70,124 +79,118 @@ export default function Contact() {
         minHeight="sm"
         title={
           <>
-            Let's Start Your<br />
+            Let&apos;s Start Your<br />
             <span className="text-gradient">Print Project</span>
           </>
         }
         description="Reach out for a free quote, design consultation, or any enquiry. Our team responds within 24 hours."
       />
 
-      <section className="section-padding bg-slate-50">
+      {/* Quick contact cards */}
+      <section className="py-10 sm:py-12 bg-white border-b border-slate-100">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-5 gap-10">
-            <FadeIn direction="left" className="lg:col-span-2 space-y-6">
-              <div>
-                <h2 className="font-display font-bold text-slate-900 text-3xl mb-3">Get in Touch</h2>
-                <p className="text-slate-500 leading-relaxed">
-                  Whether you have a print project in mind or need support — we're here to help.
-                </p>
-              </div>
-
+          <motion.div
+            variants={staggerFast}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4"
+          >
+            {contactDetails.map(({ icon: Icon, label, primary, secondary, href }, i) => (
               <motion.div
-                variants={staggerFast}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="space-y-4"
+                key={label}
+                variants={fadeUp}
+                transition={{ ...defaultTransition, delay: i * 0.05 }}
+                className="flex items-start gap-3 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-red/20 hover:shadow-sm transition-all duration-300"
               >
-                {contactDetails.map(({ icon: Icon, label, primary, secondary, href }, i) => (
-                  <motion.div
-                    key={label}
-                    variants={fadeUp}
-                    whileHover={cardHover}
-                    transition={{ ...defaultTransition, delay: i * 0.05 }}
-                    className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-slate-100"
-                  >
-                    <motion.div
-                      whileHover={{ rotate: 10, scale: 1.1 }}
-                      className="w-10 h-10 rounded-xl bg-brand-gold/10 flex items-center justify-center shrink-0"
-                    >
-                      <Icon className="w-5 h-5 text-brand-gold-500" />
-                    </motion.div>
-                    <div>
-                      <div className="text-slate-400 text-xs font-medium mb-0.5">{label}</div>
-                      {href ? (
-                        <a href={href} className="font-semibold text-slate-900 text-sm hover:text-brand-red-600 transition-colors">
-                          {primary}
-                        </a>
-                      ) : (
-                        <div className="font-semibold text-slate-900 text-sm">{primary}</div>
-                      )}
-                      <div className="text-slate-500 text-xs mt-0.5">{secondary}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                <p className="text-slate-500 text-sm font-medium mb-3">Follow Us</p>
-                <div className="flex gap-3">
-                  {[
-                    { icon: Facebook, label: 'Facebook', href: '#' },
-                    { icon: Instagram, label: 'Instagram', href: '#' },
-                    { icon: Youtube, label: 'YouTube', href: '#' },
-                  ].map(({ icon: Icon, label, href }, i) => (
-                    <motion.a
-                      key={label}
+                <div className="icon-circle w-11 h-11 shrink-0">
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-slate-400 text-xs font-medium mb-1">{label}</div>
+                  {href ? (
+                    <a
                       href={href}
-                      whileHover={{ scale: 1.12, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 hover:border-brand-gold-300 hover:bg-brand-gold-50 hover:text-brand-red-600 text-slate-500 flex items-center justify-center transition-colors duration-300"
-                      aria-label={label}
+                      target={label === 'Address' ? '_blank' : undefined}
+                      rel={label === 'Address' ? 'noopener noreferrer' : undefined}
+                      className="font-semibold text-brand-charcoal text-sm hover:text-brand-red transition-colors block truncate"
                     >
-                      <Icon className="w-4 h-4" />
-                    </motion.a>
-                  ))}
+                      {primary}
+                    </a>
+                  ) : (
+                    <div className="font-semibold text-brand-charcoal text-sm">{primary}</div>
+                  )}
+                  <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{secondary}</div>
                 </div>
               </motion.div>
-            </FadeIn>
+            ))}
+          </motion.div>
 
-            <FadeIn direction="right" delay={0.1} className="lg:col-span-3">
-              <motion.div
-                whileHover={{ boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)' }}
-                className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-100 shadow-sm"
-              >
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-slate-100"
+          >
+            <p className="text-slate-500 text-sm font-medium">Follow us on social media</p>
+            <div className="flex gap-3">
+              {[
+                { icon: Facebook, label: 'Facebook', href: '#' },
+                { icon: Instagram, label: 'Instagram', href: '#' },
+              ].map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="w-10 h-10 rounded-btn bg-slate-50 border border-slate-200 hover:border-brand-red hover:bg-brand-red/5 hover:text-brand-red text-slate-500 flex items-center justify-center transition-colors duration-300"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Form + Map */}
+      <section className="section-padding bg-slate-50">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-8 xl:gap-10 items-stretch">
+            {/* Quote form */}
+            <FadeIn direction="left" className="h-full">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 border border-slate-100 shadow-sm h-full">
                 {submitted ? (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                    className="text-center py-12"
+                    className="text-center py-16 lg:py-24"
                   >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: 'spring', delay: 0.1 }}
-                      className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6"
-                    >
+                    <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-green-600" />
-                    </motion.div>
-                    <h3 className="font-display font-bold text-slate-900 text-2xl mb-3">Message Sent!</h3>
-                    <p className="text-slate-500 max-w-xs mx-auto">
+                    </div>
+                    <h3 className="font-display font-bold text-brand-charcoal text-2xl mb-3">Message Sent!</h3>
+                    <p className="text-slate-500 max-w-sm mx-auto">
                       Thank you for reaching out. Our team will get back to you within 24 hours.
                     </p>
                     <button
                       type="button"
-                      onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', service: '', message: '' }); }}
-                      className="mt-8 px-6 py-3 bg-slate-900 text-white rounded-full font-display font-semibold text-sm hover:bg-slate-800 transition-colors"
+                      onClick={() => {
+                        setSubmitted(false);
+                        setForm({ name: '', email: '', phone: '', service: '', message: '' });
+                      }}
+                      className="mt-8 px-6 py-3 btn-primary text-sm"
                     >
                       Send Another Message
                     </button>
                   </motion.div>
                 ) : (
                   <>
-                    <h3 className="font-display font-bold text-slate-900 text-2xl mb-8">Request a Free Quote</h3>
+                    <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl mb-2">
+                      Request a Free Quote
+                    </h2>
+                    <p className="text-slate-500 text-sm mb-8">
+                      Fill in your details and we&apos;ll prepare a custom quote for your project.
+                    </p>
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="grid sm:grid-cols-2 gap-5">
                         <div>
@@ -199,7 +202,7 @@ export default function Contact() {
                             value={form.name}
                             onChange={handleChange}
                             placeholder="Your name"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all"
                           />
                         </div>
                         <div>
@@ -211,7 +214,7 @@ export default function Contact() {
                             value={form.email}
                             onChange={handleChange}
                             placeholder="you@example.com"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all"
                           />
                         </div>
                       </div>
@@ -224,7 +227,7 @@ export default function Contact() {
                             value={form.phone}
                             onChange={handleChange}
                             placeholder="+94 77 123 4567"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all"
                           />
                         </div>
                         <div>
@@ -234,7 +237,7 @@ export default function Contact() {
                             required
                             value={form.service}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 transition-all bg-white"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all bg-white"
                           >
                             <option value="">Select a service</option>
                             {services.map((s) => (
@@ -252,7 +255,7 @@ export default function Contact() {
                           value={form.message}
                           onChange={handleChange}
                           placeholder="Tell us about your project: quantity, size, material preferences, deadline..."
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 transition-all resize-none"
+                          className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all resize-none"
                         />
                       </div>
                       <motion.button
@@ -260,10 +263,10 @@ export default function Contact() {
                         disabled={loading}
                         whileHover={{ scale: loading ? 1 : 1.02 }}
                         whileTap={{ scale: loading ? 1 : 0.98 }}
-                        className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-red to-brand-gold text-slate-900 font-display font-bold rounded-full hover:shadow-lg hover:shadow-brand-gold/30 transition-all duration-300 disabled:opacity-70"
+                        className="w-full btn-primary py-4 text-base disabled:opacity-70"
                       >
                         {loading ? (
-                          <span className="flex items-center gap-2">
+                          <span className="flex items-center justify-center gap-2">
                             <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
                               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -277,29 +280,58 @@ export default function Contact() {
                     </form>
                   </>
                 )}
-              </motion.div>
+              </div>
+            </FadeIn>
+
+            {/* Map — tall, matches form height on desktop */}
+            <FadeIn direction="right" delay={0.1} className="h-full min-h-0">
+              <div className="flex flex-col h-full min-h-[420px] sm:min-h-[480px] lg:min-h-[640px]">
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-4">
+                  <div>
+                    <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl">
+                      Visit Our Shop
+                    </h2>
+                    <p className="text-slate-500 text-sm mt-1 flex items-start gap-1.5">
+                      <MapPin className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
+                      123 Hospital Road, Jaffna, Sri Lanka
+                    </p>
+                  </div>
+                  <a
+                    href={MAP_DIRECTIONS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 btn-primary text-sm shrink-0"
+                  >
+                    <Navigation className="w-4 h-4" />
+                    Get Directions
+                  </a>
+                </div>
+
+                <div className="relative flex-1 rounded-2xl overflow-hidden border border-slate-200 shadow-card bg-slate-200 min-h-[360px] sm:min-h-[400px] lg:min-h-0">
+                  <iframe
+                    title="JaffnaPrinters Location on Google Maps"
+                    src={MAP_EMBED_URL}
+                    className="absolute inset-0 w-full h-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </div>
+
+                <a
+                  href={MAP_DIRECTIONS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-red hover:text-brand-red-600 transition-colors font-display"
+                >
+                  Open in Google Maps
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
             </FadeIn>
           </div>
         </div>
       </section>
-
-      <motion.section
-        id="map"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="h-96 bg-slate-200 relative overflow-hidden"
-      >
-        <iframe
-          title="JaffnaPrinters Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31538.01264890282!2d80.00193!3d9.66845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe53fd7de963a3%3A0x9cdbb5d91c5bb580!2sJaffna%2C%20Sri%20Lanka!5e0!3m2!1sen!2slk!4v1683456789"
-          className="w-full h-full border-0"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-        <div className="absolute inset-0 pointer-events-none border-t-4 border-brand-gold" />
-      </motion.section>
     </div>
   );
 }

@@ -17,7 +17,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       exit={{ opacity: 0, scale: 0.95 }}
       whileHover={cardHover}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group rounded-2xl overflow-hidden bg-white border border-slate-100 hover:border-brand-gold-300/50 hover:shadow-2xl transition-shadow duration-400"
+      className="group rounded-2xl overflow-hidden bg-white border border-slate-100 hover:border-brand-red/30 hover:shadow-card transition-shadow duration-400"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <img
@@ -30,14 +30,14 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         {product.popular && (
-          <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold text-slate-900 text-xs font-bold font-display">
-            <Star className="w-3 h-3 fill-slate-900" /> Popular
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-btn bg-brand-red text-white text-xs font-bold font-display">
+            <Star className="w-3 h-3 fill-white" /> Popular
           </div>
         )}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <Link
             to="/contact"
-            className="flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-slate-900 font-semibold text-sm rounded-full font-display hover:bg-brand-gold transition-colors duration-300"
+            className="flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-brand-charcoal font-semibold text-sm rounded-btn font-display hover:bg-brand-red hover:text-white transition-colors duration-300"
           >
             Get Quote <ArrowRight className="w-4 h-4" />
           </Link>
@@ -101,16 +101,16 @@ export default function Products() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`relative px-5 py-2.5 rounded-full text-sm font-semibold font-display transition-colors duration-300 ${
+                className={`relative px-5 py-2.5 rounded-btn text-sm font-semibold font-display transition-colors duration-300 ${
                   activeCategory === cat
-                    ? 'text-slate-900'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-gold-300 hover:text-brand-red-600'
+                    ? 'text-white'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-red hover:text-brand-red'
                 }`}
               >
                 {activeCategory === cat && (
                   <motion.span
                     layoutId="product-filter-pill"
-                    className="absolute inset-0 bg-brand-gold rounded-full shadow-lg shadow-brand-gold/30"
+                    className="absolute inset-0 bg-brand-red rounded-btn shadow-md shadow-brand-red/25"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -161,7 +161,7 @@ export default function Products() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="relative"
               >
-                <div className="text-brand-gold/20 font-display font-black text-7xl leading-none mb-4">{s.step}</div>
+                <div className="text-brand-red/15 font-display font-black text-7xl leading-none mb-4">{s.step}</div>
                 <h3 className="font-display font-bold text-slate-900 text-lg mb-2">{s.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
               </motion.div>
@@ -171,19 +171,16 @@ export default function Products() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-brand-gold">
+      <section className="py-16 bg-brand-red">
         <div className="container-custom text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-            <h2 className="font-display font-bold text-slate-900 text-4xl mb-4">Can't find what you need?</h2>
-            <p className="text-slate-800 text-xl mb-8 max-w-xl mx-auto">
+            <h2 className="font-display font-bold text-white text-4xl mb-4">Can&apos;t find what you need?</h2>
+            <p className="text-white/85 text-xl mb-8 max-w-xl mx-auto">
               We offer fully custom print solutions. Contact our team.
             </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-brand-gold rounded-full font-display font-bold text-lg hover:bg-slate-800 transition-colors duration-300"
-            >
+            <GradientButton to="/contact" size="lg" className="!bg-white !text-brand-red hover:!bg-brand-gold hover:!text-brand-charcoal !shadow-none">
               Talk to Us <ArrowRight className="w-5 h-5" />
-            </Link>
+            </GradientButton>
           </motion.div>
         </div>
       </section>

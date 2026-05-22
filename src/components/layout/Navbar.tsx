@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight, Phone, Mail, Facebook, Instagram} from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
+  { label: 'About Us', path: '/about' },
   { label: 'All Products', path: '/products' },
   { label: 'PrintTech', path: '/printtech' },
   { label: 'Contact', path: '/contact' },
+];
+
+const socialLinks = [
+  { icon: Facebook, href: '#', label: 'Facebook' },
+  { icon: Instagram, href: '#', label: 'Instagram' },
 ];
 
 export default function Navbar() {
@@ -17,7 +22,7 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -27,94 +32,113 @@ export default function Navbar() {
   }, [location.pathname]);
 
   return (
-    <>
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Top utility bar */}
+      <div className="bg-brand-red text-white">
+        <div className="container-custom flex items-center justify-between py-2 text-xs sm:text-sm">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+            <a
+              href="tel:+94212234567"
+              className="flex items-center gap-1.5 hover:text-brand-gold transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 shrink-0" />
+              <span>+94 21 223 4567</span>
+            </a>
+            <a
+              href="mailto:info@jaffnaprinters.lk"
+              className="flex items-center gap-1.5 hover:text-brand-gold transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden xs:inline">info@jaffnaprinters.lk</span>
+              <span className="xs:hidden">Email Us</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-2">
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+              >
+                <Icon className="w-3.5 h-3.5" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main navigation */}
       <motion.nav
-        initial={{ y: -80 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-slate-900/95 backdrop-blur-md shadow-xl shadow-black/20 py-3'
-            : 'bg-transparent py-5'
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className={`bg-white transition-all duration-300 ${
+          isScrolled ? 'shadow-nav py-2.5' : 'py-3.5 border-b border-slate-100'
         }`}
       >
-        <motion.div className="container-custom flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
+        <div className="container-custom flex items-center justify-between gap-4">
+          <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
             <img
               src="/logo.png"
               alt="Jaffna Printers"
-              className="w-10 h-10 rounded-full object-cover ring-2 ring-brand-red shadow-lg shadow-brand-red/30 group-hover:shadow-brand-red/50 transition-shadow duration-300"
+              className="w-11 h-11 rounded-full object-cover ring-2 ring-brand-red/20 group-hover:ring-brand-red/40 transition-all"
             />
-            <motion.div className="leading-tight">
-              <div className="font-display font-bold text-white text-xl tracking-tight">
+            <div className="leading-tight hidden sm:block">
+              <div className="font-display font-bold text-brand-charcoal text-lg tracking-tight">
                 Jaffna<span className="text-brand-gold">Printers</span>
               </div>
-              <div className="text-slate-400 text-[10px] font-medium tracking-widest uppercase">
-                Premium Print Solutions
-              </div>
-            </motion.div>
+            </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative px-4 py-2 rounded-full text-sm font-medium font-display transition-colors duration-300 ${
-                  location.pathname === link.path
-                    ? 'text-brand-gold'
-                    : 'text-slate-300 hover:text-white'
+                className={`nav-link whitespace-nowrap ${
+                  location.pathname === link.path ? 'nav-link-active' : ''
                 }`}
               >
-                {location.pathname === link.path && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 bg-white/10 rounded-full"
-                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
+                {link.label}
               </Link>
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-red to-brand-gold text-slate-900 font-semibold text-sm rounded-full font-display hover:shadow-lg hover:shadow-brand-red/40 transition-all duration-300"
-            >
+          <div className="hidden md:flex items-center gap-3 shrink-0">
+            <Link to="/contact" className="btn-primary px-5 py-2.5 text-sm">
               Get a Quote <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-white"
+            className="xl:hidden p-2 text-brand-charcoal hover:text-brand-red transition-colors"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-        </motion.div>
+        </div>
       </motion.nav>
 
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed top-0 left-0 right-0 z-40 bg-slate-900/98 backdrop-blur-xl pt-24 pb-8 px-6 shadow-2xl"
+            className="xl:hidden bg-white border-b border-slate-100 shadow-lg overflow-hidden"
           >
-            <div className="flex flex-col gap-2">
+            <div className="container-custom py-4 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-4 py-3 rounded-xl font-display font-medium text-base transition-colors ${
+                  className={`px-4 py-3 rounded-btn font-display font-medium text-base transition-colors ${
                     location.pathname === link.path
-                      ? 'text-brand-gold bg-brand-gold/10'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      ? 'text-brand-red bg-brand-red/5 font-semibold'
+                      : 'text-brand-charcoal/80 hover:text-brand-red hover:bg-slate-50'
                   }`}
                 >
                   {link.label}
@@ -122,7 +146,7 @@ export default function Navbar() {
               ))}
               <Link
                 to="/contact"
-                className="mt-4 flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-brand-red to-brand-gold text-slate-900 font-semibold rounded-full font-display"
+                className="mt-3 btn-primary py-3.5 text-base justify-center"
               >
                 Get a Quote <ChevronRight className="w-4 h-4" />
               </Link>
@@ -130,6 +154,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

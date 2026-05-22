@@ -23,22 +23,22 @@ export default function GradientButton({
 }: GradientButtonProps) {
   const sizes = {
     sm: 'px-5 py-2.5 text-sm',
-    md: 'px-7 py-3.5 text-base',
-    lg: 'px-9 py-4 text-lg',
+    md: 'px-7 py-3 text-base',
+    lg: 'px-8 py-3.5 text-base',
   };
 
   const variants = {
-    primary: 'bg-gradient-to-r from-brand-red to-brand-gold text-slate-900 font-semibold shadow-lg shadow-brand-red/30 hover:shadow-brand-red/50',
-    outline: 'border-2 border-brand-gold text-brand-gold font-semibold hover:bg-brand-gold hover:text-slate-900',
-    ghost: 'text-white font-semibold hover:text-brand-gold',
+    primary: 'btn-primary',
+    outline: 'btn-outline',
+    ghost: 'text-brand-red font-semibold font-display hover:text-brand-red-600 bg-transparent',
   };
 
-  const baseClass = `inline-flex items-center justify-center gap-2 rounded-full font-display transition-all duration-300 ${sizes[size]} ${variants[variant]} ${className}`;
+  const baseClass = `inline-flex items-center justify-center gap-2 rounded-btn font-display transition-all duration-300 ${sizes[size]} ${variants[variant]} ${className}`;
 
   const content = (
     <motion.span
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       className={baseClass}
     >
       {children}

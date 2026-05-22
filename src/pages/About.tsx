@@ -61,19 +61,19 @@ export default function About() {
               whileHover={cardHover}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-slate-900 rounded-3xl p-10 relative overflow-hidden"
+              className="bg-brand-red rounded-2xl p-10 relative overflow-hidden shadow-card"
             >
               <motion.div
-                className="absolute top-0 right-0 w-48 h-48 bg-brand-gold/5 rounded-full blur-2xl"
+                className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl"
                 animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
                 transition={{ duration: 5, repeat: Infinity }}
               />
               <motion.div className="relative z-10">
                 <motion.div
                   whileHover={{ rotate: 8, scale: 1.08 }}
-                  className="w-12 h-12 rounded-2xl bg-brand-gold/20 flex items-center justify-center mb-6"
+                  className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center mb-6"
                 >
-                  <Target className="w-6 h-6 text-brand-gold" />
+                  <Target className="w-6 h-6 text-white" />
                 </motion.div>
                 <div className="text-brand-gold font-display font-semibold text-sm tracking-widest uppercase mb-3">Our Mission</div>
                 <h3 className="font-display font-bold text-white text-2xl mb-4">Empowering brands through exceptional print</h3>
@@ -88,7 +88,7 @@ export default function About() {
               whileHover={cardHover}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-gradient-to-br from-brand-red to-brand-gold rounded-3xl p-10 relative overflow-hidden"
+              className="bg-white border-2 border-brand-red rounded-2xl p-10 relative overflow-hidden shadow-card"
             >
               <motion.div
                 className="absolute bottom-0 left-0 w-48 h-48 bg-slate-900/10 rounded-full blur-2xl"
@@ -98,13 +98,13 @@ export default function About() {
               <motion.div className="relative z-10">
                 <motion.div
                   whileHover={{ rotate: -8, scale: 1.08 }}
-                  className="w-12 h-12 rounded-2xl bg-slate-900/20 flex items-center justify-center mb-6"
+                  className="w-12 h-12 rounded-2xl bg-brand-red/10 flex items-center justify-center mb-6"
                 >
-                  <Eye className="w-6 h-6 text-slate-900" />
+                  <Eye className="w-6 h-6 text-brand-red" />
                 </motion.div>
-                <div className="text-slate-900/70 font-display font-semibold text-sm tracking-widest uppercase mb-3">Our Vision</div>
-                <h3 className="font-display font-bold text-slate-900 text-2xl mb-4">Redefining print in South Asia</h3>
-                <p className="text-slate-800 leading-relaxed">
+                <div className="text-brand-red font-display font-semibold text-sm tracking-widest uppercase mb-3">Our Vision</div>
+                <h3 className="font-display font-bold text-brand-charcoal text-2xl mb-4">Redefining print in South Asia</h3>
+                <p className="text-slate-600 leading-relaxed">
                   To be the most innovative and reliable print solutions provider in South Asia.
                 </p>
               </motion.div>
@@ -122,7 +122,7 @@ export default function About() {
             highlight="Growth"
           />
           <div className="relative">
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-brand-gold via-brand-gold-300 to-transparent hidden sm:block" />
+            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-brand-red via-brand-red-300 to-transparent hidden sm:block" />
             <div className="space-y-10">
               {timeline.map((item, i) => (
                 <motion.div
@@ -141,13 +141,13 @@ export default function About() {
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ type: 'spring', stiffness: 400, delay: i * 0.1 }}
-                      className="absolute w-4 h-4 rounded-full bg-brand-gold border-4 border-white shadow-lg"
+                      className="absolute w-4 h-4 rounded-full bg-brand-red border-4 border-white shadow-lg"
                     />
                   </div>
                   <div className={`flex-1 md:w-1/2 ${i % 2 === 0 ? 'md:pl-10' : 'md:pr-10 md:text-right'}`}>
                     <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 inline-block w-full hover:shadow-md transition-shadow duration-300">
                       <motion.div
-                        className="text-brand-gold-500 font-display font-bold text-2xl mb-1"
+                        className="text-brand-red font-display font-bold text-2xl mb-1"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
@@ -183,16 +183,16 @@ export default function About() {
                 variants={fadeUp}
                 whileHover={cardHover}
                 transition={defaultTransition}
-                className="group text-center p-8 rounded-2xl bg-slate-50 hover:bg-slate-900 transition-colors duration-400"
+                className="group text-center p-8 rounded-2xl bg-slate-50 hover:bg-brand-red transition-colors duration-400 border border-slate-100 hover:border-brand-red"
               >
                 <motion.div
                   whileHover={{ scale: 1.12, rotate: 5 }}
-                  className="w-14 h-14 rounded-2xl bg-brand-gold/10 group-hover:bg-brand-gold/20 flex items-center justify-center mx-auto mb-5 transition-colors duration-300"
+                  className="w-14 h-14 rounded-full bg-brand-red/10 group-hover:bg-white/20 flex items-center justify-center mx-auto mb-5 transition-colors duration-300"
                 >
-                  <Icon className="w-7 h-7 text-brand-gold-500" />
+                  <Icon className="w-7 h-7 text-brand-red group-hover:text-white transition-colors duration-300" />
                 </motion.div>
-                <h3 className="font-display font-bold text-slate-900 group-hover:text-white text-lg mb-3 transition-colors duration-300">{title}</h3>
-                <p className="text-slate-500 group-hover:text-slate-400 text-sm leading-relaxed transition-colors duration-300">{desc}</p>
+                <h3 className="font-display font-bold text-brand-charcoal group-hover:text-white text-lg mb-3 transition-colors duration-300">{title}</h3>
+                <p className="text-slate-500 group-hover:text-white/80 text-sm leading-relaxed transition-colors duration-300">{desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -200,7 +200,7 @@ export default function About() {
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="section-padding bg-slate-900">
+      <section className="section-padding bg-slate-50">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <FadeIn direction="left">
@@ -209,7 +209,6 @@ export default function About() {
                 title="The JaffnaPrinters"
                 highlight="Advantage"
                 centered={false}
-                light
               />
               <motion.ul
                 variants={staggerFast}
@@ -224,8 +223,8 @@ export default function About() {
                     variants={fadeUp}
                     className="flex items-start gap-3"
                   >
-                    <CheckCircle className="w-4 h-4 text-brand-gold mt-0.5 shrink-0" />
-                    <span className="text-slate-300 text-sm">{r}</span>
+                    <CheckCircle className="w-4 h-4 text-brand-red mt-0.5 shrink-0" />
+                    <span className="text-slate-600 text-sm">{r}</span>
                   </motion.li>
                 ))}
               </motion.ul>
@@ -247,7 +246,7 @@ export default function About() {
                   alt="Facility"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900/30 to-brand-red-900/20" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-red/20 to-transparent" />
               </motion.div>
             </FadeIn>
           </div>

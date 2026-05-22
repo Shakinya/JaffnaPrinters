@@ -24,7 +24,7 @@ export default function SectionHeader({
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: '-60px' }}
-      className={`mb-14 ${centered ? 'text-center' : ''}`}
+      className={`mb-12 ${centered ? 'text-center' : ''}`}
     >
       {badge && (
         <motion.div
@@ -33,17 +33,17 @@ export default function SectionHeader({
           className={`flex items-center gap-3 mb-4 ${centered ? 'justify-center' : ''}`}
         >
           <motion.span
-            className="h-px bg-brand-gold origin-right"
+            className="h-px bg-brand-red origin-right"
             initial={{ width: 0 }}
             whileInView={{ width: 32 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           />
-          <span className="text-brand-gold text-sm font-semibold tracking-widest uppercase font-display">
+          <span className="text-brand-red text-sm font-semibold tracking-widest uppercase font-display">
             {badge}
           </span>
           <motion.span
-            className="h-px bg-brand-gold origin-left"
+            className="h-px bg-brand-red origin-left"
             initial={{ width: 0 }}
             whileInView={{ width: 32 }}
             viewport={{ once: true }}
@@ -54,12 +54,12 @@ export default function SectionHeader({
       <motion.h2
         variants={fadeUp}
         transition={{ ...defaultTransition, delay: 0.05 }}
-        className={`font-display font-bold text-4xl sm:text-5xl leading-tight ${
-          light ? 'text-white' : 'text-slate-900'
+        className={`font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight ${
+          light ? 'text-white' : 'text-brand-charcoal'
         }`}
       >
         {title}{' '}
-        {highlight && <span className="text-gradient">{highlight}</span>}
+        {highlight && <span className="text-highlight">{highlight}</span>}
       </motion.h2>
       {subtitle && (
         <motion.p
@@ -67,7 +67,7 @@ export default function SectionHeader({
           transition={{ ...defaultTransition, delay: 0.1 }}
           className={`mt-4 text-lg max-w-2xl leading-relaxed ${
             centered ? 'mx-auto' : ''
-          } ${light ? 'text-slate-300' : 'text-slate-500'}`}
+          } ${light ? 'text-slate-300' : 'text-slate-600'}`}
         >
           {subtitle}
         </motion.p>
