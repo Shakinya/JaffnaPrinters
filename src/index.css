@@ -43,6 +43,33 @@
       transition-all duration-300;
   }
 
+  /* High-contrast buttons on red / dark gradient backgrounds */
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-white text-brand-charcoal
+      font-display font-semibold shadow-lg shadow-black/15
+      hover:bg-brand-gold hover:text-brand-charcoal
+      transition-all duration-300 border-2 border-white;
+  }
+
+  .btn-light-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-transparent text-white
+      font-display font-semibold border-2 border-white
+      hover:bg-white hover:text-brand-red hover:border-white
+      transition-all duration-300;
+  }
+
+  .red-surface-panel {
+    @apply rounded-2xl border border-white/20 bg-black/10 backdrop-blur-sm
+      p-8 sm:p-10 lg:p-12;
+  }
+
+  .input-field {
+    @apply w-full min-h-[48px] px-4 py-3 rounded-btn text-sm font-medium text-brand-charcoal
+      bg-white border-2 border-white placeholder:text-slate-500
+      focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-brand-gold
+      transition-shadow duration-200;
+  }
+
   .icon-circle {
     @apply w-12 h-12 rounded-xl bg-brand-gradient flex items-center justify-center shrink-0 shadow-md shadow-brand-red/20;
   }

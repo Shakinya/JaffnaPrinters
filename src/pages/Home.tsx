@@ -417,18 +417,12 @@ export default function Home() {
       {/* FEATURED PRODUCTS */}
       <section className="section-padding bg-gradient-to-b from-slate-50 to-white">
         <div className="container-custom">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-            <SectionHeader
-              badge="Featured"
-              title="Most Popular"
-              highlight="Products"
-              centered={false}
-              subtitle="Our best-selling print solutions — ready to order with fast turnaround."
-            />
-            <GradientButton to="/products" variant="outline" size="sm" className="shrink-0 self-start lg:self-auto">
-              View All Products <ArrowRight className="w-4 h-4" />
-            </GradientButton>
-          </div>
+          <SectionHeader
+            badge="Featured"
+            title="Most Popular"
+            highlight="Products"
+            subtitle="Our best-selling print solutions — ready to order with fast turnaround."
+          />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
             {featuredProducts.map((product, i) => (
@@ -473,6 +467,12 @@ export default function Home() {
               </motion.article>
             ))}
           </div>
+
+          <div className="flex justify-center mt-12">
+            <GradientButton to="/products" variant="outline" size="md">
+              View All Products <ArrowRight className="w-4 h-4" />
+            </GradientButton>
+          </div>
         </div>
       </section>
 
@@ -495,15 +495,15 @@ export default function Home() {
                 <h2 className="font-display font-bold text-white text-3xl sm:text-4xl leading-tight mb-3">
                   First Order? Get <span className="text-brand-gold">20% OFF</span>
                 </h2>
-                <p className="text-white/85 text-lg">
+                <p className="text-white text-base sm:text-lg leading-relaxed">
                   New customers enjoy 20% off their first order. No minimum quantity.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                <GradientButton to="/contact" size="lg" className="!bg-black !text-brand-red hover:!bg-brand-gold hover:!text-brand-charcoal !shadow-none">
-                  Claim Offer <ArrowRight className="w-5 h-5" />
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full sm:w-auto shrink-0">
+                <GradientButton to="/contact" variant="light" size="lg" className="w-full sm:w-auto justify-center">
+                  Claim Offer <ArrowRight className="w-5 h-5 shrink-0" />
                 </GradientButton>
-                <GradientButton to="/products" variant="outline" size="lg" className="!border-white !text-white hover:!bg-white hover:!text-brand-red">
+                <GradientButton to="/products" variant="light-outline" size="lg" className="w-full sm:w-auto justify-center">
                   Browse Products
                 </GradientButton>
               </div>

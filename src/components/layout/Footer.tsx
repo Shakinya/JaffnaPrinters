@@ -21,28 +21,34 @@ export default function Footer() {
     <footer className="bg-brand-charcoal text-white">
       <div className="bg-brand-red border-t border-white/10">
         <div className="container-custom py-10 sm:py-12">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10">
-            <div className="shrink-0">
-              <p className="font-display font-bold text-white text-xl sm:text-2xl">Stay updated with our latest offers</p>
-              <p className="text-white/90 text-sm sm:text-base mt-1.5">Subscribe for exclusive deals and printing tips</p>
-            </div>
-            <form
-              className="flex flex-col sm:flex-row gap-3 w-full lg:max-w-md lg:shrink-0"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                aria-label="Email address"
-                className="flex-1 min-w-0 px-4 py-3 rounded-btn text-sm bg-white text-brand-charcoal font-medium placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-gold"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-brand-charcoal text-white rounded-btn text-sm font-semibold font-display inline-flex items-center justify-center gap-1.5 hover:bg-black transition-colors shrink-0"
+          <div className="red-surface-panel !p-6 sm:!p-8">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10">
+              <div className="shrink-0 max-w-md">
+                <p className="font-display font-bold text-white text-xl sm:text-2xl leading-snug">
+                  Stay updated with our latest offers
+                </p>
+                <p className="text-white text-sm sm:text-base mt-2 leading-relaxed">
+                  Subscribe for exclusive deals and printing tips
+                </p>
+              </div>
+              <form
+                className="flex flex-col sm:flex-row gap-4 w-full lg:max-w-lg lg:shrink-0"
+                onSubmit={(e) => e.preventDefault()}
               >
-                Subscribe <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  aria-label="Email address"
+                  className="input-field flex-1 min-w-0"
+                />
+                <button
+                  type="submit"
+                  className="btn-light min-h-[48px] px-6 sm:px-8 text-sm whitespace-nowrap w-full sm:w-auto"
+                >
+                  Subscribe <ArrowRight className="w-4 h-4 shrink-0" />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

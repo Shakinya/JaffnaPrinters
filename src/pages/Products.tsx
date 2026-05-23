@@ -171,15 +171,23 @@ export default function Products() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-brand-red">
-        <div className="container-custom text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-            <h2 className="font-display font-bold text-white text-4xl mb-4">Can&apos;t find what you need?</h2>
-            <p className="text-white/85 text-xl mb-8 max-w-xl mx-auto">
-              We offer fully custom print solutions. Contact our team.
+      <section className="section-padding bg-brand-red">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="red-surface-panel max-w-3xl mx-auto text-center"
+          >
+            <h2 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
+              Can&apos;t find what you need?
+            </h2>
+            <p className="text-white text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto">
+              We offer fully custom print solutions. Contact our team for a free quote.
             </p>
-            <GradientButton to="/contact" variant="light" size="lg">
-              Talk to Us <ArrowRight className="w-5 h-5" />
+            <GradientButton to="/contact" variant="light" size="lg" className="w-full sm:w-auto justify-center">
+              Talk to Us <ArrowRight className="w-5 h-5 shrink-0" />
             </GradientButton>
           </motion.div>
         </div>

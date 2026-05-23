@@ -129,21 +129,27 @@ export default function PrintTech() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-brand-red">
-        <FadeIn className="container-custom flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div>
-            <h2 className="font-display font-bold text-white text-4xl mb-3">Need a specific part?</h2>
-            <p className="text-white/85 text-lg max-w-xl">
-              Contact our PrintTech team for a fast quote. We typically respond within 24 hours.
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <GradientButton to="/contact" size="lg" className="!bg-white !text-brand-red hover:!bg-brand-gold hover:!text-brand-charcoal !shadow-none">
-              <Phone className="w-5 h-5" /> Call Us Now
-            </GradientButton>
-            <GradientButton to="/contact" variant="outline" size="lg" className="!border-white !text-white hover:!bg-white hover:!text-brand-red">
-              Send Enquiry <ArrowRight className="w-5 h-5" />
-            </GradientButton>
+      <section className="section-padding bg-brand-red">
+        <FadeIn className="container-custom">
+          <div className="red-surface-panel">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-12">
+              <div className="max-w-xl">
+                <h2 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
+                  Need a specific part?
+                </h2>
+                <p className="text-white text-base sm:text-lg leading-relaxed">
+                  Contact our PrintTech team for a fast quote. We typically respond within 24 hours.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 w-full sm:w-auto">
+                <GradientButton to="/contact" variant="light" size="lg" className="w-full sm:w-auto justify-center">
+                  <Phone className="w-5 h-5 shrink-0" /> Call Us Now
+                </GradientButton>
+                <GradientButton to="/contact" variant="light-outline" size="lg" className="w-full sm:w-auto justify-center">
+                  Send Enquiry <ArrowRight className="w-5 h-5 shrink-0" />
+                </GradientButton>
+              </div>
+            </div>
           </div>
         </FadeIn>
       </section>
