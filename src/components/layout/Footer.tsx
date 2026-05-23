@@ -19,25 +19,31 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="bg-brand-charcoal text-white">
-      <div className="bg-brand-red">
-        <div className="container-custom py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <p className="font-display font-bold text-white text-xl">Stay updated with our latest offers</p>
-            <p className="text-white/80 text-sm mt-0.5">Subscribe for exclusive deals and printing tips</p>
-          </div>
-          <form className="flex gap-2 w-full sm:w-auto" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 sm:w-64 px-4 py-2.5 rounded-btn text-sm bg-white text-brand-charcoal font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-gold"
-            />
-            <button
-              type="submit"
-              className="px-5 py-2.5 bg-brand-charcoal text-white rounded-btn text-sm font-semibold font-display flex items-center gap-1.5 hover:bg-black transition-colors"
+      <div className="bg-brand-red border-t border-white/10">
+        <div className="container-custom py-10 sm:py-12">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10">
+            <div className="shrink-0">
+              <p className="font-display font-bold text-white text-xl sm:text-2xl">Stay updated with our latest offers</p>
+              <p className="text-white/90 text-sm sm:text-base mt-1.5">Subscribe for exclusive deals and printing tips</p>
+            </div>
+            <form
+              className="flex flex-col sm:flex-row gap-3 w-full lg:max-w-md lg:shrink-0"
+              onSubmit={(e) => e.preventDefault()}
             >
-              Subscribe <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                aria-label="Email address"
+                className="flex-1 min-w-0 px-4 py-3 rounded-btn text-sm bg-white text-brand-charcoal font-medium placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-brand-charcoal text-white rounded-btn text-sm font-semibold font-display inline-flex items-center justify-center gap-1.5 hover:bg-black transition-colors shrink-0"
+              >
+                Subscribe <ArrowRight className="w-4 h-4" />
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 

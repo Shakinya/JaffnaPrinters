@@ -73,8 +73,8 @@ export default function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`bg-white transition-all duration-300 ${
-          isScrolled ? 'shadow-nav py-2.5' : 'py-3.5 border-b border-slate-100'
+        className={`transition-all duration-300 ${
+          isScrolled ? 'glass-nav shadow-nav py-2' : 'bg-white py-3 border-b border-slate-100'
         }`}
       >
         <div className="container-custom flex items-center justify-between gap-4">
@@ -86,7 +86,7 @@ export default function Navbar() {
             />
             <div className="leading-tight hidden sm:block">
               <div className="font-display font-bold text-brand-charcoal text-lg tracking-tight">
-                Jaffna<span className="text-brand-gold">Printers</span>
+                Jaffna<span className="text-gradient-gold">Printers</span>
               </div>
             </div>
           </Link>
@@ -106,7 +106,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-3 shrink-0">
-            <Link to="/contact" className="btn-primary px-5 py-2.5 text-sm">
+            <Link to="/contact" className="btn-primary px-6 py-2.5 text-sm rounded-btn">
               Get a Quote <ChevronRight className="w-4 h-4" />
             </Link>
           </div>

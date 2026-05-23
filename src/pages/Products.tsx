@@ -178,7 +178,7 @@ export default function Products() {
             <p className="text-white/85 text-xl mb-8 max-w-xl mx-auto">
               We offer fully custom print solutions. Contact our team.
             </p>
-            <GradientButton to="/contact" size="lg" className="!bg-white !text-brand-red hover:!bg-brand-gold hover:!text-brand-charcoal !shadow-none">
+            <GradientButton to="/contact" variant="light" size="lg">
               Talk to Us <ArrowRight className="w-5 h-5" />
             </GradientButton>
           </motion.div>

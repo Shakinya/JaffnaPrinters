@@ -4,6 +4,7 @@ import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
 import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
+import CompatibleBrands from '../components/sections/CompatibleBrands';
 import { fadeUp, staggerContainer, cardHover, defaultTransition } from '../lib/motion';
 
 const importExportServices = [
@@ -31,11 +32,6 @@ const importExportServices = [
     desc: 'We handle all logistics, delivering directly to your facility anywhere in Sri Lanka.',
     details: ['Customs Clearance', 'Insured Shipping', 'Express Delivery', 'Bulk Orders'],
   },
-];
-
-const brands = [
-  'Heidelberg', 'Komori', 'Ryobi', 'Roland', 'Manroland',
-  'HP Indigo', 'Xerox', 'Konica Minolta', 'Canon', 'Epson',
 ];
 
 export default function PrintTech() {
@@ -97,27 +93,11 @@ export default function PrintTech() {
         </div>
       </section>
 
-      {/* BRANDS */}
-      <section className="section-padding bg-slate-50">
-        <div className="container-custom">
-          <SectionHeader badge="Compatible Brands" title="Brands We" highlight="Support" />
-          <div className="flex flex-wrap gap-3 justify-center">
-            {brands.map((brand, i) => (
-              <motion.span
-                key={brand}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.06, y: -2 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="px-6 py-3 rounded-btn bg-white border border-slate-200 text-slate-700 font-display font-semibold text-sm hover:border-brand-red hover:bg-brand-red/5 hover:text-brand-red transition-colors duration-300 cursor-default"
-              >
-                {brand}
-              </motion.span>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CompatibleBrands
+        className="bg-slate-50 border-y-0"
+        showCta={false}
+        subtitle="We source and support genuine parts for these leading print equipment manufacturers."
+      />
 
       {/* PROCESS */}
       <section className="section-padding bg-slate-50">

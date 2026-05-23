@@ -7,7 +7,7 @@ interface GradientButtonProps {
   to?: string;
   href?: string;
   onClick?: () => void;
-  variant?: 'primary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'outline' | 'ghost' | 'light' | 'light-outline';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
@@ -31,6 +31,8 @@ export default function GradientButton({
     primary: 'btn-primary',
     outline: 'btn-outline',
     ghost: 'text-brand-red font-semibold font-display hover:text-brand-red-600 bg-transparent',
+    light: 'btn-light',
+    'light-outline': 'btn-light-outline',
   };
 
   const baseClass = `inline-flex items-center justify-center gap-2 rounded-btn font-display transition-all duration-300 ${sizes[size]} ${variants[variant]} ${className}`;

@@ -8,6 +8,7 @@ import {
 import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
 import FadeIn from '../components/ui/FadeIn';
+import CompatibleBrands from '../components/sections/CompatibleBrands';
 import { products, testimonials } from '../data/products';
 import {
   fadeUp,
@@ -17,6 +18,8 @@ import {
   staggerFast,
   defaultTransition,
   cardHover,
+  floatAnimation,
+  floatTransition,
 } from '../lib/motion';
 
 const heroFeatures = [
@@ -88,39 +91,59 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* HERO */}
-      <section className="relative bg-white pt-[7.5rem] lg:pt-[8rem]">
-        <div className="container-custom py-10 lg:py-16">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+      <section className="relative hero-mesh pt-[7.5rem] lg:pt-[8.5rem] overflow-hidden">
+        <div className="hero-glow w-72 h-72 bg-brand-red/20 -top-20 -left-20 animate-pulse-soft" />
+        <div className="hero-glow w-96 h-96 bg-brand-gold/15 top-1/3 -right-32 animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
+
+        <div className="container-custom relative z-10 py-12 lg:py-20">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-12 lg:gap-16 items-center">
             <motion.div variants={staggerContainer} initial="hidden" animate="show">
+              <motion.div
+                variants={fadeLeft}
+                transition={defaultTransition}
+                className="mb-6"
+              >
+                <span className="badge-pill">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
+                  Trusted Print Partner Since 2009
+                </span>
+              </motion.div>
+
               <motion.h1
                 variants={fadeLeft}
                 transition={defaultTransition}
-                className="font-display font-extrabold text-brand-charcoal text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] mb-5 uppercase tracking-tight"
+                className="font-display font-extrabold text-brand-charcoal text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-7xl leading-[1.02] mb-6 tracking-tight"
               >
                 We Print{' '}
-                <span className="text-brand-red block sm:inline">Your Vision</span>
+                <span className="text-gradient-hero block mt-1">Your Vision</span>
               </motion.h1>
 
               <motion.p
                 variants={fadeLeft}
                 transition={{ ...defaultTransition, delay: 0.08 }}
-                className="text-slate-600 text-lg sm:text-xl leading-relaxed mb-8 max-w-xl"
+                className="text-slate-600 text-lg sm:text-xl leading-relaxed mb-8 max-w-lg"
               >
-                Premium Printing Solutions for Businesses &amp; Individuals.
+                Premium printing for businesses and individuals — from business cards to bulk corporate runs, plus PrintTech parts import.
               </motion.p>
 
               <motion.div
                 variants={fadeLeft}
                 transition={{ ...defaultTransition, delay: 0.12 }}
-                className="grid grid-cols-2 gap-3 sm:gap-4 mb-10"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10"
               >
-                {heroFeatures.map(({ icon: Icon, label }) => (
-                  <div key={label} className="flex items-center gap-3">
-                    <div className="icon-circle w-10 h-10">
+                {heroFeatures.map(({ icon: Icon, label }, i) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25 + i * 0.06, duration: 0.45 }}
+                    className="feature-pill"
+                  >
+                    <div className="icon-circle w-10 h-10 rounded-lg">
                       <Icon className="w-4 h-4 text-white" strokeWidth={2} />
                     </div>
-                    <span className="text-sm font-medium text-brand-charcoal leading-snug">{label}</span>
-                  </div>
+                    <span className="text-sm font-semibold text-brand-charcoal leading-snug">{label}</span>
+                  </motion.div>
                 ))}
               </motion.div>
 
@@ -133,9 +156,23 @@ export default function Home() {
                   Explore Products <ArrowRight className="w-5 h-5" />
                 </GradientButton>
                 <GradientButton to="/contact" variant="outline" size="lg">
-                  Contact Us <ArrowRight className="w-5 h-5" />
+                  Get Free Quote <ArrowRight className="w-5 h-5" />
                 </GradientButton>
               </motion.div>
+
+              <motion.p
+                variants={fadeLeft}
+                transition={{ ...defaultTransition, delay: 0.22 }}
+                className="mt-6 text-sm text-slate-500 flex flex-wrap items-center gap-x-4 gap-y-1"
+              >
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-brand-red" /> No minimum on first quote
+                </span>
+                <span className="hidden sm:inline text-slate-300">|</span>
+                <span className="flex items-center gap-1.5">
+                  <Star className="w-4 h-4 text-brand-gold fill-brand-gold" /> 99% client satisfaction
+                </span>
+              </motion.p>
             </motion.div>
 
             <motion.div
@@ -143,29 +180,47 @@ export default function Home() {
               initial="hidden"
               animate="show"
               transition={{ ...defaultTransition, delay: 0.2 }}
-              className="relative"
+              className="relative lg:pl-4"
             >
+              <div className="absolute -inset-4 bg-gradient-to-br from-brand-red/10 via-transparent to-brand-gold/10 rounded-3xl blur-2xl" />
               <motion.div
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.35 }}
-                className="relative rounded-2xl overflow-hidden shadow-card bg-slate-50 ring-1 ring-slate-100"
+                animate={floatAnimation}
+                transition={floatTransition}
+                className="relative"
               >
-                <img
-                  src="/hero-products.png"
-                  alt="JaffnaPrinters product showcase — bags, apparel, business cards, packaging, mugs, and print materials"
-                  className="w-full h-auto object-contain"
-                  loading="eager"
-                  fetchPriority="high"
-                />
+                <div className="absolute -top-3 -right-3 w-24 h-24 border-2 border-brand-gold/40 rounded-2xl rotate-6 pointer-events-none" />
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 border-2 border-brand-red/20 rounded-full pointer-events-none" />
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.4 }}
+                  className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-card bg-white ring-1 ring-slate-200/80 p-2 sm:p-3"
+                >
+                  <img
+                    src="/hero-products.png"
+                    alt="JaffnaPrinters product showcase — bags, apparel, business cards, packaging, mugs, and print materials"
+                    className="w-full min-h-[280px] sm:min-h-[340px] lg:min-h-[420px] xl:min-h-[480px] h-auto object-contain"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                </motion.div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+                className="absolute -bottom-2 left-4 sm:left-8 bg-brand-charcoal text-white px-4 py-3 rounded-xl shadow-lg border border-white/10"
+              >
+                <div className="text-2xl font-display font-bold text-brand-gold">15+</div>
+                <div className="text-xs text-white/80 font-medium">Years of Excellence</div>
               </motion.div>
             </motion.div>
           </div>
         </div>
 
         {/* Services bar */}
-        <div className="border-t border-slate-100 bg-white">
-          <div className="container-custom py-6 lg:py-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="relative z-10 border-t border-slate-200/60 bg-white/80 backdrop-blur-sm">
+          <div className="container-custom py-8 lg:py-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {serviceBar.map(({ icon: Icon, title, desc }, i) => (
                 <motion.div
                   key={title}
@@ -173,14 +228,15 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="flex items-center gap-3"
+                  whileHover={{ y: -2 }}
+                  className="service-card"
                 >
-                  <div className="icon-circle">
+                  <div className="icon-circle w-11 h-11 rounded-lg">
                     <Icon className="w-5 h-5 text-white" strokeWidth={2} />
                   </div>
                   <div>
                     <div className="font-display font-bold text-brand-charcoal text-sm">{title}</div>
-                    <div className="text-slate-500 text-xs mt-0.5">{desc}</div>
+                    <div className="text-slate-500 text-xs mt-0.5 leading-snug">{desc}</div>
                   </div>
                 </motion.div>
               ))}
@@ -190,22 +246,26 @@ export default function Home() {
       </section>
 
       {/* STATS */}
-      <section className="bg-brand-red py-8">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="relative bg-brand-charcoal py-10 lg:py-12 overflow-hidden">
+        <div className="absolute inset-0 bg-brand-gradient opacity-90" />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 initial="hidden"
                 whileInView="show"
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.04, y: -2 }}
                 viewport={{ once: true }}
                 variants={fadeUp}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="text-center cursor-default"
+                className="stat-card cursor-default"
               >
-                <div className="font-display font-bold text-white text-3xl lg:text-4xl">{s.value}</div>
-                <div className="text-white/80 text-sm font-medium mt-1">{s.label}</div>
+                <div className="font-display font-extrabold text-brand-gold text-3xl sm:text-4xl lg:text-5xl drop-shadow-sm">
+                  {s.value}
+                </div>
+                <div className="text-white/75 text-sm font-medium mt-2 tracking-wide">{s.label}</div>
               </motion.div>
             ))}
           </div>
@@ -259,8 +319,9 @@ export default function Home() {
               viewport={{ once: true }}
               whileHover={cardHover}
               transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-card border border-slate-100 hover:border-brand-red/20 transition-colors duration-300"
+              className="relative bg-white rounded-2xl p-8 shadow-card border border-slate-100 hover:border-brand-red/25 transition-all duration-300 overflow-hidden group"
             >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-brand-gradient scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               <div className="flex items-center gap-4 mb-6">
                 <div className="icon-circle w-14 h-14">
                   <Building2 className="w-7 h-7 text-white" />
@@ -289,11 +350,12 @@ export default function Home() {
               whileHover={cardHover}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="bg-white rounded-2xl p-8 shadow-card border border-slate-100 hover:border-brand-red/20 transition-colors duration-300"
+              className="relative bg-white rounded-2xl p-8 shadow-card border border-slate-100 hover:border-brand-gold/40 transition-all duration-300 overflow-hidden group"
             >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-gold to-brand-gold-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               <div className="flex items-center gap-4 mb-6">
-                <div className="icon-circle w-14 h-14">
-                  <User className="w-7 h-7 text-white" />
+                <div className="icon-circle-gold w-14 h-14">
+                  <User className="w-7 h-7 text-brand-charcoal" />
                 </div>
                 <div>
                   <div className="text-brand-charcoal font-display font-bold text-xl">B2C Services</div>
@@ -337,12 +399,12 @@ export default function Home() {
                 variants={fadeUp}
                 whileHover={cardHover}
                 transition={{ duration: 0.5 }}
-                className="bg-slate-50 rounded-2xl p-6 hover:shadow-card transition-shadow duration-300 border border-slate-100"
+                className="group bg-white rounded-2xl p-6 hover:shadow-card transition-all duration-300 border border-slate-100 hover:border-brand-red/20"
               >
-                <div className="icon-circle w-12 h-12 mb-4">
+                <div className="icon-circle w-12 h-12 mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="font-display font-bold text-brand-charcoal text-lg mb-2">{title}</h3>
+                <h3 className="font-display font-bold text-brand-charcoal text-lg mb-2 group-hover:text-brand-red transition-colors">{title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
               </motion.div>
             ))}
@@ -350,53 +412,65 @@ export default function Home() {
         </div>
       </section>
 
+      <CompatibleBrands />
+
       {/* FEATURED PRODUCTS */}
-      <section className="section-padding bg-slate-50">
+      <section className="section-padding bg-gradient-to-b from-slate-50 to-white">
         <div className="container-custom">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
             <SectionHeader
               badge="Featured"
               title="Most Popular"
               highlight="Products"
               centered={false}
+              subtitle="Our best-selling print solutions — ready to order with fast turnaround."
             />
-            <GradientButton to="/products" variant="outline" size="sm">
-              View All <ArrowRight className="w-4 h-4" />
+            <GradientButton to="/products" variant="outline" size="sm" className="shrink-0 self-start lg:self-auto">
+              View All Products <ArrowRight className="w-4 h-4" />
             </GradientButton>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
             {featuredProducts.map((product, i) => (
-              <motion.div
+              <motion.article
                 key={product.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={cardHover}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-brand-red/20 hover:shadow-card transition-all duration-300"
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="product-card group"
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-brand-red text-white text-[10px] font-bold uppercase tracking-wider font-display">
+                    Popular
+                  </span>
                 </div>
-                <div className="p-5">
-                  <span className="text-xs text-brand-red font-semibold tracking-wider uppercase font-display">
+                <div className="p-5 sm:p-6">
+                  <span className="inline-block text-[11px] text-brand-red font-bold tracking-widest uppercase font-display">
                     {product.category}
                   </span>
-                  <h3 className="font-display font-bold text-brand-charcoal text-lg mt-1 mb-2">{product.name}</h3>
+                  <h3 className="font-display font-bold text-brand-charcoal text-lg mt-1.5 mb-2 group-hover:text-brand-red transition-colors">
+                    {product.name}
+                  </h3>
                   <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">{product.description}</p>
                   <Link
                     to="/contact"
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-red font-display hover:gap-2.5 transition-all duration-300"
+                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-charcoal font-display group/link hover:text-brand-red transition-colors duration-300"
                   >
-                    Get Quote <ChevronRight className="w-4 h-4" />
+                    <span className="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center group-hover/link:bg-brand-red group-hover/link:text-white transition-all">
+                      <ChevronRight className="w-4 h-4" />
+                    </span>
+                    Get Quote
                   </Link>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
@@ -410,9 +484,10 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65 }}
-            className="relative rounded-2xl overflow-hidden bg-brand-red"
+            className="relative rounded-2xl lg:rounded-3xl overflow-hidden bg-brand-gradient"
           >
-            <div className="relative z-10 p-10 sm:p-14 flex flex-col sm:flex-row items-center justify-between gap-8">
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #ffc107 0%, transparent 50%)' }} />
+            <div className="relative z-10 p-10 sm:p-14 lg:p-16 flex flex-col sm:flex-row items-center justify-between gap-8">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-btn bg-white/20 text-white text-xs font-bold tracking-wider uppercase mb-4 font-display">
                   Limited Offer
@@ -425,7 +500,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-                <GradientButton to="/contact" size="lg" className="!bg-white !text-brand-red hover:!bg-brand-gold hover:!text-brand-charcoal !shadow-none">
+                <GradientButton to="/contact" size="lg" className="!bg-black !text-brand-red hover:!bg-brand-gold hover:!text-brand-charcoal !shadow-none">
                   Claim Offer <ArrowRight className="w-5 h-5" />
                 </GradientButton>
                 <GradientButton to="/products" variant="outline" size="lg" className="!border-white !text-white hover:!bg-white hover:!text-brand-red">
@@ -486,10 +561,10 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="font-display font-bold text-brand-charcoal text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
+            <h2 className="font-display font-extrabold text-brand-charcoal text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6 tracking-tight">
               Let&apos;s Bring Your Vision
               <br />
-              <span className="text-highlight">to Life</span>
+              <span className="text-gradient-hero">to Life</span>
             </h2>
             <p className="text-slate-600 text-xl max-w-2xl mx-auto mb-10">
               Contact us today for a free consultation and custom quote.

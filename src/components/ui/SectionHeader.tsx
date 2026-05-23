@@ -39,7 +39,7 @@ export default function SectionHeader({
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           />
-          <span className="text-brand-red text-sm font-semibold tracking-widest uppercase font-display">
+          <span className="badge-pill">
             {badge}
           </span>
           <motion.span
@@ -54,7 +54,7 @@ export default function SectionHeader({
       <motion.h2
         variants={fadeUp}
         transition={{ ...defaultTransition, delay: 0.05 }}
-        className={`font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight ${
+        className={`font-display font-extrabold text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.12] tracking-tight ${
           light ? 'text-white' : 'text-brand-charcoal'
         }`}
       >

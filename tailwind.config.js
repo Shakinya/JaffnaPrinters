@@ -43,7 +43,35 @@ export default {
         'card': '0 4px 24px rgba(0, 0, 0, 0.08)',
       },
       borderRadius: {
-        'btn': '6px',
+        'btn': '8px',
+        'card': '16px',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '200% center' },
+          '100%': { backgroundPosition: '-200% center' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-12px)' },
+        },
+        'gradient-shift': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%': { opacity: '0.7', transform: 'scale(1.05)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 4s linear infinite',
+        float: 'float 6s ease-in-out infinite',
+        'gradient-shift': 'gradient-shift 6s ease infinite',
+        'pulse-soft': 'pulse-soft 4s ease-in-out infinite',
+      },
+      backgroundSize: {
+        '300': '300% 100%',
       },
     },
   },

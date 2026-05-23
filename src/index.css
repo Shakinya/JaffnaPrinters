@@ -18,30 +18,41 @@
   }
 
   .section-padding {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-16 sm:py-20 lg:py-28;
   }
 
   .bg-brand-gradient {
-    @apply bg-gradient-to-r from-brand-red to-brand-red-600;
+    @apply bg-gradient-to-r from-brand-red via-brand-red-600 to-brand-red-700;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-brand-red text-white font-display font-semibold
-      shadow-md shadow-brand-red/25 hover:bg-brand-red-600 hover:shadow-lg hover:shadow-brand-red/30
-      transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-brand-gradient text-white font-display font-semibold
+      shadow-lg shadow-brand-red/30 hover:shadow-xl hover:shadow-brand-red/35 hover:brightness-110
+      transition-all duration-300 relative overflow-hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    animation: shimmer 3s ease-in-out infinite;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-btn border-2 border-brand-red text-brand-red bg-white
-      font-display font-semibold hover:bg-brand-red hover:text-white transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-btn border-2 border-brand-charcoal/15 text-brand-charcoal bg-white
+      font-display font-semibold hover:border-brand-red hover:text-brand-red hover:bg-brand-red/5
+      transition-all duration-300;
   }
 
   .icon-circle {
-    @apply w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shrink-0;
+    @apply w-12 h-12 rounded-xl bg-brand-gradient flex items-center justify-center shrink-0 shadow-md shadow-brand-red/20;
+  }
+
+  .icon-circle-gold {
+    @apply w-12 h-12 rounded-xl bg-gradient-to-br from-brand-gold to-brand-gold-600 flex items-center justify-center shrink-0 shadow-md shadow-brand-gold/30;
   }
 
   .nav-link {
-    @apply relative px-3 py-2 text-sm font-medium font-display text-brand-charcoal/80
+    @apply relative px-3 py-2 text-sm font-medium font-display text-brand-charcoal/75
       hover:text-brand-red transition-colors duration-200;
   }
 
@@ -51,16 +62,74 @@
 
   .nav-link-active::after {
     content: '';
-    @apply absolute bottom-0 left-3 right-3 h-0.5 bg-brand-red rounded-full;
+    @apply absolute bottom-0 left-3 right-3 h-0.5 bg-gradient-to-r from-brand-red to-brand-gold rounded-full;
   }
+
+  .hero-mesh {
+    background-image:
+      radial-gradient(at 20% 30%, rgba(227, 30, 36, 0.08) 0px, transparent 50%),
+      radial-gradient(at 80% 20%, rgba(255, 193, 7, 0.1) 0px, transparent 45%),
+      radial-gradient(at 60% 80%, rgba(227, 30, 36, 0.05) 0px, transparent 50%),
+      linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  }
+
+  .badge-pill {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase font-display
+      bg-brand-red/10 text-brand-red border border-brand-red/15;
+  }
+
+  .feature-pill {
+    @apply flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-white border border-slate-100 shadow-sm
+      hover:border-brand-red/25 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300;
+  }
+
+  .service-card {
+    @apply flex items-center gap-4 p-4 rounded-xl bg-slate-50/80 border border-slate-100
+      hover:bg-white hover:border-brand-red/15 hover:shadow-card transition-all duration-300;
+  }
+
+  .product-card {
+    @apply relative bg-white rounded-2xl overflow-hidden border border-slate-100
+      hover:border-brand-red/25 hover:shadow-card transition-all duration-300;
+  }
+
+  .stat-card {
+    @apply relative text-center p-4 rounded-xl overflow-hidden;
+  }
+
+  .glass-nav {
+    @apply bg-white/90 backdrop-blur-md border-b border-slate-100/80;
+  }
+
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply text-brand-red;
+  .text-gradient-brand {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-red via-brand-red-600 to-brand-red-700;
+  }
+
+  .text-gradient-hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #e31e24 45%, #c91a1f 70%, #ffc107 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-gold via-brand-gold-400 to-brand-gold-600;
   }
 
   .text-highlight {
-    @apply text-brand-red;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-red to-brand-gold;
+  }
+
+  .text-gradient {
+    @apply text-highlight;
+  }
+
+  .hero-glow {
+    @apply absolute rounded-full blur-3xl opacity-60 pointer-events-none;
   }
 }
