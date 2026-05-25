@@ -223,16 +223,20 @@
   }
 
   .hero-eyebrow {
-    @apply inline-flex self-start items-center gap-2.5 mb-4 sm:mb-5;
+    @apply inline-flex self-start items-center gap-2 sm:gap-2.5 mb-4 sm:mb-5
+      px-4 py-2 sm:px-4 sm:py-1.5 rounded-full sm:mb-5
+      bg-premium-red-soft border border-red-200/90
+      shadow-[0_2px_12px_rgba(239,68,68,0.08)];
   }
 
   .hero-eyebrow-dot {
-    @apply w-1.5 h-1.5 shrink-0 rounded-full bg-brand-gradient;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12), 0 0 10px rgba(239, 68, 68, 0.35);
+    @apply w-2 h-2 shrink-0 rounded-full bg-brand-red;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
   }
 
   .hero-eyebrow-text {
-    @apply font-display text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500;
+    @apply font-display text-[10px] sm:text-[10px] uppercase tracking-[0.14em] sm:tracking-[0.16em]
+      text-brand-red leading-none;
   }
 
   .hero-headline {
@@ -240,17 +244,25 @@
   }
 
   .hero-headline-primary {
-    @apply block text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem] font-light leading-[0.98]
-      tracking-[-0.03em] text-brand-charcoal;
+    @apply block text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem] font-extrabold leading-[0.98]
+      tracking-[-0.02em] text-brand-charcoal;
   }
 
   .hero-headline-accent {
     @apply block mt-1 sm:mt-1.5 text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem] font-extrabold leading-[0.98]
       tracking-[-0.02em];
-    background: linear-gradient(118deg, #1a1a1a 0%, #dc2626 38%, #b91c1c 72%, #991b1b 100%);
+    background: linear-gradient(
+      90deg,
+      #4a1515 0%,
+      #7f1d1d 25%,
+      #b91c1c 50%,
+      #dc2626 75%,
+      #ef4444 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   .hero-divider {
@@ -261,7 +273,7 @@
 
   .hero-value-props {
     @apply flex items-start justify-start gap-1
-    mb-5 sm:mb-6 sm:mt-2;
+    mb-5 sm:mb-7 sm:mt-3;
   }
 
   .hero-value-prop {
@@ -297,7 +309,7 @@
   }
 
   .hero-cta {
-    @apply inline-flex flex-wrap items-center gap-4 sm:mt-2 sm:mb-7;
+    @apply inline-flex flex-wrap items-center gap-4 sm:mt-2 sm:mb-9;
   }
 
   .hero-cta-primary {

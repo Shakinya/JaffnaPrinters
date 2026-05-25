@@ -95,10 +95,10 @@ function HeroCopy() {
       <motion.div
         variants={fadeLeft}
         transition={{ ...defaultTransition, delay: 0.05 }}
-        className="text-brand-charcoal text-[15px] sm:text-base leading-snug mb-5 max-w-sm"
+        className="text-brand-charcoal text-[15px] sm:text-base leading-snug mb-5 max-w-sm "
       >
-        <p className="text-slate-600">Premium Printing Solutions for</p>
-        <p className="font-bold text-brand-charcoal">Businesses &amp; Individuals.</p>
+        <p className="font-mono text-brand-charcoal">Premium Printing Solutions for</p>
+        <p className="font-mono text-brand-charcoal">Businesses &amp; Individuals</p>
       </motion.div>
 
       <motion.div
