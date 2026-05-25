@@ -43,8 +43,12 @@ export default {
         'card': '0 4px 24px rgba(0, 0, 0, 0.08)',
       },
       borderRadius: {
-        'btn': '8px',
+        'btn': '12px',
         'card': '16px',
+      },
+      backgroundImage: {
+        'premium-red': 'linear-gradient(135deg, #ef4444 0%, #dc2626 38%, #b91c1c 68%, #991b1b 100%)',
+        'premium-red-soft': 'linear-gradient(135deg, rgba(239, 68, 68, 0.14) 0%, rgba(153, 27, 27, 0.06) 100%)',
       },
       keyframes: {
         shimmer: {

@@ -8,6 +8,7 @@ interface SectionHeaderProps {
   subtitle?: string;
   light?: boolean;
   centered?: boolean;
+  compact?: boolean;
 }
 
 export default function SectionHeader({
@@ -17,6 +18,7 @@ export default function SectionHeader({
   subtitle,
   light = false,
   centered = true,
+  compact = false,
 }: SectionHeaderProps) {
   return (
     <motion.div
@@ -24,7 +26,7 @@ export default function SectionHeader({
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: '-60px' }}
-      className={`mb-12 ${centered ? 'text-center' : ''}`}
+      className={`${compact ? 'mb-7 sm:mb-8' : 'mb-12'} ${centered ? 'text-center' : ''}`}
     >
       {badge && (
         <motion.div

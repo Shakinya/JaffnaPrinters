@@ -8,21 +8,24 @@ interface CompatibleBrandsProps {
   subtitle?: string;
   showCta?: boolean;
   className?: string;
+  compact?: boolean;
 }
 
 export default function CompatibleBrands({
   subtitle = 'Genuine parts, consumables, and technical support for industry-leading print equipment.',
   showCta = true,
   className = '',
+  compact = false,
 }: CompatibleBrandsProps) {
   return (
-    <section className={`section-padding bg-white border-y border-slate-100/80 ${className}`}>
+    <section className={`${compact ? 'section-padding-home' : 'section-padding'} bg-white border-y border-slate-100/80 ${className}`}>
       <div className="container-custom">
         <SectionHeader
           badge="Compatible Brands"
           title="Trusted"
           highlight="Partners"
           subtitle={subtitle}
+          compact={compact}
         />
 
         <motion.div
@@ -30,19 +33,24 @@ export default function CompatibleBrands({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-40px' }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 items-center justify-items-center"
+          className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-center justify-items-center ${
+            compact ? 'gap-6 sm:gap-8 lg:gap-10' : 'gap-8 sm:gap-10 lg:gap-12'
+          }`}
         >
           {compatibleBrands.map((brand) => (
             <motion.div
               key={brand.id}
               variants={fadeUp}
+              whileHover={{ scale: 1.06, y: -4 }}
               transition={defaultTransition}
               className="flex items-center justify-center w-full px-2"
             >
               <img
                 src={brand.logo}
                 alt={`${brand.name} — compatible print brand`}
-                className="h-14 sm:h-[4.5rem] lg:h-28 w-auto max-w-full object-contain"
+                className={`w-auto max-w-full object-contain transition-opacity duration-300 hover:opacity-90 ${
+                  compact ? 'h-12 sm:h-16 lg:h-24' : 'h-14 sm:h-[4.5rem] lg:h-28'
+                }`}
                 loading="lazy"
               />
             </motion.div>
@@ -55,7 +63,7 @@ export default function CompatibleBrands({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-center text-slate-500 text-sm mt-10 max-w-lg mx-auto leading-relaxed"
+            className={`text-center text-slate-500 text-sm max-w-lg mx-auto leading-relaxed ${compact ? 'mt-6' : 'mt-10'}`}
           >
             Need parts or service for your press?{' '}
             <Link

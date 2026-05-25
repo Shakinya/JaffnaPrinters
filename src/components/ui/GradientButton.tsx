@@ -30,7 +30,7 @@ export default function GradientButton({
   const variants = {
     primary: 'btn-primary',
     outline: 'btn-outline',
-    ghost: 'text-brand-red font-semibold font-display hover:text-brand-red-600 bg-transparent',
+    ghost: 'text-gradient-brand font-semibold font-display bg-transparent hover:opacity-80',
     light: 'btn-light',
     'light-outline': 'btn-light-outline',
   };

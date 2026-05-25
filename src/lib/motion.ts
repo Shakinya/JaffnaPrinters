@@ -73,3 +73,10 @@ export const cardHover = {
   scale: 1.02,
   transition: { duration: 0.25, ease: easeOut },
 };
+
+export const dockItem: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0 },
+};
+
+export const viewportOnce = { once: true, margin: '-48px' as const };

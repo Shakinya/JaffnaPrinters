@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight, Phone, Mail, Facebook, Instagram} from 'lucide-react';
@@ -17,9 +17,31 @@ const socialLinks = [
 ];
 
 export default function Navbar() {
+  const headerRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const syncHeaderHeight = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty(
+          '--site-header-height',
+          `${headerRef.current.offsetHeight}px`,
+        );
+      }
+    };
+
+    syncHeaderHeight();
+    const observer = new ResizeObserver(syncHeaderHeight);
+    if (headerRef.current) observer.observe(headerRef.current);
+
+    window.addEventListener('resize', syncHeaderHeight);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', syncHeaderHeight);
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -32,9 +54,9 @@ export default function Navbar() {
   }, [location.pathname]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50">
       {/* Top utility bar */}
-      <div className="bg-brand-red text-white">
+      <div className="nav-top-bar text-white">
         <div className="container-custom flex items-center justify-between py-2 text-xs sm:text-sm">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <a
@@ -82,7 +104,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="Jaffna Printers"
-              className="w-11 h-11 rounded-full object-cover ring-2 ring-brand-red/20 group-hover:ring-brand-red/40 transition-all"
+              className="w-11 h-11 rounded-full object-cover ring-2 ring-red-200 group-hover:ring-red-300 transition-all"
             />
             <div className="leading-tight hidden sm:block">
               <div className="font-display font-bold text-brand-charcoal text-lg tracking-tight">
@@ -113,7 +135,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="xl:hidden p-2 text-brand-charcoal hover:text-brand-red transition-colors"
+            className="xl:hidden p-2 text-brand-charcoal hover:text-red-700 transition-colors"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -137,8 +159,8 @@ export default function Navbar() {
                   to={link.path}
                   className={`px-4 py-3 rounded-btn font-display font-medium text-base transition-colors ${
                     location.pathname === link.path
-                      ? 'text-brand-red bg-brand-red/5 font-semibold'
-                      : 'text-brand-charcoal/80 hover:text-brand-red hover:bg-slate-50'
+                      ? 'text-gradient-brand bg-premium-red-soft font-semibold'
+                      : 'text-brand-charcoal/80 hover:bg-red-50/60 hover:text-red-800'
                   }`}
                 >
                   {link.label}
