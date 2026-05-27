@@ -79,10 +79,35 @@ function HeroCopy() {
       <motion.h1
         variants={fadeLeft}
         transition={{ ...defaultTransition, delay: 0.04 }}
-        className="hero-headline"
+        className="flex flex-col leading-[0.9]"
       >
-        <span className="hero-headline-primary">We Print</span>
-        <span className="hero-headline-accent">Your Vision</span>
+        <span
+          className="
+            text-[5rem]
+            sm:text-[4rem]
+            font-black
+            uppercase
+            tracking-[-2px]
+            text-black
+            mb-3
+          "
+        >
+          WE PRINT
+        </span>
+
+        <span
+          className="
+            text-[5rem]
+            sm:text-[4rem]
+            font-black
+            uppercase
+            tracking-[-3px]
+            text-red-700
+            mb-3.5
+          "
+        >
+          YOUR VISION
+        </span>
       </motion.h1>
 
       <motion.div
@@ -95,10 +120,10 @@ function HeroCopy() {
       <motion.div
         variants={fadeLeft}
         transition={{ ...defaultTransition, delay: 0.05 }}
-        className="text-brand-charcoal text-[15px] sm:text-base leading-snug mb-5 max-w-sm "
+        className="text-brand-charcoal text-[15px] sm:text-[15px] leading-snug mb-5 max-w-sm"
       >
-        <p className="font-mono text-brand-charcoal">Premium Printing Solutions for</p>
-        <p className="font-mono text-brand-charcoal">Businesses &amp; Individuals</p>
+        <p className="font-semibold">Premium Printing Solutions for</p>
+        <p className="font-bold">Businesses &amp; Individuals</p>
       </motion.div>
 
       <motion.div
@@ -110,7 +135,7 @@ function HeroCopy() {
         {valueProps.map(({ icon: Icon, line1, line2 }) => (
           <div key={`${line1}-${line2}`} className="hero-value-prop">
             <div className="hero-value-prop-icon" aria-hidden>
-              <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5" strokeWidth={2.25} />
+              <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5" strokeWidth={1.5} />
             </div>
             <p className="hero-value-prop-label">
               <span>{line1}</span>

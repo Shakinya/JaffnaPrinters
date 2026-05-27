@@ -10,17 +10,17 @@ export default {
       colors: {
         brand: {
           red: {
-            DEFAULT: '#E31E24',
+            DEFAULT: '#C91A1F',
             50: '#FEF2F2',
             100: '#FEE2E2',
             200: '#FECACA',
             300: '#FCA5A5',
             400: '#F87171',
-            500: '#E31E24',
-            600: '#C91A1F',
-            700: '#A8161A',
-            800: '#871215',
-            900: '#660E10',
+            500: '#C91A1F',
+            600: '#A8161A',
+            700: '#871215',
+            800: '#660E10',
+            900: '#4A0B0C',
           },
           gold: {
             DEFAULT: '#FFC107',
@@ -47,8 +47,8 @@ export default {
         'card': '16px',
       },
       backgroundImage: {
-        'premium-red': 'linear-gradient(135deg, #ef4444 0%, #dc2626 38%, #b91c1c 68%, #991b1b 100%)',
-        'premium-red-soft': 'linear-gradient(135deg, rgba(239, 68, 68, 0.14) 0%, rgba(153, 27, 27, 0.06) 100%)',
+        'premium-red': 'linear-gradient(135deg, #dc2626 0%, #b91c1c 38%, #991b1b 68%, #7f1d1d 100%)',
+        'premium-red-soft': 'linear-gradient(135deg, rgba(185, 28, 28, 0.14) 0%, rgba(127, 29, 29, 0.06) 100%)',
       },
       keyframes: {
         shimmer: {

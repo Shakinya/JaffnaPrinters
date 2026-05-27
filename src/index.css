@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --premium-red: linear-gradient(135deg, #ef4444 0%, #dc2626 38%, #b91c1c 68%, #991b1b 100%);
+    --premium-red: linear-gradient(135deg, #dc2626 0%, #b91c1c 38%, #991b1b 68%, #7f1d1d 100%);
     --premium-red-shadow: 0 4px 14px rgba(153, 27, 27, 0.32);
     --premium-red-shadow-hover: 0 6px 20px rgba(153, 27, 27, 0.4);
     /* Top utility bar + main nav (matches Navbar layout) */
@@ -240,29 +240,17 @@
   }
 
   .hero-headline {
-    @apply font-display mb-3 sm:mb-4;
+    @apply font-display mb-3 sm:mb-4 uppercase;
   }
 
   .hero-headline-primary {
-    @apply block text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem] font-extrabold leading-[0.98]
-      tracking-[-0.02em] text-brand-charcoal;
+    @apply block text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem]
+      font-extrabold leading-[0.98] tracking-[0.02em] text-black;
   }
 
   .hero-headline-accent {
-    @apply block mt-1 sm:mt-1.5 text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem] font-extrabold leading-[0.98]
-      tracking-[-0.02em];
-    background: linear-gradient(
-      90deg,
-      #4a1515 0%,
-      #7f1d1d 25%,
-      #b91c1c 50%,
-      #dc2626 75%,
-      #ef4444 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    @apply block mt-1 sm:mt-1.5 text-[2.35rem] sm:text-5xl lg:text-[3.15rem] xl:text-[3.55rem]
+      font-extrabold leading-[0.98] tracking-[0.02em] text-brand-red;
   }
 
   .hero-divider {
@@ -284,10 +272,6 @@
   .hero-value-prop-icon {
     @apply relative w-11 h-11 sm:w-9 sm:h-9 rounded-full flex items-center justify-center
       shrink-0 text-white bg-brand-gradient;
-    box-shadow:
-      0 0 0 2.5px #ffffff,
-      0 0 0 3.5px rgba(239, 68, 68, 0.14),
-      0 4px 14px rgba(153, 27, 27, 0.2);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
