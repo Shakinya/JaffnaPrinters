@@ -1,7 +1,7 @@
-import komoriLogo from '../brands/komori.png';
-import rolandLogo from '../brands/roland.png';
-import manrolandLogo from '../brands/manroland.png';
-import hpLogo from '../brands/hp.png';
+import xeroxLogo from '../brands/xerox.png';
+import ricohLogo from '../brands/ricoh.png';
+import epsonLogo from '../brands/epson.png';
+import toshibaLogo from '../brands/toshiba.png';
 import canonLogo from '../brands/canon.png';
 
 export interface Brand {
@@ -11,9 +11,9 @@ export interface Brand {
 }
 
 export const compatibleBrands: Brand[] = [
-  { id: 'komori', name: 'Komori', logo: komoriLogo },
-  { id: 'roland', name: 'Roland', logo: rolandLogo },
-  { id: 'manroland', name: 'Manroland', logo: manrolandLogo },
-  { id: 'hp', name: 'HP', logo: hpLogo },
+  { id: 'xerox', name: 'Xerox', logo: xeroxLogo },
+  { id: 'ricoh', name: 'Ricoh', logo: ricohLogo },
+  { id: 'epson', name: 'Epson', logo: epsonLogo },
+  { id: 'toshiba', name: 'Toshiba', logo: toshibaLogo },
   { id: 'canon', name: 'Canon', logo: canonLogo },
 ];
