@@ -1,3 +1,5 @@
+import { productImage } from './productAssets';
+
 export interface Product {
   id: string;
   name: string;
@@ -26,50 +28,85 @@ export const productCatalog: ProductCategoryGroup[] = [
   {
     id: 'promotional-items',
     name: 'Promotional Items',
-    subcategories: ['Pens', 'Bags', 'Caps', 'Lanyards', 'Bottles', 'USBs', 'Stamps'],
+    subcategories: [
+      'Pens', 'Bags', 'Caps', 'Lanyards', 'Bottles', 'USBs', 'Stamps',
+      'Umbrellas', 'Balls',
+    ],
   },
   {
     id: 'personalized-gifts',
     name: 'Personalized Gifts',
-    subcategories: ['Magic Mugs', 'Photo Plates', 'Phone Covers', 'T-Shirts'],
+    subcategories: ['Magic Mugs', 'Mugs', 'Photo Plates', 'Phone Covers', 'T-Shirts'],
   },
   {
     id: 'corporate-printing',
     name: 'Corporate Printing',
-    subcategories: ['ID Cards', 'Business Cards', 'Letterheads', 'Certificates', 'Menus'],
+    subcategories: [
+      'ID Cards', 'Business Cards', 'Letterheads', 'Certificates', 'Menus',
+      'Brochures', 'Book Covers',
+    ],
   },
   {
     id: 'events-cards',
     name: 'Events & Cards',
-    subcategories: ['Wedding Cards', 'Invitations', 'Festival Cards'],
+    subcategories: ['Wedding Cards', 'Invitations', 'Festival Cards', 'Event Badges'],
   },
   {
     id: 'signage-banners',
     name: 'Signage & Banners',
-    subcategories: ['Flex Banners', 'LED Boards', 'Name Boards', 'Radium'],
+    subcategories: ['Flex Banners', 'LED Boards', 'Name Boards', 'Radium', 'Glass Printing'],
   },
   {
     id: 'awards-trophies',
     name: 'Awards & Trophies',
-    subcategories: ['Medals', 'Trophies', 'Plaques'],
+    subcategories: ['Medals', 'Badges', 'Trophies', 'Plaques'],
   },
 ];
 
 export const productCategories = ['All', ...productCatalog.map((c) => c.name)];
 
-const categoryImages: Record<string, string> = {
-  'Promotional Items':
-    'https://images.pexels.com/photos/4484078/pexels-photo-4484078.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'Personalized Gifts':
-    'https://images.pexels.com/photos/5698850/pexels-photo-5698850.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'Corporate Printing':
-    'https://images.pexels.com/photos/6177645/pexels-photo-6177645.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'Events & Cards':
-    'https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'Signage & Banners':
-    'https://images.pexels.com/photos/1484759/pexels-photo-1484759.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'Awards & Trophies':
-    'https://images.pexels.com/photos/278887/pexels-photo-278887.jpeg?auto=compress&cs=tinysrgb&w=600',
+/** Map each catalog subcategory → filename in `src/products/`. */
+const productImagesBySubcategory: Record<string, string> = {
+  // Promotional Items
+  Pens: productImage('pen.jpg'),
+  Bags: productImage('bag.jpg'),
+  Caps: productImage('cap.jpg'),
+  Lanyards: productImage('Lanyards.jpeg'),
+  Bottles: productImage('bottle.jpg'),
+  USBs: productImage('pendrive.jpeg'),
+  Stamps: productImage('Rubber stamp.jpeg'),
+  Umbrellas: productImage('umbrella.jpg'),
+  Balls: productImage('ball.jpg'),
+  // Personalized Gifts
+  'Magic Mugs': productImage('magic mug.jpg'),
+  Mugs: productImage('mug.jpg'),
+  'Photo Plates': productImage('plate.jpg'),
+  'Phone Covers': productImage('phone cover.jpg'),
+  'T-Shirts': productImage('tshirt.jpg'),
+  // Corporate Printing
+  'ID Cards': productImage('id card.jpg'),
+  'Business Cards': productImage('Business Cards.jpg'),
+  Letterheads: productImage('Letterheads.jpg'),
+  Certificates: productImage('certificate.jpg'),
+  Menus: productImage('menu.jpg'),
+  Brochures: productImage('brochures.jpg'),
+  'Book Covers': productImage('book cover.jpg'),
+  // Events & Cards
+  'Wedding Cards': productImage('Wedding Cards.jpg'),
+  Invitations: productImage('Invitations.jpg'),
+  'Festival Cards': productImage('Festival Cards.jpg'),
+  'Event Badges': productImage('batch2.jpg'),
+  // Signage & Banners
+  'Flex Banners': productImage('flex banner.jpg'),
+  'LED Boards': productImage('led.jpg'),
+  'Name Boards': productImage('name board.jpg'),
+  Radium: productImage('radium.jpg'),
+  'Glass Printing': productImage('glass print.jpg'),
+  // Awards & Trophies
+  Medals: productImage('medal.jpg'),
+  Badges: productImage('batch.jpg'),
+  Trophies: productImage('trophy.jpg'),
+  Plaques: productImage('plaque.jpg'),
 };
 
 const popularSubcategories = new Set([
@@ -118,7 +155,7 @@ export const products: Product[] = productCatalog.flatMap((group) =>
     category: group.name,
     description: `Professional ${name.toLowerCase()} printing tailored for your brand, events, and business needs.`,
     features: defaultFeatures(group.name, name),
-    image: categoryImages[group.name],
+    image: productImagesBySubcategory[name] ?? productImage('pen.jpg'),
     popular: popularSubcategories.has(name),
   })),
 );
