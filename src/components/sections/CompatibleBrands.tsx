@@ -18,7 +18,7 @@ export default function CompatibleBrands({
   compact = false,
 }: CompatibleBrandsProps) {
   return (
-    <section className={`${compact ? 'section-padding-home' : 'section-padding'} bg-white border-y border-slate-100/80 ${className}`}>
+    <section className={`section-padding bg-white border-y border-slate-100/80 ${className}`}>
       <div className="container-custom">
         <SectionHeader
           badge="Compatible Brands"
@@ -34,7 +34,7 @@ export default function CompatibleBrands({
           whileInView="show"
           viewport={{ once: true, margin: '-40px' }}
           className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-center justify-items-center ${
-            compact ? 'gap-6 sm:gap-8 lg:gap-10' : 'gap-8 sm:gap-10 lg:gap-12'
+            compact ? 'gap-5 sm:gap-7 lg:gap-8' : 'gap-6 sm:gap-8 lg:gap-10'
           }`}
         >
           {compatibleBrands.map((brand) => (

@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Star, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
 import PageHero from '../components/ui/PageHero';
-import { products, productCategories, type Product } from '../data/products';
+import {
+  products,
+  productCategories,
+  getSubcategoriesForCategory,
+  type Product,
+} from '../data/products';
 import { cardHover } from '../lib/motion';
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
@@ -43,7 +48,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           </Link>
         </div>
       </div>
-      <div className="p-6">
+      <div className="p-5 sm:p-6">
         <span className="text-xs text-brand-red-600 font-bold tracking-wider uppercase font-display">
           {product.category}
         </span>
@@ -69,10 +74,24 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
 export default function Products() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [activeSubcategory, setActiveSubcategory] = useState('All');
 
-  const filtered = activeCategory === 'All'
-    ? products
-    : products.filter((p) => p.category === activeCategory);
+  const subcategories = useMemo(
+    () => getSubcategoriesForCategory(activeCategory),
+    [activeCategory],
+  );
+
+  useEffect(() => {
+    setActiveSubcategory('All');
+  }, [activeCategory]);
+
+  const filtered = useMemo(() => {
+    return products.filter((product) => {
+      if (activeCategory !== 'All' && product.category !== activeCategory) return false;
+      if (activeSubcategory !== 'All' && product.name !== activeSubcategory) return false;
+      return true;
+    });
+  }, [activeCategory, activeSubcategory]);
 
   return (
     <div className="overflow-hidden">
@@ -85,23 +104,26 @@ export default function Products() {
             <span className="text-gradient">to Print & Brand</span>
           </>
         }
-        description="Explore our complete range of high-quality print products."
+        description="Browse by category — promotional items, corporate print, events, signage, awards, and more."
       />
 
-      {/* FILTER + GRID */}
       <section className="section-padding bg-slate-50">
         <div className="container-custom">
+          <p className="text-center text-xs font-display font-semibold uppercase tracking-widest text-slate-500 mb-3">
+            Main Categories
+          </p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-wrap gap-3 mb-12 justify-center"
+            className="flex flex-wrap gap-2 sm:gap-3 mb-6 justify-center"
           >
             {productCategories.map((cat) => (
               <button
                 key={cat}
+                type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`relative px-5 py-2.5 rounded-btn text-sm font-semibold font-display transition-colors duration-300 ${
+                className={`relative px-4 sm:px-5 py-2.5 rounded-btn text-sm font-semibold font-display transition-colors duration-300 ${
                   activeCategory === cat
                     ? 'text-white'
                     : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-red hover:text-brand-red'
@@ -119,9 +141,55 @@ export default function Products() {
             ))}
           </motion.div>
 
-          <div className="mb-8 flex items-center justify-between">
+          <AnimatePresence mode="wait">
+            {subcategories.length > 0 && (
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="mb-8"
+              >
+                <p className="text-center text-xs font-display font-semibold uppercase tracking-widest text-slate-500 mb-3">
+                  Subcategories
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {['All', ...subcategories].map((sub) => (
+                    <button
+                      key={sub}
+                      type="button"
+                      onClick={() => setActiveSubcategory(sub)}
+                      className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium font-display border transition-colors duration-300 ${
+                        activeSubcategory === sub
+                          ? 'bg-brand-red text-white border-brand-red shadow-sm'
+                          : 'bg-white text-slate-600 border-slate-200 hover:border-brand-red/40 hover:text-brand-red'
+                      }`}
+                    >
+                      {sub}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="text-slate-500 text-sm">
-              Showing <span className="font-semibold text-slate-900">{filtered.length}</span> product{filtered.length !== 1 ? 's' : ''}
+              Showing <span className="font-semibold text-slate-900">{filtered.length}</span> product
+              {filtered.length !== 1 ? 's' : ''}
+              {activeCategory !== 'All' && (
+                <span className="text-slate-400">
+                  {' '}
+                  in <span className="text-slate-700">{activeCategory}</span>
+                  {activeSubcategory !== 'All' && (
+                    <>
+                      {' '}
+                      · <span className="text-slate-700">{activeSubcategory}</span>
+                    </>
+                  )}
+                </span>
+              )}
             </p>
             <GradientButton to="/contact" size="sm">
               Request Custom Print
@@ -129,25 +197,41 @@ export default function Products() {
           </div>
 
           <AnimatePresence mode="popLayout">
-            <motion.div
-              layout
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filtered.map((product, i) => (
-                <ProductCard key={product.id} product={product} index={i} />
-              ))}
-            </motion.div>
+            {filtered.length > 0 ? (
+              <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filtered.map((product, i) => (
+                  <ProductCard key={product.id} product={product} index={i} />
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-16 rounded-2xl bg-white border border-slate-100"
+              >
+                <p className="text-slate-600 font-medium">No products match this filter.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveCategory('All');
+                    setActiveSubcategory('All');
+                  }}
+                  className="mt-4 text-sm font-semibold text-brand-red font-display hover:underline"
+                >
+                  View all products
+                </button>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </section>
 
-      {/* PROCESS */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeader badge="How It Works" title="Ordering is" highlight="Easy" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { step: '01', title: 'Choose Product', desc: 'Browse our catalogue and select what fits your needs.' },
+              { step: '01', title: 'Choose Product', desc: 'Pick a category and subcategory that fits your need.' },
               { step: '02', title: 'Share Details', desc: 'Send us your artwork, specifications, and quantity.' },
               { step: '03', title: 'Approve Proof', desc: 'We create a digital proof for your approval.' },
               { step: '04', title: 'Receive Order', desc: 'Your order is printed and delivered to you.' },
@@ -170,7 +254,6 @@ export default function Products() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="section-padding bg-brand-red">
         <div className="container-custom">
           <motion.div
@@ -183,7 +266,7 @@ export default function Products() {
             <h2 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
               Can&apos;t find what you need?
             </h2>
-            <p className="text-white text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto">
+            <p className="text-white text-base sm:text-lg leading-relaxed mb-6 max-w-lg mx-auto">
               We offer fully custom print solutions. Contact our team for a free quote.
             </p>
             <GradientButton to="/contact" variant="light" size="lg" className="w-full sm:w-auto justify-center">

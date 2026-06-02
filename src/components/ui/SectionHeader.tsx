@@ -26,13 +26,13 @@ export default function SectionHeader({
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: '-60px' }}
-      className={`${compact ? 'mb-7 sm:mb-8' : 'mb-12'} ${centered ? 'text-center' : ''}`}
+      className={`${compact ? 'mb-6 sm:mb-7' : 'mb-8 sm:mb-9'} ${centered ? 'text-center' : ''}`}
     >
       {badge && (
         <motion.div
           variants={fadeUp}
           transition={defaultTransition}
-          className={`flex items-center gap-3 mb-4 ${centered ? 'justify-center' : ''}`}
+          className={`flex items-center gap-3 mb-3 ${centered ? 'justify-center' : ''}`}
         >
           <motion.span
             className="h-px bg-brand-red origin-right"
@@ -67,7 +67,7 @@ export default function SectionHeader({
         <motion.p
           variants={fadeUp}
           transition={{ ...defaultTransition, delay: 0.1 }}
-          className={`mt-4 text-lg max-w-2xl leading-relaxed ${
+          className={`mt-3 text-base sm:text-lg max-w-2xl leading-relaxed ${
             centered ? 'mx-auto' : ''
           } ${light ? 'text-slate-300' : 'text-slate-600'}`}
         >

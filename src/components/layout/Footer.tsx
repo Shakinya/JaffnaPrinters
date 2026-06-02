@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Instagram, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { companyInfo } from '../../data/site';
+import { socialLinks } from '../../data/socialLinks';
 
 const footerLinks = {
   company: [
     { label: 'About Us', path: '/about' },
     { label: 'All Products', path: '/products' },
+    { label: 'Gallery', path: '/gallery' },
     { label: 'Contact Us', path: '/contact' },
   ],
   printtech: [
@@ -20,7 +23,7 @@ export default function Footer() {
   return (
     <footer className="bg-brand-charcoal text-white">
       <div className="bg-brand-red border-t border-white/10">
-        <div className="container-custom py-10 sm:py-12">
+        <div className="container-custom py-8 sm:py-10">
           <div className="red-surface-panel !p-6 sm:!p-8">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10">
               <div className="shrink-0 max-w-md">
@@ -53,8 +56,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="container-custom py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="container-custom py-10 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-5">
               <img
@@ -73,13 +76,13 @@ export default function Footer() {
               Your trusted partner for premium printing solutions in Northern Sri Lanka.
             </p>
             <div className="flex gap-3">
-              {[
-                { icon: Facebook, href: '#' },
-                { icon: Instagram, href: '#' },
-              ].map(({ icon: Icon, href }) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
-                  key={href + Icon.name}
+                  key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   className="w-9 h-9 rounded-btn bg-white/10 hover:bg-brand-red text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
@@ -145,19 +148,27 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-brand-gold mt-0.5 shrink-0" />
                 <span className="text-slate-400 text-sm leading-relaxed">
-                  123 Hospital Road,<br />Jaffna, Sri Lanka
+                  {companyInfo.address.line1},<br />{companyInfo.address.line2}
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-brand-gold shrink-0" />
-                <a href="tel:+94212234567" className="text-slate-400 hover:text-brand-gold text-sm transition-colors">
-                  +94 21 223 4567
-                </a>
+              <li className="flex items-start gap-3">
+                <Phone className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                <div className="space-y-1.5 text-sm">
+                  <a href={`tel:${companyInfo.phones.office.tel}`} className="block text-slate-400 hover:text-brand-gold transition-colors">
+                    Office: {companyInfo.phones.office.display}
+                  </a>
+                  <a href={`tel:${companyInfo.phones.personal.tel}`} className="block text-slate-400 hover:text-brand-gold transition-colors">
+                    Personal: {companyInfo.phones.personal.display}
+                  </a>
+                  <a href={`tel:${companyInfo.phones.landline.tel}`} className="block text-slate-400 hover:text-brand-gold transition-colors">
+                    Landline: {companyInfo.phones.landline.display}
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-brand-gold shrink-0" />
-                <a href="mailto:info@jaffnaprinters.lk" className="text-slate-400 hover:text-brand-gold text-sm transition-colors">
-                  info@jaffnaprinters.lk
+                <a href={`mailto:${companyInfo.email}`} className="text-slate-400 hover:text-brand-gold text-sm transition-colors">
+                  {companyInfo.email}
                 </a>
               </li>
             </ul>

@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
 import PrintTech from './pages/PrintTech';
+import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 
 function ScrollToTop() {
@@ -36,6 +37,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/printtech" element={<PrintTech />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

@@ -8,6 +8,12 @@ export interface Product {
   popular?: boolean;
 }
 
+export interface ProductCategoryGroup {
+  id: string;
+  name: string;
+  subcategories: string[];
+}
+
 export interface PrintTechItem {
   id: string;
   name: string;
@@ -16,85 +22,117 @@ export interface PrintTechItem {
   image: string;
 }
 
-export const productCategories = [
-  'All',
-  'Business',
-  'Marketing',
-  'Packaging',
-  'Events',
-  'Apparel',
-  'Stationery',
+export const productCatalog: ProductCategoryGroup[] = [
+  {
+    id: 'promotional-items',
+    name: 'Promotional Items',
+    subcategories: ['Pens', 'Bags', 'Caps', 'Lanyards', 'Bottles', 'USBs', 'Stamps'],
+  },
+  {
+    id: 'personalized-gifts',
+    name: 'Personalized Gifts',
+    subcategories: ['Magic Mugs', 'Photo Plates', 'Phone Covers', 'T-Shirts'],
+  },
+  {
+    id: 'corporate-printing',
+    name: 'Corporate Printing',
+    subcategories: ['ID Cards', 'Business Cards', 'Letterheads', 'Certificates', 'Menus'],
+  },
+  {
+    id: 'events-cards',
+    name: 'Events & Cards',
+    subcategories: ['Wedding Cards', 'Invitations', 'Festival Cards'],
+  },
+  {
+    id: 'signage-banners',
+    name: 'Signage & Banners',
+    subcategories: ['Flex Banners', 'LED Boards', 'Name Boards', 'Radium'],
+  },
+  {
+    id: 'awards-trophies',
+    name: 'Awards & Trophies',
+    subcategories: ['Medals', 'Trophies', 'Plaques'],
+  },
 ];
 
-export const products: Product[] = [
-  {
-    id: 'business-cards',
-    name: 'Business Cards',
-    category: 'Business',
-    description: 'Premium business cards with UV coating, embossing, and foil options. Make a lasting first impression.',
-    features: ['UV Coating', 'Spot UV', 'Foil Stamping', '350gsm+'],
-    image: 'https://images.pexels.com/photos/6177645/pexels-photo-6177645.jpeg?auto=compress&cs=tinysrgb&w=600',
-    popular: true,
-  },
-  {
-    id: 'flyers',
-    name: 'Flyers & Leaflets',
-    category: 'Marketing',
-    description: 'High-impact flyers for promotions, events, and marketing campaigns. Vivid full-color printing.',
-    features: ['A5 / A4 / DL', 'Gloss or Matte', 'Double Sided', 'Fast Turnaround'],
-    image: 'https://images.pexels.com/photos/4440280/pexels-photo-4440280.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 'stickers',
-    name: 'Stickers & Labels',
-    category: 'Packaging',
-    description: 'Custom-cut stickers and labels for branding, packaging, and promotional use.',
-    features: ['Waterproof', 'Custom Die Cut', 'Roll Labels', 'Holographic Options'],
-    image: 'https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=600',
-    popular: true,
-  },
-  {
-    id: 'packaging',
-    name: 'Packaging & Boxes',
-    category: 'Packaging',
-    description: 'Custom branded packaging solutions for retail, e-commerce, and gifting.',
-    features: ['Custom Sizes', 'Branded Printing', 'Corrugated Options', 'Eco-friendly'],
-    image: 'https://images.pexels.com/photos/5632400/pexels-photo-5632400.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 'wedding-cards',
-    name: 'Wedding Cards',
-    category: 'Events',
-    description: 'Elegant wedding invitations with luxury finishes, embossing, and premium paper stocks.',
-    features: ['Luxury Paper', 'Foil Accents', 'Embossing', 'Custom Envelopes'],
-    image: 'https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600',
-    popular: true,
-  },
-  {
-    id: 'banners',
-    name: 'Banners & Signage',
-    category: 'Marketing',
-    description: 'Large format banners, roll-up stands, and outdoor signage for events and promotions.',
-    features: ['Vinyl & Fabric', 'Pull-Up Stands', 'Outdoor UV Ink', 'Any Size'],
-    image: 'https://images.pexels.com/photos/1484759/pexels-photo-1484759.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  {
-    id: 'tshirts',
-    name: 'T-Shirt Printing',
-    category: 'Apparel',
-    description: 'Custom T-shirt and apparel printing using DTG, screen printing, and sublimation.',
-    features: ['DTG Printing', 'Screen Print', 'Sublimation', 'Bulk Orders'],
-    image: 'https://images.pexels.com/photos/5698850/pexels-photo-5698850.jpeg?auto=compress&cs=tinysrgb&w=600',
-    popular: true,
-  },
-  {
-    id: 'brochures',
-    name: 'Brochures & Catalogues',
-    category: 'Marketing',
-    description: 'Professional multi-page brochures and product catalogues for corporate and retail use.',
-    features: ['Saddle Stitched', 'Perfect Bound', 'Spot UV Cover', 'Custom Sizes'],
-    image: 'https://images.pexels.com/photos/7439135/pexels-photo-7439135.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
+export const productCategories = ['All', ...productCatalog.map((c) => c.name)];
+
+const categoryImages: Record<string, string> = {
+  'Promotional Items':
+    'https://images.pexels.com/photos/4484078/pexels-photo-4484078.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'Personalized Gifts':
+    'https://images.pexels.com/photos/5698850/pexels-photo-5698850.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'Corporate Printing':
+    'https://images.pexels.com/photos/6177645/pexels-photo-6177645.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'Events & Cards':
+    'https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'Signage & Banners':
+    'https://images.pexels.com/photos/1484759/pexels-photo-1484759.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'Awards & Trophies':
+    'https://images.pexels.com/photos/278887/pexels-photo-278887.jpeg?auto=compress&cs=tinysrgb&w=600',
+};
+
+const popularSubcategories = new Set([
+  'Business Cards',
+  'Wedding Cards',
+  'Flex Banners',
+  'T-Shirts',
+  'Magic Mugs',
+  'Trophies',
+  'Bags',
+  'ID Cards',
+]);
+
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+function defaultFeatures(category: string, name: string): string[] {
+  const shared = ['Custom Design', 'Fast Turnaround', 'Bulk Orders'];
+  switch (category) {
+    case 'Promotional Items':
+      return ['Branded Printing', 'Corporate Gifting', ...shared];
+    case 'Personalized Gifts':
+      return ['Photo / Logo Print', 'Gift Ready', ...shared];
+    case 'Corporate Printing':
+      return ['Professional Finish', 'Premium Paper', ...shared];
+    case 'Events & Cards':
+      return ['Luxury Finishes', 'Custom Layouts', ...shared];
+    case 'Signage & Banners':
+      return ['Indoor & Outdoor', 'Durable Materials', ...shared];
+    case 'Awards & Trophies':
+      return ['Engraving Available', 'Event Orders', ...shared];
+    default:
+      return [name, ...shared];
+  }
+}
+
+export const products: Product[] = productCatalog.flatMap((group) =>
+  group.subcategories.map((name) => ({
+    id: `${group.id}-${slugify(name)}`,
+    name,
+    category: group.name,
+    description: `Professional ${name.toLowerCase()} printing tailored for your brand, events, and business needs.`,
+    features: defaultFeatures(group.name, name),
+    image: categoryImages[group.name],
+    popular: popularSubcategories.has(name),
+  })),
+);
+
+export function getSubcategoriesForCategory(categoryName: string): string[] {
+  if (categoryName === 'All') return [];
+  return productCatalog.find((c) => c.name === categoryName)?.subcategories ?? [];
+}
+
+export const allProductServiceOptions = [
+  ...productCatalog.map((g) => g.name),
+  ...productCatalog.flatMap((g) => g.subcategories),
+  'PrintTech Parts & Supply',
+  'Custom / Other',
 ];
 
 export const printTechItems: PrintTechItem[] = [

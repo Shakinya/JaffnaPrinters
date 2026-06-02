@@ -1,19 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronRight, Phone, Mail, Facebook, Instagram} from 'lucide-react';
+import { Menu, X, ChevronRight, Phone, Mail } from 'lucide-react';
+import { companyInfo } from '../../data/site';
+import { socialLinks } from '../../data/socialLinks';
 
 const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
   { label: 'All Products', path: '/products' },
-  { label: 'PrintTech', path: '/printtech' },
+  { label: 'Gallery', path: '/gallery' },
   { label: 'Contact', path: '/contact' },
-];
-
-const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
+  { label: 'PrintTech', path: '/printtech' },
 ];
 
 export default function Navbar() {
@@ -60,18 +58,18 @@ export default function Navbar() {
         <div className="container-custom flex items-center justify-between py-2 text-xs sm:text-sm">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <a
-              href="tel:+94212234567"
+              href={`tel:${companyInfo.phones.office.tel}`}
               className="flex items-center gap-1.5 hover:text-brand-gold transition-colors"
             >
               <Phone className="w-3.5 h-3.5 shrink-0" />
-              <span>+94 21 223 4567</span>
+              <span>{companyInfo.phones.office.display}</span>
             </a>
             <a
-              href="mailto:info@jaffnaprinters.lk"
+              href={`mailto:${companyInfo.email}`}
               className="flex items-center gap-1.5 hover:text-brand-gold transition-colors"
             >
               <Mail className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden xs:inline">info@jaffnaprinters.lk</span>
+              <span className="hidden xs:inline">{companyInfo.email}</span>
               <span className="xs:hidden">Email Us</span>
             </a>
           </div>
@@ -80,6 +78,8 @@ export default function Navbar() {
               <a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
               >
@@ -99,7 +99,7 @@ export default function Navbar() {
           isScrolled ? 'glass-nav shadow-nav py-2' : 'bg-white py-3 border-b border-slate-100'
         }`}
       >
-        <div className="container-custom flex items-center justify-between gap-4">
+        <div className="container-custom flex items-center gap-4">
           <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
             <img
               src="/logo.png"
@@ -113,33 +113,36 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="hidden xl:flex items-center gap-0.5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`nav-link whitespace-nowrap ${
-                  location.pathname === link.path ? 'nav-link-active' : ''
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+          <div className="flex items-center gap-2 sm:gap-3 ml-auto shrink-0">
+            <nav className="hidden xl:flex items-center gap-0.5" aria-label="Main">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`nav-link whitespace-nowrap ${
+                    location.pathname === link.path ? 'nav-link-active' : ''
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
 
-          <div className="hidden md:flex items-center gap-3 shrink-0">
-            <Link to="/contact" className="btn-primary px-6 py-2.5 text-sm rounded-btn">
+            <Link
+              to="/contact"
+              className="hidden md:inline-flex btn-primary px-5 lg:px-6 py-2.5 text-sm rounded-btn whitespace-nowrap"
+            >
               Get a Quote <ChevronRight className="w-4 h-4" />
             </Link>
-          </div>
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="xl:hidden p-2 text-brand-charcoal hover:text-red-700 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="xl:hidden p-2 text-brand-charcoal hover:text-red-700 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 

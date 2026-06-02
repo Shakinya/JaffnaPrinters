@@ -1,56 +1,58 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Phone, Mail, MapPin, Clock, Send, Facebook, Instagram,
+  Phone, Mail, MapPin, Clock, Send,
   CheckCircle, ExternalLink, Navigation,
 } from 'lucide-react';
 import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
 import { fadeUp, staggerFast, defaultTransition } from '../lib/motion';
-
-const MAP_EMBED_URL =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31538.01264890282!2d80.00193!3d9.66845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe53fd7de963a3%3A0x9cdbb5d91c5bb580!2sJaffna%2C%20Sri%20Lanka!5e0!3m2!1sen!2slk!4v1683456789';
-
-const MAP_DIRECTIONS_URL = 'https://www.google.com/maps/search/?api=1&query=123+Hospital+Road+Jaffna+Sri+Lanka';
+import { companyInfo, mapDirectionsUrl, mapEmbedUrl } from '../data/site';
+import { socialLinks } from '../data/socialLinks';
+import { allProductServiceOptions } from '../data/products';
 
 const contactDetails = [
   {
     icon: Phone,
-    label: 'Phone',
-    primary: '+94 21 223 4567',
-    secondary: '+94 77 812 3456 (WhatsApp)',
-    href: 'tel:+94212234567',
+    label: 'Office Mobile',
+    primary: companyInfo.phones.office.display,
+    secondary: 'Office line',
+    href: `tel:${companyInfo.phones.office.tel}`,
+  },
+  {
+    icon: Phone,
+    label: 'Personal Mobile',
+    primary: companyInfo.phones.personal.display,
+    secondary: 'Personal / WhatsApp',
+    href: `tel:${companyInfo.phones.personal.tel}`,
+  },
+  {
+    icon: Phone,
+    label: 'Landline',
+    primary: companyInfo.phones.landline.display,
+    secondary: 'Shop landline',
+    href: `tel:${companyInfo.phones.landline.tel}`,
   },
   {
     icon: Mail,
     label: 'Email',
-    primary: 'info@jaffnaprinters.lk',
-    secondary: 'sales@jaffnaprinters.lk',
-    href: 'mailto:info@jaffnaprinters.lk',
+    primary: companyInfo.email,
+    secondary: 'We reply within 24 hours',
+    href: `mailto:${companyInfo.email}`,
   },
   {
     icon: MapPin,
     label: 'Address',
-    primary: '123 Hospital Road, Jaffna',
-    secondary: 'Northern Province, Sri Lanka',
-    href: MAP_DIRECTIONS_URL,
+    primary: companyInfo.address.line1,
+    secondary: companyInfo.address.line2,
+    href: mapDirectionsUrl,
   },
   {
     icon: Clock,
     label: 'Working Hours',
-    primary: 'Mon – Sat: 8:00 AM – 6:00 PM',
-    secondary: 'Sunday: 9:00 AM – 1:00 PM',
+    primary: companyInfo.hours.weekdays,
+    secondary: companyInfo.hours.sunday,
   },
-];
-
-const services = [
-  'Business Cards & Stationery',
-  'Banners & Signage',
-  'Packaging & Boxes',
-  'Wedding & Event Cards',
-  'T-Shirt & Apparel Printing',
-  'PrintTech Parts & Supply',
-  'Custom / Other',
 ];
 
 export default function Contact() {
@@ -87,14 +89,14 @@ export default function Contact() {
       />
 
       {/* Quick contact cards */}
-      <section className="py-10 sm:py-12 bg-white border-b border-slate-100">
+      <section className="py-8 sm:py-10 bg-white border-b border-slate-100">
         <div className="container-custom">
           <motion.div
             variants={staggerFast}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             {contactDetails.map(({ icon: Icon, label, primary, secondary, href }, i) => (
               <motion.div
@@ -130,17 +132,16 @@ export default function Contact() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-slate-100"
+            className="flex flex-wrap items-center justify-between gap-4 mt-6 pt-5 border-t border-slate-100"
           >
             <p className="text-slate-500 text-sm font-medium">Follow us on social media</p>
             <div className="flex gap-3">
-              {[
-                { icon: Facebook, label: 'Facebook', href: '#' },
-                { icon: Instagram, label: 'Instagram', href: '#' },
-              ].map(({ icon: Icon, label, href }) => (
+              {socialLinks.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-10 h-10 rounded-btn bg-slate-50 border border-slate-200 hover:border-brand-red hover:bg-brand-red/5 hover:text-brand-red text-slate-500 flex items-center justify-center transition-colors duration-300"
                 >
@@ -158,12 +159,12 @@ export default function Contact() {
           <div className="grid lg:grid-cols-2 gap-8 xl:gap-10 items-stretch">
             {/* Quote form */}
             <FadeIn direction="left" className="h-full">
-              <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 border border-slate-100 shadow-sm h-full">
+              <div className="bg-white rounded-2xl p-5 sm:p-7 lg:p-8 border border-slate-100 shadow-sm h-full">
                 {submitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-16 lg:py-24"
+                    className="text-center py-12 lg:py-16"
                   >
                     <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-green-600" />
@@ -188,7 +189,7 @@ export default function Contact() {
                     <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl mb-2">
                       Request a Free Quote
                     </h2>
-                    <p className="text-slate-500 text-sm mb-8">
+                    <p className="text-slate-500 text-sm mb-6">
                       Fill in your details and we&apos;ll prepare a custom quote for your project.
                     </p>
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -240,7 +241,7 @@ export default function Contact() {
                             className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all bg-white"
                           >
                             <option value="">Select a service</option>
-                            {services.map((s) => (
+                            {allProductServiceOptions.map((s) => (
                               <option key={s} value={s}>{s}</option>
                             ))}
                           </select>
@@ -285,7 +286,7 @@ export default function Contact() {
 
             {/* Map — tall, matches form height on desktop */}
             <FadeIn direction="right" delay={0.1} className="h-full min-h-0">
-              <div className="flex flex-col h-full min-h-[420px] sm:min-h-[480px] lg:min-h-[640px]">
+              <div className="flex flex-col h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[560px]">
                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-4">
                   <div>
                     <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl">
@@ -293,11 +294,11 @@ export default function Contact() {
                     </h2>
                     <p className="text-slate-500 text-sm mt-1 flex items-start gap-1.5">
                       <MapPin className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
-                      123 Hospital Road, Jaffna, Sri Lanka
+                      {companyInfo.address.full}
                     </p>
                   </div>
                   <a
-                    href={MAP_DIRECTIONS_URL}
+                    href={mapDirectionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 btn-primary text-sm shrink-0"
@@ -310,7 +311,7 @@ export default function Contact() {
                 <div className="relative flex-1 rounded-2xl overflow-hidden border border-slate-200 shadow-card bg-slate-200 min-h-[360px] sm:min-h-[400px] lg:min-h-0">
                   <iframe
                     title="JaffnaPrinters Location on Google Maps"
-                    src={MAP_EMBED_URL}
+                    src={mapEmbedUrl}
                     className="absolute inset-0 w-full h-full border-0"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -319,7 +320,7 @@ export default function Contact() {
                 </div>
 
                 <a
-                  href={MAP_DIRECTIONS_URL}
+                  href={mapDirectionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-red hover:text-brand-red-600 transition-colors font-display"

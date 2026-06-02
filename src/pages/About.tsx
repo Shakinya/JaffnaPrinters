@@ -5,13 +5,7 @@ import GradientButton from '../components/ui/GradientButton';
 import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
 import { fadeUp, staggerContainer, staggerFast, cardHover, defaultTransition } from '../lib/motion';
-
-const timeline = [
-  { year: '2009', title: 'Founded', desc: 'JaffnaPrinters opens its first small offset press in Jaffna.' },
-  { year: '2013', title: 'Digital Expansion', desc: 'Added digital printing and wide-format capabilities.' },
-  { year: '2017', title: 'ISO Certification', desc: 'Achieved ISO 9001:2015 certification.' },
-  { year: '2020', title: 'PrintTech Division', desc: 'Launched the PrintTech import/export arm.' },
-];
+import { companyInfo, companyJourney, aboutJourneySubtitle } from '../data/site';
 
 const values = [
   {
@@ -27,7 +21,7 @@ const values = [
 ];
 
 const reasons = [
-  '15+ years of proven print expertise',
+  `${companyInfo.yearsExperienceLabel} years of proven print expertise`,
   'State-of-the-art Heidelberg offset presses',
   'ISO 9001:2015 certified quality management',
   'Full in-house prepress and design team',
@@ -61,7 +55,7 @@ export default function About() {
               whileHover={cardHover}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-brand-red rounded-2xl p-10 relative overflow-hidden shadow-card"
+              className="bg-brand-red rounded-2xl p-7 sm:p-8 relative overflow-hidden shadow-card"
             >
               <motion.div
                 className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl"
@@ -88,7 +82,7 @@ export default function About() {
               whileHover={cardHover}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white border-2 border-brand-red rounded-2xl p-10 relative overflow-hidden shadow-card"
+              className="bg-white border-2 border-brand-red rounded-2xl p-7 sm:p-8 relative overflow-hidden shadow-card"
             >
               <motion.div
                 className="absolute bottom-0 left-0 w-48 h-48 bg-slate-900/10 rounded-full blur-2xl"
@@ -118,15 +112,17 @@ export default function About() {
         <div className="container-custom">
           <SectionHeader
             badge="Our Journey"
-            title="15+ Years of"
+            title={`${companyInfo.yearsExperienceLabel} Years of`}
             highlight="Growth"
+            subtitle={aboutJourneySubtitle}
           />
+
           <div className="relative">
             <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-brand-red via-brand-red-300 to-transparent hidden sm:block" />
-            <div className="space-y-10">
-              {timeline.map((item, i) => (
+            <div className="space-y-7">
+              {companyJourney.map((item, i) => (
                 <motion.div
-                  key={item.year}
+                  key={`${item.year}-${item.title}`}
                   initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   whileHover={{ scale: 1.02 }}
@@ -183,7 +179,7 @@ export default function About() {
                 variants={fadeUp}
                 whileHover={cardHover}
                 transition={defaultTransition}
-                className="group text-center p-8 rounded-2xl bg-slate-50 hover:bg-brand-red transition-colors duration-400 border border-slate-100 hover:border-brand-red"
+                className="group text-center p-6 sm:p-7 rounded-2xl bg-slate-50 hover:bg-brand-red transition-colors duration-400 border border-slate-100 hover:border-brand-red"
               >
                 <motion.div
                   whileHover={{ scale: 1.12, rotate: 5 }}
@@ -202,7 +198,7 @@ export default function About() {
       {/* WHY CHOOSE */}
       <section className="section-padding bg-slate-50">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
             <FadeIn direction="left">
               <SectionHeader
                 badge="Why Choose Us"
@@ -228,7 +224,7 @@ export default function About() {
                   </motion.li>
                 ))}
               </motion.ul>
-              <div className="mt-10">
+              <div className="mt-6">
                 <GradientButton to="/contact">
                   Start a Project <ArrowRight className="w-4 h-4" />
                 </GradientButton>

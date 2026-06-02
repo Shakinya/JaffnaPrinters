@@ -11,6 +11,7 @@ import GradientButton from '../components/ui/GradientButton';
 import FadeIn from '../components/ui/FadeIn';
 import CompatibleBrands from '../components/sections/CompatibleBrands';
 import { products, testimonials } from '../data/products';
+import { companyStats, companyInfo } from '../data/site';
 import {
   fadeUp,
   fadeLeft,
@@ -37,13 +38,6 @@ const serviceBar = [
   { icon: Award, title: 'Premium Quality', desc: 'ISO-certified production' },
   { icon: Globe, title: 'Import & Export', desc: 'Print machinery parts & tools' },
   { icon: Star, title: 'Customer Satisfaction', desc: '99% happy clients' },
-];
-
-const stats = [
-  { value: '15+', label: 'Years Experience' },
-  { value: '5,000+', label: 'Happy Clients' },
-  { value: '200+', label: 'Products' },
-  { value: '99%', label: 'Satisfaction Rate' },
 ];
 
 const b2bFeatures = [
@@ -276,7 +270,7 @@ export default function Home() {
             viewport={viewportOnce}
             className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6"
           >
-            {stats.map((s, i) => (
+            {companyStats.map((s, i) => (
               <motion.div
                 key={s.label}
                 variants={fadeUp}
@@ -295,7 +289,7 @@ export default function Home() {
       </section>
 
       {/* COMPANY INTRO */}
-      <section className="section-padding-home bg-white">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
             <FadeIn direction="left">
@@ -324,7 +318,7 @@ export default function Home() {
                 compact
               />
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-5">
-                For over 15 years, JaffnaPrinters has been the cornerstone of quality print production in Northern Sri Lanka.
+                For over {companyInfo.yearsExperienceLabel} years, JaffnaPrinters has been the cornerstone of quality print production in Northern Sri Lanka.
               </p>
               <GradientButton to="/about">
                 Learn Our Story <ArrowRight className="w-4 h-4" />
@@ -335,7 +329,7 @@ export default function Home() {
       </section>
 
       {/* B2B / B2C */}
-      <section className="section-padding-home bg-slate-50">
+      <section className="section-padding bg-slate-50">
         <div className="container-custom">
           <SectionHeader
             badge="Who We Serve"
@@ -424,7 +418,7 @@ export default function Home() {
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="section-padding-home bg-white">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeader
             badge="Why JaffnaPrinters"
@@ -461,7 +455,7 @@ export default function Home() {
       <CompatibleBrands compact />
 
       {/* FEATURED PRODUCTS */}
-      <section className="section-padding-home bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-padding bg-gradient-to-b from-slate-50 to-white">
         <div className="container-custom">
           <SectionHeader
             badge="Featured"
@@ -581,7 +575,7 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section-padding-home bg-white">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeader
             badge="Testimonials"
@@ -622,7 +616,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding-home bg-slate-50">
+      <section className="section-padding bg-slate-50">
         <div className="container-custom text-center">
           <motion.div
             variants={staggerContainer}
