@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronRight, Phone, Mail } from 'lucide-react';
+import { Menu, X, ChevronRight, Phone, Mail, ShoppingCart } from 'lucide-react';
+import { VscSparkleFilled } from "react-icons/vsc";
 import { companyInfo } from '../../data/site';
 import { socialLinks } from '../../data/socialLinks';
+import { useCart } from '../../context/CartContext';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -11,14 +13,39 @@ const navLinks = [
   { label: 'All Products', path: '/products' },
   { label: 'Gallery', path: '/gallery' },
   { label: 'Contact', path: '/contact' },
-  { label: 'PrintTech', path: '/printtech' },
+  { label: 'PrintTech', path: '/printtech', highlight: true },
 ];
+
+function NavLinkLabel({ label, highlight }: { label: string; highlight?: boolean }) {
+  if (!highlight) return <>{label}</>;
+
+  return (
+    <span className="inline-flex items-center gap-1">
+      {label}
+      <motion.span
+        animate={{
+          y: [-5, -3, -5],
+          scale: [1, 1.12, 1],
+          rotate: [0, 8, 0],
+        }}
+        transition={{
+          duration: 2.4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <VscSparkleFilled className="w-4 h-4 text-brand-red" />
+      </motion.span>
+    </span>
+  );
+}
 
 export default function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { totalItems, openCart } = useCart();
 
   useEffect(() => {
     const syncHeaderHeight = () => {
@@ -123,14 +150,28 @@ export default function Navbar() {
                     location.pathname === link.path ? 'nav-link-active' : ''
                   }`}
                 >
-                  {link.label}
+                  <NavLinkLabel label={link.label} highlight={'highlight' in link && link.highlight} />
                 </Link>
               ))}
             </nav>
 
+            <button
+              type="button"
+              onClick={openCart}
+              className="relative inline-flex items-center justify-center w-9 h-9 rounded-xl border border-slate-200 text-brand-charcoal hover:border-brand-red/40 hover:text-brand-red transition-colors"
+              aria-label={`Open cart${totalItems > 0 ? `, ${totalItems} items` : ''}`}
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[1.125rem] h-[1.125rem] px-1 rounded-full bg-brand-red text-white text-[10px] font-display font-bold flex items-center justify-center leading-none">
+                  {totalItems > 99 ? '99+' : totalItems}
+                </span>
+              )}
+            </button>
+
             <Link
               to="/contact"
-              className="hidden md:inline-flex btn-primary px-5 lg:px-6 py-2.5 text-sm rounded-btn whitespace-nowrap"
+              className="hidden md:inline-flex btn-primary px-5 lg:px-6 py-2.5 ml-2 text-sm rounded-btn whitespace-nowrap"
             >
               Get a Quote <ChevronRight className="w-4 h-4" />
             </Link>
@@ -166,9 +207,27 @@ export default function Navbar() {
                       : 'text-brand-charcoal/80 hover:bg-red-50/60 hover:text-red-800'
                   }`}
                 >
-                  {link.label}
+                  <NavLinkLabel label={link.label} highlight={'highlight' in link && link.highlight} />
                 </Link>
               ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  openCart();
+                }}
+                className="mt-2 flex items-center justify-between px-4 py-3 rounded-btn font-display font-medium text-base text-brand-charcoal/80 hover:bg-red-50/60 hover:text-red-800 transition-colors"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <ShoppingCart className="w-5 h-5" />
+                  Cart
+                </span>
+                {totalItems > 0 && (
+                  <span className="min-w-[1.25rem] h-5 px-1.5 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">
+                    {totalItems > 99 ? '99+' : totalItems}
+                  </span>
+                )}
+              </button>
               <Link
                 to="/contact"
                 className="mt-3 btn-primary py-3.5 text-base justify-center"

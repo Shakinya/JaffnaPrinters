@@ -76,6 +76,12 @@ export const companyInfo = {
     weekdays: 'Mon – Sat: 8:00 AM – 6:00 PM',
     sunday: 'Sunday: 9:00 AM – 1:00 PM',
   },
+
+  /** WhatsApp number for product orders from the All Products page */
+  orderWhatsApp: {
+    display: '+94 76 745 5474',
+    wa: '94767455474',
+  },
 } as const;
 
 export const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(

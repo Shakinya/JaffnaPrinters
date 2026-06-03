@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { pageTransition, defaultTransition } from './lib/motion';
+import { CartProvider } from './context/CartContext';
+import CartSidebar from './components/cart/CartSidebar';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
@@ -48,11 +50,14 @@ function AnimatedRoutes() {
 
 function Layout() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <AnimatedRoutes />
-      <Footer />
-    </div>
+    <CartProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <AnimatedRoutes />
+        <Footer />
+        <CartSidebar />
+      </div>
+    </CartProvider>
   );
 }
 
