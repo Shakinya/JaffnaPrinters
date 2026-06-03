@@ -43,7 +43,7 @@ export const productCatalog: ProductCategoryGroup[] = [
     name: 'Corporate Printing',
     subcategories: [
       'ID Cards', 'Business Cards', 'Letterheads', 'Certificates', 'Menus',
-      'Brochures', 'Book Covers',
+      'Brochures', 'Book Covers', 'Calendars',
     ],
   },
   {
@@ -91,6 +91,7 @@ const productImagesBySubcategory: Record<string, string> = {
   Menus: productImage('menu.jpg'),
   Brochures: productImage('brochures.jpg'),
   'Book Covers': productImage('book cover.jpg'),
+  Calendars: productImage('calendar.jpg'),
   // Events & Cards
   'Wedding Cards': productImage('Wedding Cards.jpg'),
   Invitations: productImage('Invitations.jpg'),
