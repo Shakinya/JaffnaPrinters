@@ -10,7 +10,6 @@ import {
 export const printTechInfo = {
   companyName: 'PrintTech Vision (Pvt) Ltd',
   shortName: 'PrintTech Vision',
-  tagline: 'Printing · Digital Media · IT Solutions · Import & Export',
   director: 'S. Ushanthan',
   phones: {
     office: { display: '+94 21 221 4949', tel: '+94212214949' },

@@ -210,6 +210,60 @@
       0 24px 48px -24px rgba(15, 23, 42, 0.06);
   }
 
+  @media (max-width: 639px) {
+    .hero-cinematic-stage {
+      aspect-ratio: auto;
+      max-height: none;
+      min-height: min(58vh, 520px);
+    }
+
+    .hero-cinematic-bg {
+      object-position: 72% center;
+    }
+
+    .hero-cinematic-overlay {
+      background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #ffffff 18%,
+        rgba(255, 255, 255, 0.97) 32%,
+        rgba(255, 255, 255, 0.9) 48%,
+        rgba(255, 255, 255, 0.55) 65%,
+        rgba(255, 255, 255, 0.15) 82%,
+        rgba(255, 255, 255, 0.04) 100%
+      );
+    }
+
+    .hero-cinematic-content {
+      @apply justify-start max-w-full;
+      padding-top: 1.25rem;
+      padding-bottom: 2.75rem;
+    }
+
+    .hero-value-props {
+      @apply justify-between w-full max-w-[18.5rem] gap-0.5;
+    }
+
+    .hero-value-prop {
+      @apply w-[4.25rem] gap-1.5;
+    }
+
+    .hero-value-prop-icon {
+      @apply w-9 h-9;
+    }
+
+    .hero-dock {
+      @apply px-3 py-3.5;
+    }
+
+    .hero-dock-grid .hero-dock-item:last-child {
+      grid-column: 1 / -1;
+      justify-content: center;
+      max-width: 14rem;
+      margin-inline: auto;
+    }
+  }
+
   .hero-cinematic-stage::after {
     content: '';
     @apply absolute bottom-0 left-0 right-0 h-20 sm:h-24 pointer-events-none z-[2];
@@ -433,6 +487,32 @@
   .printtech-hero {
     @apply relative overflow-hidden bg-brand-charcoal text-white;
     padding-top: var(--site-header-height);
+    min-height: min(72vh, 640px);
+  }
+
+  @media (max-width: 639px) {
+    .printtech-hero {
+      min-height: min(82vh, 720px);
+    }
+
+    .printtech-hero-bg {
+      object-position: center 28%;
+      filter: saturate(1.05) contrast(1.05) brightness(0.62);
+    }
+
+    .printtech-hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0.96) 0%,
+        rgba(26, 26, 26, 0.9) 42%,
+        rgba(26, 26, 26, 0.72) 62%,
+        rgba(26, 26, 26, 0.45) 100%
+      );
+    }
+
+    .printtech-hero-vignette {
+      background: linear-gradient(to top, rgba(26, 26, 26, 0.92) 0%, transparent 38%);
+    }
   }
 
   .printtech-hero-grid {
@@ -579,7 +659,21 @@
       hover:scale-[1.03] hover:shadow-[0_12px_40px_rgba(18,140,126,0.55),0_4px_12px_rgba(0,0,0,0.15)]
       active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2;
     background: linear-gradient(152deg, #2ee06a 0%, #25d366 42%, #128c7e 100%);
-    max-width: min(calc(10vw - 2rem), 17.5rem);
+  }
+
+  @media (max-width: 639px) {
+    .wa-float-anchor {
+      bottom: max(0.875rem, env(safe-area-inset-bottom, 0px));
+      right: max(0.75rem, env(safe-area-inset-right, 0px));
+    }
+
+    .wa-float-btn {
+      @apply p-0;
+    }
+
+    .wa-float-icon-wrap {
+      @apply w-[3.25rem] h-[3.25rem];
+    }
   }
 
   .wa-float-pulse {

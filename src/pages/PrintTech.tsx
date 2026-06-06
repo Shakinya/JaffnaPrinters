@@ -42,7 +42,7 @@ export default function PrintTech() {
   return (
     <div className="overflow-hidden bg-brand-charcoal">
       {/* HERO */}
-      <section className="printtech-hero min-h-[min(72vh,640px)] flex items-center">
+      <section className="printtech-hero flex items-center">
         <div className="printtech-hero-media" aria-hidden>
           <img
             src={pageHeroBackgrounds.printTech.src}

@@ -78,7 +78,7 @@ function HeroCopy() {
       >
         <span
           className="
-            text-[5rem]
+            text-[2.35rem]
             sm:text-[4rem]
             font-black
             uppercase
@@ -92,7 +92,7 @@ function HeroCopy() {
 
         <span
           className="
-            text-[5rem]
+            text-[2.35rem]
             sm:text-[4rem]
             font-black
             uppercase
@@ -219,7 +219,7 @@ export default function Home() {
           <ScrollIndicator />
         </motion.div>
 
-        <div className="container-custom relative z-20 -mt-8 sm:-mt-10 lg:-mt-9">
+        <div className="container-custom relative z-20 -mt-5 sm:-mt-10 lg:-mt-9">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -230,7 +230,7 @@ export default function Home() {
                 variants={staggerFast}
                 initial="hidden"
                 animate="show"
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-3 xl:gap-4"
+                className="hero-dock-grid grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-3 xl:gap-4"
               >
                 {serviceBar.map(({ icon: Icon, title, desc }, i) => (
                   <motion.div
