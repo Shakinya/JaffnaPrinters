@@ -9,6 +9,7 @@ import {
 
 export const printTechInfo = {
   companyName: 'PrintTech Vision (Pvt) Ltd',
+  shortName: 'PrintTech Vision',
   tagline: 'Printing · Digital Media · IT Solutions · Import & Export',
   director: 'S. Ushanthan',
   phones: {
@@ -36,8 +37,18 @@ export const printTechInfo = {
   },
 } as const;
 
+export const printTechHero = {
+  badge: 'Print Technology Partner',
+  description:
+    'End-to-end solutions across printing, digital advertising, IT infrastructure, CCTV, and international trade — backed by trusted brands and local expertise in Jaffna.',
+} as const;
+
 export const printTechMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   printTechInfo.addresses.office.full,
+)}`;
+
+export const printTechHomeMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  printTechInfo.addresses.home.full,
 )}`;
 
 export interface PrintTechService {
@@ -62,7 +73,7 @@ export const printTechServices: PrintTechService[] = [
   },
   {
     icon: Network,
-    title: 'Network & Hardware Solutions',
+    title: 'Network & Hardware',
     desc: 'Reliable networking, computers, and peripherals for offices and businesses of every size.',
     highlights: ['LAN & Wi-Fi setup', 'Servers & workstations', 'Peripherals & storage', 'IT consultation'],
   },
@@ -74,7 +85,7 @@ export const printTechServices: PrintTechService[] = [
   },
   {
     icon: Globe,
-    title: 'Import & Export Services',
+    title: 'Import & Export',
     desc: 'Global sourcing and logistics for print machinery parts, consumables, and technology equipment.',
     highlights: ['Genuine spare parts', 'International procurement', 'Customs & shipping', 'Island-wide delivery'],
   },
@@ -86,3 +97,29 @@ export const printTechHighlights = [
   { value: '5', label: 'Trusted Global Brands' },
   { value: '24h', label: 'Typical Quote Response' },
 ] as const;
+
+export const printTechWhyUs = [
+  'Genuine parts and supplies from authorized brand partners',
+  'Experienced technicians for installation and maintenance',
+  'Competitive pricing on import and local procurement',
+  'Personal attention from director-led customer care',
+] as const;
+
+export const printTechProcess = [
+  { step: '01', title: 'Consult', desc: 'Tell us your equipment, print, or IT requirements.' },
+  { step: '02', title: 'Quote', desc: 'Receive a clear quote — typically within 24 hours.' },
+  { step: '03', title: 'Deliver', desc: 'Supply, install, or ship with full documentation.' },
+  { step: '04', title: 'Support', desc: 'Ongoing maintenance and after-sales assistance.' },
+] as const;
+
+export const printTechBrandNote =
+  'Xerox · Ricoh · Epson · Toshiba · Canon — plus consumables, parts, and certified technical support.';
+
+export const printTechCta = {
+  title: 'Ready to upgrade your print & tech setup?',
+} as const;
+
+/** lg: 3-up then 2-up grid placement for five service cards */
+export function printTechServiceGridClass(index: number): string {
+  return index < 3 ? 'sm:col-span-1 lg:col-span-2' : 'sm:col-span-1 lg:col-span-3';
+}

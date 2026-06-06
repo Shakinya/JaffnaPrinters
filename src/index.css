@@ -35,6 +35,82 @@
     padding-top: var(--site-header-height);
   }
 
+  .page-hero--image {
+    @apply bg-slate-100;
+  }
+
+  .page-hero-media {
+    @apply absolute inset-0;
+  }
+
+  .page-hero-bg {
+    @apply absolute inset-0 w-full h-full object-cover object-center;
+    filter: saturate(1.04) contrast(1.03);
+  }
+
+  .page-hero-vignette {
+    @apply absolute inset-0 pointer-events-none z-[1];
+    background:
+      linear-gradient(105deg, rgba(255, 255, 255, 0.12) 0%, transparent 45%),
+      linear-gradient(to top, rgba(15, 23, 42, 0.08) 0%, transparent 35%);
+  }
+
+  .page-hero-overlay {
+    @apply absolute inset-0 z-[1];
+    /* Match home hero: readable copy on the left, photo visible on the right */
+    background: linear-gradient(
+      105deg,
+      #ffffff 0%,
+      #ffffff 22%,
+      rgba(255, 255, 255, 0.97) 30%,
+      rgba(255, 255, 255, 0.88) 38%,
+      rgba(255, 255, 255, 0.55) 48%,
+      rgba(255, 255, 255, 0.2) 58%,
+      rgba(255, 255, 255, 0.04) 68%,
+      transparent 85%
+    );
+  }
+
+  .page-hero--image::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-12 sm:h-16 pointer-events-none z-[2];
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, transparent 100%);
+  }
+
+  .page-hero-badge {
+    @apply bg-white/90 backdrop-blur-sm border border-white/80 shadow-[0_2px_12px_rgba(15,23,42,0.06)];
+  }
+
+  /* PrintTech hero — dark overlay on background image */
+  .printtech-hero-media {
+    @apply absolute inset-0;
+  }
+
+  .printtech-hero-bg {
+    @apply absolute inset-0 w-full h-full object-cover object-center;
+    filter: saturate(1.05) contrast(1.05) brightness(0.72);
+  }
+
+  .printtech-hero-overlay {
+    @apply absolute inset-0 z-[1];
+    background: linear-gradient(
+      105deg,
+      rgba(26, 26, 26, 0.94) 0%,
+      rgba(26, 26, 26, 0.9) 26%,
+      rgba(26, 26, 26, 0.68) 42%,
+      rgba(26, 26, 26, 0.38) 58%,
+      rgba(26, 26, 26, 0.18) 72%,
+      transparent 88%
+    );
+  }
+
+  .printtech-hero-vignette {
+    @apply absolute inset-0 z-[1] pointer-events-none;
+    background:
+      linear-gradient(to top, rgba(26, 26, 26, 0.92) 0%, transparent 32%),
+      linear-gradient(to right, transparent 62%, rgba(26, 26, 26, 0.22) 100%);
+  }
+
   .section-padding {
     @apply py-10 sm:py-12 lg:py-16;
   }
@@ -127,7 +203,7 @@
     @apply relative w-full overflow-hidden bg-gradient-to-br from-slate-50 to-white;
     margin-top: var(--site-header-height);
     aspect-ratio: 16 / 9;
-    max-height: min(85vh, 720px);
+    max-height: min(77vh, 720px);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.8) inset,
       0 8px 32px -8px rgba(15, 23, 42, 0.08),
@@ -137,7 +213,7 @@
   .hero-cinematic-stage::after {
     content: '';
     @apply absolute bottom-0 left-0 right-0 h-20 sm:h-24 pointer-events-none z-[2];
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.85) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.85) 4%, transparent 0%);
   }
 
   .hero-cinematic-media {
@@ -297,12 +373,12 @@
   }
 
   .hero-cta-primary {
-    @apply !px-5 !py-2.5 !text-sm gap-1.5 shadow-md;
+    @apply !px-3.5 !py-2.5 !text-sm gap-1.5 shadow-md;
   }
 
   .btn-hero-ghost {
     @apply inline-flex items-center justify-center gap-1.5 rounded-btn
-      px-5 py-2.5 text-sm border border-slate-200/90 bg-white/95
+      px-3 py-2.5 text-sm border border-slate-200/90 bg-white/95
       backdrop-blur-sm text-brand-charcoal font-display font-semibold
       shadow-[0_2px_10px_rgba(15,23,42,0.06)]
       hover:border-red-300 hover:bg-red-50/50 hover:text-red-900 hover:shadow-[0_4px_14px_rgba(239,68,68,0.12)]
@@ -329,12 +405,12 @@
   }
 
   .product-card {
-    @apply relative bg-white rounded-2xl overflow-hidden border border-slate-100
+    @apply relative bg-white rounded-2xl overflow-hidden border border-slate-100 
       hover:border-brand-red/25 hover:shadow-card transition-all duration-300;
   }
 
   .stat-card {
-    @apply relative text-center p-3 sm:p-4 rounded-xl overflow-hidden;
+    @apply relative text-center p-3 sm:p-3 rounded-xl overflow-hidden;
   }
 
   .home-card {
@@ -367,8 +443,37 @@
     mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
   }
 
+  .printtech-hero-badge {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-btn
+      bg-brand-red/15 border border-brand-red/30 text-brand-red-300
+      text-xs font-semibold font-display tracking-widest uppercase;
+  }
+
+  .printtech-hero-tagline {
+    @apply inline-block text-sm sm:text-base font-display font-semibold tracking-wide
+      text-brand-red-300/90 mb-3;
+  }
+
+  .printtech-stat-grid {
+    @apply grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 pt-8 border-t border-white/10;
+  }
+
+  .printtech-stat {
+    @apply rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur-sm
+      px-3 py-4 sm:px-4 sm:py-5 text-center sm:text-left transition-colors duration-300
+      hover:border-brand-red/25 hover:bg-white/[0.06];
+  }
+
+  .printtech-stat-value {
+    @apply font-display font-black text-2xl sm:text-3xl text-brand-red mb-1 leading-none;
+  }
+
+  .printtech-stat-label {
+    @apply text-slate-400 text-xs sm:text-sm leading-snug;
+  }
+
   .printtech-service-card {
-    @apply relative rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm
+    @apply relative h-full rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm
       p-6 sm:p-7 transition-all duration-300 overflow-hidden;
   }
 
@@ -388,8 +493,37 @@
   }
 
   .printtech-contact-card {
-    @apply rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6
-      hover:border-brand-red/30 transition-colors duration-300;
+    @apply rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-5 sm:p-6
+      hover:border-brand-red/30 transition-all duration-300;
+  }
+
+  .printtech-contact-card--director {
+    @apply printtech-contact-card border-brand-red/20 bg-gradient-to-br from-white/[0.06] to-white/[0.02];
+  }
+
+  .printtech-process-card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-5 sm:p-6
+      transition-all duration-300 hover:border-brand-red/30 hover:bg-white/[0.06];
+  }
+
+  .printtech-process-step {
+    @apply font-display font-black text-4xl text-brand-red/25 leading-none block mb-2;
+  }
+
+  .printtech-brand-tile {
+    @apply flex items-center justify-center w-full p-4 sm:p-5 rounded-2xl
+      bg-white/[0.03] border border-white/10
+      hover:border-brand-red/30 hover:bg-white/[0.05]
+      transition-all duration-300;
+  }
+
+  .printtech-brand-logo {
+    @apply h-12 sm:h-16 lg:h-[4.5rem] w-auto max-w-full object-contain opacity-90
+      group-hover:opacity-100 transition-opacity drop-shadow-sm;
+  }
+
+  .printtech-section-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent;
   }
 
 }
@@ -421,4 +555,150 @@
     @apply text-highlight;
   }
 
+  /* Floating WhatsApp — fixed bottom-right on every page */
+  .wa-float-anchor {
+    @apply fixed z-[70] pointer-events-none;
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    right: max(1rem, env(safe-area-inset-right, 0px));
+  }
+
+  @media (min-width: 640px) {
+    .wa-float-anchor {
+      bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+      right: max(1.5rem, env(safe-area-inset-right, 0px));
+    }
+  }
+
+  .wa-float-btn {
+    @apply pointer-events-auto relative inline-flex items-center gap-3
+      rounded-full pl-3 pr-4 py-2.5 sm:pl-1 sm:pr-1 sm:py-1
+      text-white font-display font-semibold
+      border border-white/25
+      shadow-[0_8px_32px_rgba(18,140,126,0.45),0_2px_8px_rgba(0,0,0,0.12)]
+      transition-all duration-300 ease-out
+      hover:scale-[1.03] hover:shadow-[0_12px_40px_rgba(18,140,126,0.55),0_4px_12px_rgba(0,0,0,0.15)]
+      active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2;
+    background: linear-gradient(152deg, #2ee06a 0%, #25d366 42%, #128c7e 100%);
+    max-width: min(calc(10vw - 2rem), 17.5rem);
+  }
+
+  .wa-float-pulse {
+    @apply absolute inset-0 rounded-full opacity-60;
+    background: inherit;
+    animation: wa-float-pulse 2.8s ease-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-float-pulse {
+      animation: none;
+      @apply hidden;
+    }
+
+    .wa-float-btn {
+      @apply hover:scale-100 active:scale-100;
+    }
+  }
+
+  .wa-float-icon-wrap {
+    @apply relative z-[1] flex shrink-0 items-center justify-center
+      w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/15 backdrop-blur-sm
+      ring-1 ring-white/30;
+  }
+
+  .wa-float-copy {
+    @apply relative z-[1] flex min-w-0 flex-col items-start leading-tight pr-0.5;
+  }
+
+  .wa-float-label {
+    @apply text-[10px] sm:text-xs font-bold uppercase tracking-[0.14em] text-white/90;
+  }
+
+  .wa-float-number {
+    @apply text-sm sm:text-[0.9375rem] font-bold text-white truncate max-w-[9.5rem] sm:max-w-none;
+    text-shadow: 100 10px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .scroll-indicator-bounce {
+    animation: scroll-indicator-bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-indicator-mouse {
+    @apply relative block w-[26px] h-[42px] rounded-full border-2 border-current;
+  }
+
+  .scroll-indicator-wheel {
+    @apply absolute left-1/2 top-2.5 w-1 h-2 rounded-full bg-current;
+    transform: translateX(-50%);
+    animation: scroll-indicator-wheel 1.8s ease-in-out infinite;
+  }
+
+  .scroll-indicator-arrow {
+    @apply opacity-100;
+    animation: scroll-indicator-arrow 1.8s ease-in-out infinite;
+  }
+
+  .scroll-indicator-arrow--2 {
+    animation-delay: 0.25s;
+  }
+
+  @keyframes scroll-indicator-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(8px);
+    }
+  }
+
+  @keyframes scroll-indicator-wheel {
+    0% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    45% {
+      transform: translateX(-50%) translateY(10px);
+      opacity: 0.25;
+    }
+    55% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scroll-indicator-arrow {
+    0% {
+      transform: translateY(0);
+      opacity: 0.25;
+    }
+    40% {
+      transform: translateY(4px);
+      opacity: 1;
+    }
+    80%,
+    100% {
+      transform: translateY(8px);
+      opacity: 0.15;
+    }
+  }
+
+  @keyframes wa-float-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1.55;
+    }
+    70% {
+      transform: scale(1.35);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.35);
+      opacity: 0;
+    }
+  }
 }
+

@@ -15,10 +15,18 @@ import FadeIn from '../components/ui/FadeIn';
 import { compatibleBrands } from '../data/brands';
 import {
   printTechInfo,
+  printTechHero,
   printTechServices,
   printTechHighlights,
+  printTechWhyUs,
+  printTechProcess,
+  printTechBrandNote,
+  printTechCta,
   printTechMapUrl,
+  printTechHomeMapUrl,
+  printTechServiceGridClass,
 } from '../data/printtech';
+import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 import {
   fadeUp,
   staggerContainer,
@@ -29,13 +37,25 @@ import {
 } from '../lib/motion';
 
 export default function PrintTech() {
-  const { companyName, director, phones, emails, addresses } = printTechInfo;
+  const { companyName, tagline, director, phones, emails, addresses } = printTechInfo;
 
   return (
     <div className="overflow-hidden bg-brand-charcoal">
       {/* HERO */}
       <section className="printtech-hero min-h-[min(72vh,640px)] flex items-center">
-        <div className="absolute inset-0 printtech-hero-grid pointer-events-none" aria-hidden />
+        <div className="printtech-hero-media" aria-hidden>
+          <img
+            src={pageHeroBackgrounds.printTech.src}
+            alt=""
+            className="printtech-hero-bg"
+            loading="eager"
+            decoding="async"
+          />
+          <div className="printtech-hero-overlay" />
+          <div className="printtech-hero-vignette" />
+        </div>
+        <span className="sr-only">{pageHeroBackgrounds.printTech.alt}</span>
+        <div className="absolute inset-0 printtech-hero-grid pointer-events-none z-[2]" aria-hidden />
         <motion.div
           className="absolute -top-24 -right-32 w-[28rem] h-[28rem] rounded-full bg-brand-red/20 blur-3xl pointer-events-none"
           animate={{ scale: [1, 1.08, 1], opacity: [0.35, 0.5, 0.35] }}
@@ -58,16 +78,24 @@ export default function PrintTech() {
             <motion.span
               variants={fadeUp}
               transition={defaultTransition}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-btn bg-brand-red/15 border border-brand-red/30 text-brand-red-300 text-xs font-semibold font-display tracking-widest uppercase mb-5"
+              className="printtech-hero-badge mb-5"
             >
               <Sparkles className="w-3.5 h-3.5" aria-hidden />
-              Print Technology Partner
+              {printTechHero.badge}
             </motion.span>
+
+            <motion.p
+              variants={fadeUp}
+              transition={{ ...defaultTransition, delay: 0.04 }}
+              className="printtech-hero-tagline"
+            >
+              {tagline}
+            </motion.p>
 
             <motion.h1
               variants={fadeUp}
               transition={{ ...defaultTransition, delay: 0.06 }}
-              className="font-display font-bold text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-5xl leading-[1.1] mb-4"
+              className="font-display font-bold text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-5xl leading-[1.08] mb-4"
             >
               <span className="text-white">{companyName}</span>
             </motion.h1>
@@ -77,8 +105,7 @@ export default function PrintTech() {
               transition={{ ...defaultTransition, delay: 0.12 }}
               className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl mb-8"
             >
-              End-to-end solutions across printing, digital advertising, IT infrastructure,
-              CCTV, and international trade — backed by trusted brands and local expertise in Jaffna.
+              {printTechHero.description}
             </motion.p>
 
             <motion.div
@@ -91,13 +118,13 @@ export default function PrintTech() {
                 Call {phones.mobile[0].display}
               </GradientButton>
               <GradientButton
-                href={`mailto:${emails.office}`}
+                href="#contact"
                 variant="outline"
                 size="lg"
                 className="!border-white/25 !text-white !bg-white/5 hover:!bg-white/10 hover:!border-brand-red/40 hover:!text-white"
               >
                 <Mail className="w-5 h-5 shrink-0" />
-                Email Us
+                Contact Details
               </GradientButton>
             </motion.div>
           </motion.div>
@@ -106,18 +133,12 @@ export default function PrintTech() {
             variants={staggerFast}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 sm:mt-16 pt-8 border-t border-white/10"
+            className="printtech-stat-grid"
           >
             {printTechHighlights.map(({ value, label }) => (
-              <motion.div
-                key={label}
-                variants={fadeUp}
-                className="text-center sm:text-left px-2 sm:px-0"
-              >
-                <div className="font-display font-black text-2xl sm:text-3xl text-brand-red mb-1">
-                  {value}
-                </div>
-                <div className="text-slate-400 text-xs sm:text-sm leading-snug">{label}</div>
+              <motion.div key={label} variants={fadeUp} className="printtech-stat">
+                <div className="printtech-stat-value">{value}</div>
+                <div className="printtech-stat-label">{label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -140,23 +161,21 @@ export default function PrintTech() {
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
+            className="grid sm:grid-cols-2 lg:grid-cols-6 gap-5 sm:gap-6"
           >
-            {printTechServices.map(({ icon: Icon, title, desc, highlights }) => (
+            {printTechServices.map(({ icon: Icon, title, desc, highlights }, index) => (
               <motion.article
                 key={title}
                 variants={fadeUp}
                 whileHover={cardHover}
                 transition={defaultTransition}
-                className={`printtech-service-card group ${
-                  title === 'Import & Export Services' ? 'sm:col-span-2 lg:col-span-1' : ''
-                }`}
+                className={`printtech-service-card group ${printTechServiceGridClass(index)}`}
               >
                 <div className="flex items-start gap-4 mb-5">
                   <div className="icon-circle w-14 h-14 shrink-0 group-hover:scale-105 transition-transform duration-300">
                     <Icon className="w-7 h-7 text-white" aria-hidden />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="font-display font-bold text-white text-xl mb-2">{title}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
                   </div>
@@ -194,20 +213,20 @@ export default function PrintTech() {
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 items-center justify-items-center"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 items-stretch"
           >
             {compatibleBrands.map((brand) => (
               <motion.div
                 key={brand.id}
                 variants={fadeUp}
-                whileHover={{ scale: 1.06, y: -4 }}
+                whileHover={{ scale: 1.04, y: -3 }}
                 transition={defaultTransition}
-                className="flex items-center justify-center w-full p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-brand-red/30 transition-colors duration-300"
+                className="printtech-brand-tile group"
               >
                 <img
                   src={brand.logo}
                   alt={`${brand.name} — authorized partner`}
-                  className="h-12 sm:h-16 lg:h-20 w-auto max-w-full object-contain opacity-95 hover:opacity-100 transition-opacity drop-shadow-sm"
+                  className="printtech-brand-logo"
                   loading="lazy"
                 />
               </motion.div>
@@ -220,7 +239,7 @@ export default function PrintTech() {
             viewport={{ once: true }}
             className="text-center text-slate-400 text-sm mt-8 max-w-2xl mx-auto leading-relaxed"
           >
-            Xerox · Ricoh · Epson · Toshiba · Canon — plus consumables, parts, and certified technical support.
+            {printTechBrandNote}
           </motion.p>
         </div>
       </section>
@@ -228,7 +247,7 @@ export default function PrintTech() {
       {/* WHY US */}
       <section className="section-padding bg-slate-950">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <FadeIn>
               <SectionHeader
                 badge="Why PrintTech"
@@ -238,13 +257,8 @@ export default function PrintTech() {
                 light
                 centered={false}
               />
-              <ul className="space-y-4">
-                {[
-                  'Genuine parts and supplies from authorized brand partners',
-                  'Experienced technicians for installation and maintenance',
-                  'Competitive pricing on import and local procurement',
-                  'Personal attention from director-led customer care',
-                ].map((point) => (
+              <ul className="space-y-3.5">
+                {printTechWhyUs.map((point) => (
                   <li key={point} className="flex items-start gap-3 text-slate-300 text-sm sm:text-base">
                     <CheckCircle className="w-5 h-5 text-brand-red shrink-0 mt-0.5" aria-hidden />
                     {point}
@@ -260,22 +274,15 @@ export default function PrintTech() {
               variants={staggerFast}
               className="grid sm:grid-cols-2 gap-4"
             >
-              {[
-                { step: '01', title: 'Consult', desc: 'Tell us your equipment, print, or IT requirements.' },
-                { step: '02', title: 'Quote', desc: 'Receive a clear quote — typically within 24 hours.' },
-                { step: '03', title: 'Deliver', desc: 'Supply, install, or ship with full documentation.' },
-                { step: '04', title: 'Support', desc: 'Ongoing maintenance and after-sales assistance.' },
-              ].map((item, i) => (
+              {printTechProcess.map((item, i) => (
                 <motion.div
                   key={item.step}
                   variants={fadeUp}
                   custom={i}
                   whileHover={cardHover}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6"
+                  className="printtech-process-card"
                 >
-                  <span className="font-display font-black text-4xl text-brand-red/25 leading-none block mb-2">
-                    {item.step}
-                  </span>
+                  <span className="printtech-process-step">{item.step}</span>
                   <h3 className="font-display font-bold text-white text-lg mb-1.5">{item.title}</h3>
                   <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                 </motion.div>
@@ -302,16 +309,22 @@ export default function PrintTech() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewportOnce}
               transition={defaultTransition}
-              className="printtech-contact-card lg:col-span-1"
+              className="printtech-contact-card printtech-contact-card--director lg:col-span-1"
             >
               <div className="icon-circle w-12 h-12 mb-4">
                 <User className="w-6 h-6 text-white" aria-hidden />
               </div>
               <h3 className="font-display font-bold text-white text-lg mb-1">Director</h3>
               <p className="text-slate-200 font-semibold mb-4">{director}</p>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p className="text-slate-400 text-sm leading-relaxed mb-5">
                 Your primary contact for business enquiries and strategic support.
               </p>
+              <a
+                href={`mailto:${emails.home}`}
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-red hover:text-brand-red-300 transition-colors"
+              >
+                Email director <ArrowRight className="w-3.5 h-3.5" aria-hidden />
+              </a>
             </motion.div>
 
             <motion.div
@@ -326,7 +339,7 @@ export default function PrintTech() {
                   <h3 className="font-display font-semibold text-brand-red text-xs uppercase tracking-wider mb-3">
                     Phone
                   </h3>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="space-y-2.5 text-sm">
                     <li>
                       <span className="text-slate-500 block text-xs mb-0.5">Office</span>
                       <a
@@ -354,7 +367,7 @@ export default function PrintTech() {
                   <h3 className="font-display font-semibold text-brand-red text-xs uppercase tracking-wider mb-3">
                     Email
                   </h3>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="space-y-2.5 text-sm">
                     <li>
                       <span className="text-slate-500 block text-xs mb-0.5">Office</span>
                       <a
@@ -365,7 +378,7 @@ export default function PrintTech() {
                       </a>
                     </li>
                     <li>
-                      <span className="text-slate-500 block text-xs mb-0.5">Home</span>
+                      <span className="text-slate-500 block text-xs mb-0.5">Personal</span>
                       <a
                         href={`mailto:${emails.home}`}
                         className="text-white font-medium hover:text-brand-red-300 transition-colors break-all"
@@ -377,7 +390,9 @@ export default function PrintTech() {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-5 pt-2 border-t border-white/10">
+              <div className="printtech-section-divider" />
+
+              <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <h3 className="font-display font-semibold text-brand-red text-xs uppercase tracking-wider mb-3 flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5" aria-hidden />
@@ -411,6 +426,14 @@ export default function PrintTech() {
                       </span>
                     ))}
                   </p>
+                  <a
+                    href={printTechHomeMapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-brand-red hover:text-brand-red-300 transition-colors"
+                  >
+                    Get directions <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -425,7 +448,7 @@ export default function PrintTech() {
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8">
               <div className="max-w-xl">
                 <h2 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
-                  Ready to upgrade your print &amp; tech setup?
+                  {printTechCta.title}
                 </h2>
                 <p className="text-white/95 text-base sm:text-lg leading-relaxed">
                   Speak with {director} or our office team for a fast, no-obligation quote on equipment,

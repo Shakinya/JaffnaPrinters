@@ -6,6 +6,17 @@ export function buildWhatsAppOrderUrl(message: string): string {
   return `https://wa.me/${companyInfo.orderWhatsApp.wa}?text=${encodeURIComponent(message)}`;
 }
 
+const generalChatMessage = [
+  'Hi Jaffna Printers,',
+  '',
+  'I would like to enquire about your printing services.',
+].join('\n');
+
+/** Site-wide floating button — opens WhatsApp with the business number */
+export function buildWhatsAppChatUrl(message = generalChatMessage): string {
+  return buildWhatsAppOrderUrl(message);
+}
+
 export function buildProductOrderMessage(product: Product, quantity = 1): string {
   return [
     'Hi Jaffna Printers,',

@@ -16,6 +16,7 @@ import { WhatsAppIcon } from '../components/icons/WhatsAppIcon';
 import { useCart } from '../context/CartContext';
 import { products, productCategories, type Product } from '../data/products';
 import { getProductWhatsAppUrl } from '../lib/whatsapp';
+import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 import { cardHover, defaultTransition } from '../lib/motion';
 
 interface ProductActionButtonProps {
@@ -295,6 +296,8 @@ export default function Products() {
           </>
         }
         description="Browse by category — promotional items, corporate print, events, signage, awards, and more."
+        backgroundImage={pageHeroBackgrounds.products.src}
+        backgroundAlt={pageHeroBackgrounds.products.alt}
       />
 
       <section className="section-padding bg-slate-50">

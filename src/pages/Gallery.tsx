@@ -7,6 +7,7 @@ import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
 import { galleryItems, galleryCategories } from '../data/gallery';
 import { fadeUp, staggerContainer, defaultTransition, cardHover } from '../lib/motion';
+import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -36,6 +37,8 @@ export default function Gallery() {
           </>
         }
         description="Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
+        backgroundImage={pageHeroBackgrounds.gallery.src}
+        backgroundAlt={pageHeroBackgrounds.gallery.alt}
       />
 
       <section className="section-padding bg-white">

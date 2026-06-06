@@ -9,6 +9,7 @@ import type { LucideIcon } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
 import FadeIn from '../components/ui/FadeIn';
+import ScrollIndicator from '../components/ui/ScrollIndicator';
 import CompatibleBrands from '../components/sections/CompatibleBrands';
 import { products, testimonials } from '../data/products';
 import { companyStats, companyInfo } from '../data/site';
@@ -114,7 +115,7 @@ function HeroCopy() {
       <motion.div
         variants={fadeLeft}
         transition={{ ...defaultTransition, delay: 0.05 }}
-        className="text-brand-charcoal text-[15px] sm:text-[15px] leading-snug mb-5 max-w-sm"
+        className="text-brand-charcoal text-[15px] sm:text-[16px] leading-snug mb-5 max-w-sm"
       >
         <p className="font-semibold">Premium Printing Solutions for</p>
         <p className="font-bold">Businesses &amp; Individuals</p>
@@ -194,7 +195,7 @@ export default function Home() {
         >
           <div className="hero-cinematic-media">
             <img
-              src="/hero1.png"
+              src="/hero4.png"
               alt="JaffnaPrinters product showcase — bags, apparel, business cards, packaging, mugs, and print materials"
               className="hero-cinematic-bg"
               loading="eager"
@@ -214,9 +215,11 @@ export default function Home() {
           >
             <HeroCopy />
           </motion.div>
+
+          <ScrollIndicator />
         </motion.div>
 
-        <div className="container-custom relative z-20 -mt-8 sm:-mt-10 lg:-mt-10">
+        <div className="container-custom relative z-20 -mt-8 sm:-mt-10 lg:-mt-9">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

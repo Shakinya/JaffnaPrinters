@@ -6,6 +6,7 @@ import { CartProvider } from './context/CartContext';
 import CartSidebar from './components/cart/CartSidebar';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import WhatsAppFloat from './components/layout/WhatsAppFloat';
 import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
@@ -56,6 +57,7 @@ function Layout() {
         <AnimatedRoutes />
         <Footer />
         <CartSidebar />
+        <WhatsAppFloat />
       </div>
     </CartProvider>
   );

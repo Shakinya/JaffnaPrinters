@@ -10,6 +10,7 @@ import { fadeUp, staggerFast, defaultTransition } from '../lib/motion';
 import { companyInfo, mapDirectionsUrl, mapEmbedUrl } from '../data/site';
 import { socialLinks } from '../data/socialLinks';
 import { allProductServiceOptions } from '../data/products';
+import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 
 const contactDetails = [
   {
@@ -86,6 +87,8 @@ export default function Contact() {
           </>
         }
         description="Reach out for a free quote, design consultation, or any enquiry. Our team responds within 24 hours."
+        backgroundImage={pageHeroBackgrounds.contact.src}
+        backgroundAlt={pageHeroBackgrounds.contact.alt}
       />
 
       {/* Quick contact cards */}

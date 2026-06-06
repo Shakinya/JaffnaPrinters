@@ -6,6 +6,7 @@ import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
 import { fadeUp, staggerContainer, staggerFast, cardHover, defaultTransition } from '../lib/motion';
 import { companyInfo, companyJourney, aboutJourneySubtitle } from '../data/site';
+import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 
 const values = [
   {
@@ -43,6 +44,8 @@ export default function About() {
           </>
         }
         description="From a single press in Jaffna to Sri Lanka's most trusted full-service print house."
+        backgroundImage={pageHeroBackgrounds.about.src}
+        backgroundAlt={pageHeroBackgrounds.about.alt}
       />
 
       {/* MISSION & VISION */}
