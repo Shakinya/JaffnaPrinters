@@ -285,7 +285,7 @@ export default function Products() {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden mt-5">
       <PageHero
         badge="Print Products"
         minHeight="md"
@@ -295,7 +295,10 @@ export default function Products() {
             <span className="text-gradient">to Print & Brand</span>
           </>
         }
-        description="Browse by category — promotional items, corporate print, events, signage, awards, and more."
+        description= {
+          <span className="text-zinc-200">"Browse by category — promotional items, corporate print, events, signage, awards, and more."
+          </span>
+        }
         backgroundImage={pageHeroBackgrounds.products.src}
         backgroundAlt={pageHeroBackgrounds.products.alt}
       />

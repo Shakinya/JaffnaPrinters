@@ -34,7 +34,7 @@ const reasons = [
 
 export default function About() {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden mt-5">
       <PageHero
         badge="About Us"
         title={
@@ -43,7 +43,10 @@ export default function About() {
             <span className="text-gradient">Passion for Print</span>
           </>
         }
-        description="From a single press in Jaffna to Sri Lanka's most trusted full-service print house."
+        description={
+          <span className="text-zinc-200">"From a single press in Jaffna to Sri Lanka's most trusted full-service print house." 
+        </span>
+        }
         backgroundImage={pageHeroBackgrounds.about.src}
         backgroundAlt={pageHeroBackgrounds.about.alt}
       />

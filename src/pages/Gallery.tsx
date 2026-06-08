@@ -26,7 +26,7 @@ export default function Gallery() {
     : null;
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden mt-5">
       <PageHero
         badge="Our Work"
         minHeight="sm"
@@ -36,7 +36,11 @@ export default function Gallery() {
             <span className="text-highlight">Gallery</span>
           </>
         }
-        description="Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
+        description=
+        {
+            <span className="text-zinc-200">"Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
+            </span>
+        }
         backgroundImage={pageHeroBackgrounds.gallery.src}
         backgroundAlt={pageHeroBackgrounds.gallery.alt}
       />

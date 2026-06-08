@@ -44,15 +44,17 @@
   }
 
   .page-hero-bg {
-    @apply absolute inset-0 w-full h-full object-cover object-center;
-    filter: saturate(1.04) contrast(1.03);
+    @apply absolute object-cover object-center;
+    width: 100%;
+    height: 153%;
+    filter: saturate(1.0) contrast(1.0);
   }
 
   .page-hero-vignette {
     @apply absolute inset-0 pointer-events-none z-[1];
     background:
-      linear-gradient(105deg, rgba(255, 255, 255, 0.12) 0%, transparent 45%),
-      linear-gradient(to top, rgba(15, 23, 42, 0.08) 0%, transparent 35%);
+      linear-gradient(105deg, rgba(255, 255, 255, 0.25) 21%),
+      linear-gradient(to top, rgba(15, 23, 40, 0.3) 17%);
   }
 
   .page-hero-overlay {
@@ -62,12 +64,11 @@
       105deg,
       #ffffff 0%,
       #ffffff 22%,
-      rgba(255, 255, 255, 0.97) 30%,
-      rgba(255, 255, 255, 0.88) 38%,
-      rgba(255, 255, 255, 0.55) 48%,
-      rgba(255, 255, 255, 0.2) 58%,
-      rgba(255, 255, 255, 0.04) 68%,
-      transparent 85%
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(255, 255, 255, 0.88) 8%,
+      rgba(255, 255, 255, 0.55) 8%,
+      rgba(255, 255, 255, 0.3) 8%,
+      rgba(255, 255, 255, 0.4) 6%,
     );
   }
 
@@ -95,10 +96,10 @@
     @apply absolute inset-0 z-[1];
     background: linear-gradient(
       105deg,
-      rgba(26, 26, 26, 0.94) 0%,
-      rgba(26, 26, 26, 0.9) 26%,
-      rgba(26, 26, 26, 0.68) 42%,
-      rgba(26, 26, 26, 0.38) 58%,
+      rgba(26, 26, 26, 0.42) 42%,
+      rgba(26, 26, 26, 0.5) 52%,
+      rgba(26, 26, 26, 0.4) 3%,
+      rgba(26, 26, 26, 0.38) 38%,
       rgba(26, 26, 26, 0.18) 72%,
       transparent 88%
     );
@@ -490,7 +491,7 @@
     min-height: min(72vh, 640px);
   }
 
-  @media (max-width: 639px) {
+  @media (max-width: 63px) {
     .printtech-hero {
       min-height: min(82vh, 720px);
     }

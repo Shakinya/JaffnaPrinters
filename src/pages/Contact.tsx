@@ -76,7 +76,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden mt-5">
       <PageHero
         badge="Contact Us"
         minHeight="sm"
@@ -86,7 +86,11 @@ export default function Contact() {
             <span className="text-gradient">Print Project</span>
           </>
         }
-        description="Reach out for a free quote, design consultation, or any enquiry. Our team responds within 24 hours."
+        description=
+        {
+          <span className="text-zinc-200">"Reach out for a free quote, design consultation, or any enquiry. Our team responds within 24 hours."
+          </span>
+        }  
         backgroundImage={pageHeroBackgrounds.contact.src}
         backgroundAlt={pageHeroBackgrounds.contact.alt}
       />
@@ -205,7 +209,7 @@ export default function Contact() {
                             required
                             value={form.name}
                             onChange={handleChange}
-                            placeholder="Your name"
+                            placeholder="Champ"
                             className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all"
                           />
                         </div>
@@ -217,7 +221,7 @@ export default function Contact() {
                             required
                             value={form.email}
                             onChange={handleChange}
-                            placeholder="you@example.com"
+                            placeholder="champlanka10@gmail.com"
                             className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all"
                           />
                         </div>
@@ -230,7 +234,7 @@ export default function Contact() {
                             name="phone"
                             value={form.phone}
                             onChange={handleChange}
-                            placeholder="+94 77 123 4567"
+                            placeholder="+94 76 535 1012"
                             className="w-full px-4 py-3 rounded-xl border border-slate-200 text-brand-charcoal text-sm placeholder-slate-400 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 transition-all"
                           />
                         </div>
