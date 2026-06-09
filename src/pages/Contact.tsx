@@ -88,7 +88,7 @@ export default function Contact() {
         }
         description=
         {
-          <span className="text-zinc-200">"Reach out for a free quote, design consultation, or any enquiry. Our team responds within 24 hours."
+          <span className="text-slate-100">"Reach out for a free quote, design consultation, or any enquiry. Our team responds within 24 hours."
           </span>
         }  
         backgroundImage={pageHeroBackgrounds.contact.src}

@@ -13,6 +13,7 @@ import gallery12 from '../gallery/gallery12.jpg';
 import gallery13 from '../gallery/gallery13.jpg';
 import gallery14 from '../gallery/gallery14.jpg';
 import gallery15 from '../gallery/gallery15.jpg';
+import gallery16 from '../gallery/gallery16.jpg';
 
 export interface GalleryItem {
   id: string;
@@ -122,5 +123,11 @@ export const galleryItems: GalleryItem[] = [
     title: 'Custom Print Showcase',
     category: 'Promotional',
     image: gallery15,
+  },
+  {
+    id: 'corporate-branded-merchandise',
+    title: 'Corporate Branded Merchandise',
+    category: 'Corporate',
+    image: gallery16,
   },
 ];

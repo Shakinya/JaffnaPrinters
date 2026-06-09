@@ -53,8 +53,8 @@
   .page-hero-vignette {
     @apply absolute inset-0 pointer-events-none z-[1];
     background:
-      linear-gradient(105deg, rgba(255, 255, 255, 0.24) 21%),
-      linear-gradient(to top, rgba(15, 23, 40, 0.3) 17%);
+      linear-gradient(105deg, rgba(255, 255, 255, 0.22) 21%),
+      linear-gradient(to top, rgba(4, 4, 5, 0.4) 17%);
   }
 
   .page-hero-overlay {
@@ -238,6 +238,7 @@
   }
 
   @media (max-width: 639px) {
+    /* Home hero */
     .hero-cinematic-stage {
       aspect-ratio: auto;
       max-height: none;
@@ -245,20 +246,75 @@
     }
 
     .hero-cinematic-bg {
-      object-position: 72% center;
+      object-position: 66% 38%;
+      filter: saturate(1.02) contrast(1.03) brightness(0.98);
     }
 
     .hero-cinematic-overlay {
       background: linear-gradient(
         to bottom,
         #ffffff 0%,
-        #ffffff 18%,
-        rgba(255, 255, 255, 0.97) 32%,
-        rgba(255, 255, 255, 0.9) 48%,
-        rgba(255, 255, 255, 0.55) 65%,
-        rgba(255, 255, 255, 0.15) 82%,
-        rgba(255, 255, 255, 0.04) 100%
+        #ffffff 20%,
+        rgba(255, 255, 255, 0.97) 34%,
+        rgba(255, 255, 255, 0.92) 50%,
+        rgba(255, 255, 255, 0.6) 68%,
+        rgba(255, 255, 255, 0.2) 84%,
+        rgba(255, 255, 255, 0.05) 100%
       );
+    }
+
+    .hero-cinematic-vignette {
+      background:
+        linear-gradient(to top, rgba(15, 23, 40, 0.08) 0%, transparent 28%),
+        linear-gradient(105deg, rgba(255, 255, 255, 0.12) 0%, transparent 38%);
+    }
+
+    /* Inner page heroes — about, products, gallery, contact */
+    .page-hero-bg {
+      height: 148%;
+      top: -6%;
+      object-position: 72% 32%;
+    }
+
+    .page-hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.72) 30%,
+        rgba(255, 255, 255, 0.94) 52%,
+        #ffffff 70%
+      );
+    }
+
+    .page-hero-vignette {
+      background: linear-gradient(to top, rgba(15, 23, 40, 0.14) 0%, transparent 32%);
+    }
+
+    .page-hero--image::after {
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.92) 0%, transparent 100%);
+    }
+
+    /* Products CTA background */
+    .product-cta-bg {
+      object-position: center 38%;
+      filter: saturate(0.88) contrast(1.06) brightness(0.46);
+    }
+
+    .product-cta-media::after {
+      content: '';
+      @apply absolute inset-0 z-[1] pointer-events-none;
+      background: linear-gradient(
+        to bottom,
+        rgba(127, 29, 29, 0.82) 0%,
+        rgba(153, 27, 27, 0.78) 45%,
+        rgba(127, 29, 29, 0.72) 100%
+      );
+    }
+
+    .product-cta-vignette {
+      background:
+        linear-gradient(to top, rgba(40, 6, 6, 0.5) 0%, transparent 40%),
+        radial-gradient(ellipse 95% 85% at 50% 55%, rgba(30, 5, 5, 0.35), transparent 58%);
     }
 
     .hero-cinematic-content {
@@ -523,22 +579,24 @@
     }
 
     .printtech-hero-bg {
-      object-position: center 32%;
-      filter: saturate(1.05) contrast(1.05) brightness(0.55);
+      object-position: 62% 28%;
+      filter: saturate(1.05) contrast(1.06) brightness(0.52);
     }
 
     .printtech-hero-overlay {
       background: linear-gradient(
         to bottom,
-        rgba(26, 26, 26, 0.92) 0%,
-        rgba(26, 26, 26, 0.82) 38%,
-        rgba(26, 26, 26, 0.62) 68%,
-        rgba(26, 26, 26, 0.45) 100%
+        rgba(26, 26, 26, 0.94) 0%,
+        rgba(26, 26, 26, 0.86) 34%,
+        rgba(26, 26, 26, 0.68) 62%,
+        rgba(26, 26, 26, 0.48) 100%
       );
     }
 
     .printtech-hero-vignette {
-      background: linear-gradient(to top, rgba(26, 26, 26, 0.85) 0%, transparent 36%);
+      background:
+        linear-gradient(to top, rgba(26, 26, 26, 0.88) 0%, transparent 38%),
+        linear-gradient(to bottom, rgba(26, 26, 26, 0.25) 0%, transparent 22%);
     }
   }
 
@@ -804,17 +862,24 @@
 
   @media (max-width: 639px) {
     .printtech-cta-bg {
-      object-position: 75% center;
-      filter: saturate(0.95) contrast(1.05) brightness(0.42);
+      object-position: 68% 42%;
+      filter: saturate(0.92) contrast(1.06) brightness(0.4);
     }
 
     .printtech-cta-overlay {
       background: linear-gradient(
         to bottom,
-        rgba(26, 26, 26, 0.94) 0%,
-        rgba(26, 26, 26, 0.82) 45%,
-        rgba(127, 29, 29, 0.65) 100%
+        rgba(26, 26, 26, 0.96) 0%,
+        rgba(26, 26, 26, 0.88) 38%,
+        rgba(127, 29, 29, 0.72) 72%,
+        rgba(153, 27, 27, 0.58) 100%
       );
+    }
+
+    .printtech-cta-vignette {
+      background:
+        linear-gradient(to top, rgba(26, 26, 26, 0.55) 0%, transparent 36%),
+        radial-gradient(ellipse 100% 90% at 50% 100%, rgba(30, 5, 5, 0.4), transparent 52%);
     }
   }
 

@@ -44,7 +44,7 @@ export default function About() {
           </>
         }
         description={
-          <span className="text-zinc-200">"From a single press in Jaffna to Sri Lanka's most trusted full-service print house." 
+          <span className="text-slate-100">"From a single press in Jaffna to Sri Lanka's most trusted full-service print house." 
         </span>
         }
         backgroundImage={pageHeroBackgrounds.about.src}

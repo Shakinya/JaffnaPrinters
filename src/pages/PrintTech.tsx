@@ -223,7 +223,7 @@ export default function PrintTech() {
       </section>
 
       {/* TRUSTED BRANDS */}
-      <section className="section-padding bg-brand-charcoal border-y border-white/5">
+      <section className="section-padding bg-slate-950 border-y border-white/5">
         <div className="container-custom">
           <SectionHeader
             badge="Trusted Brands"
@@ -346,7 +346,7 @@ export default function PrintTech() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section-padding bg-brand-charcoal border-t border-white/5">
+      <section id="contact" className="section-padding bg-slate-950 border-t border-white/5">
         <div className="container-custom">
           <SectionHeader
             badge="Get In Touch"
@@ -504,7 +504,7 @@ export default function PrintTech() {
             loading="lazy"
             decoding="async"
           />
-          <div className="printtech-cta-overlay" />
+         
           <div className="printtech-cta-vignette" />
         </div>
         <FadeIn className="container-custom relative z-10">

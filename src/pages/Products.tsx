@@ -296,7 +296,7 @@ export default function Products() {
           </>
         }
         description= {
-          <span className="text-zinc-200">"Browse by category — promotional items, corporate print, events, signage, awards, and more."
+          <span className="text-slate-100">"Browse by category — promotional items, corporate print, events, signage, awards, and more."
           </span>
         }
         backgroundImage={pageHeroBackgrounds.products.src}

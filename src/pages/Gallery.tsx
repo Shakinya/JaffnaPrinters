@@ -126,7 +126,10 @@ export default function Gallery() {
             <span className="text-highlight">Gallery</span>
           </>
         }
-        description="Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
+        description= {
+          <span className="text-slate-100">"Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
+          </span>
+        }  
         backgroundImage={pageHeroBackgrounds.gallery.src}
         backgroundAlt={pageHeroBackgrounds.gallery.alt}
       />
@@ -179,28 +182,6 @@ export default function Gallery() {
           {filtered.length === 0 && (
             <p className="text-center text-slate-500 py-12">No items in this category yet.</p>
           )}
-        </div>
-      </section>
-
-      <section className="section-padding bg-slate-50 border-t border-slate-100">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
-            transition={defaultTransition}
-            className="gallery-cta-panel"
-          >
-            <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl mb-3">
-              Want something like this?
-            </h2>
-            <p className="text-slate-600 mb-6 leading-relaxed text-sm sm:text-base">
-              Share your idea or reference image — we&apos;ll quote materials, finishes, and delivery for your project.
-            </p>
-            <GradientButton to="/contact" size="lg">
-              Request a Quote
-            </GradientButton>
-          </motion.div>
         </div>
       </section>
 
