@@ -33,26 +33,37 @@ export default function CompatibleBrands({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-40px' }}
-          className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 items-center justify-items-center ${
-            compact ? 'gap-5 sm:gap-7 lg:gap-8' : 'gap-6 sm:gap-8 lg:gap-10'
+          className={`grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 max-w-4xl mx-auto ${
+            compact ? 'lg:max-w-3xl' : 'lg:max-w-5xl'
           }`}
         >
           {compatibleBrands.map((brand) => (
             <motion.div
               key={brand.id}
               variants={fadeUp}
-              whileHover={{ scale: 1.06, y: -4 }}
+              whileHover={{ y: -3 }}
               transition={defaultTransition}
-              className="flex items-center justify-center w-full px-2"
+              className="w-full"
             >
-              <img
-                src={brand.logo}
-                alt={`${brand.name} — compatible print brand`}
-                className={`w-auto max-w-full object-contain transition-opacity duration-300 hover:opacity-90 ${
-                  compact ? 'h-12 sm:h-16 lg:h-24' : 'h-14 sm:h-[4.5rem] lg:h-28'
-                }`}
-                loading="lazy"
-              />
+              <div
+                className={`brand-logo-tile flex flex-col items-center justify-center gap-2 rounded-2xl border transition-all duration-300 hover:border-brand-red/25 hover:shadow-md ${
+                  brand.darkLogo
+                    ? 'bg-white border-slate-200/90 shadow-sm'
+                    : 'bg-slate-50 border-slate-100 hover:bg-white'
+                } ${compact ? 'px-3 py-4 sm:px-4 sm:py-5' : 'px-4 py-5 sm:px-5 sm:py-6'}`}
+              >
+                <img
+                  src={brand.logo}
+                  alt={`${brand.name} — compatible print brand`}
+                  className={`w-auto max-w-full object-contain ${
+                    compact ? 'h-10 sm:h-12 lg:h-14' : 'h-11 sm:h-14 lg:h-16'
+                  }`}
+                  loading="lazy"
+                />
+                <span className="font-display text-[0.65rem] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">
+                  {brand.name}
+                </span>
+              </div>
             </motion.div>
           ))}
         </motion.div>

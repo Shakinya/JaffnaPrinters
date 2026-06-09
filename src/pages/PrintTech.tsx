@@ -213,15 +213,17 @@ export default function PrintTech() {
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 items-stretch"
+            className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 max-w-4xl mx-auto lg:max-w-5xl items-stretch"
           >
             {compatibleBrands.map((brand) => (
               <motion.div
                 key={brand.id}
                 variants={fadeUp}
-                whileHover={{ scale: 1.04, y: -3 }}
+                whileHover={{ y: -3 }}
                 transition={defaultTransition}
-                className="printtech-brand-tile group"
+                className={`printtech-brand-tile group ${
+                  brand.darkLogo ? 'printtech-brand-tile--light' : ''
+                }`}
               >
                 <img
                   src={brand.logo}
@@ -229,6 +231,7 @@ export default function PrintTech() {
                   className="printtech-brand-logo"
                   loading="lazy"
                 />
+                <span className="printtech-brand-name">{brand.name}</span>
               </motion.div>
             ))}
           </motion.div>

@@ -1,17 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/ui/PageHero';
 import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
 import { galleryItems, galleryCategories } from '../data/gallery';
-import { fadeUp, staggerContainer, defaultTransition, cardHover } from '../lib/motion';
+import { fadeUp, staggerContainer, defaultTransition } from '../lib/motion';
 import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [lightboxId, setLightboxId] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const filtered = useMemo(
     () =>
@@ -21,9 +21,48 @@ export default function Gallery() {
     [activeCategory],
   );
 
-  const lightboxItem = lightboxId
-    ? galleryItems.find((item) => item.id === lightboxId) ?? null
-    : null;
+  const lightboxItem =
+    lightboxIndex !== null ? filtered[lightboxIndex] ?? null : null;
+
+  const openLightbox = useCallback((id: string) => {
+    const index = filtered.findIndex((item) => item.id === id);
+    if (index >= 0) setLightboxIndex(index);
+  }, [filtered]);
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+
+  const goPrev = useCallback(() => {
+    setLightboxIndex((i) =>
+      i === null || filtered.length === 0 ? null : (i - 1 + filtered.length) % filtered.length,
+    );
+  }, [filtered.length]);
+
+  const goNext = useCallback(() => {
+    setLightboxIndex((i) =>
+      i === null || filtered.length === 0 ? null : (i + 1) % filtered.length,
+    );
+  }, [filtered.length]);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [lightboxIndex, closeLightbox, goPrev, goNext]);
+
+  useEffect(() => {
+    setLightboxIndex(null);
+  }, [activeCategory]);
 
   return (
     <div className="overflow-hidden mt-5">
@@ -36,11 +75,7 @@ export default function Gallery() {
             <span className="text-highlight">Gallery</span>
           </>
         }
-        description=
-        {
-            <span className="text-zinc-200">"Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
-            </span>
-        }
+        description="Browse recent printing, signage, corporate, and event work from Jaffna Printers — quality you can see before you order."
         backgroundImage={pageHeroBackgrounds.gallery.src}
         backgroundAlt={pageHeroBackgrounds.gallery.alt}
       />
@@ -51,7 +86,7 @@ export default function Gallery() {
             badge="Portfolio"
             title="Featured"
             highlight="Projects"
-            subtitle="Filter by category to explore samples across our core print services."
+            subtitle={`${galleryItems.length} samples across corporate branding, events, signage, and personalized print.`}
             compact
           />
 
@@ -77,7 +112,7 @@ export default function Gallery() {
             variants={staggerContainer}
             initial="hidden"
             animate="show"
-            className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-5 space-y-4 sm:space-y-5"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((item) => (
@@ -89,15 +124,12 @@ export default function Gallery() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={defaultTransition}
-                  whileHover={cardHover}
-                  className={`break-inside-avoid group relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 cursor-pointer ${
-                    item.tall ? 'sm:mb-1' : ''
-                  }`}
-                  onClick={() => setLightboxId(item.id)}
+                  className="group rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 cursor-pointer shadow-sm hover:shadow-lg hover:border-brand-red/20 transition-shadow duration-300"
+                  onClick={() => openLightbox(item.id)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      setLightboxId(item.id);
+                      openLightbox(item.id);
                     }
                   }}
                   role="button"
@@ -107,25 +139,9 @@ export default function Gallery() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                      item.tall ? 'aspect-[3/4]' : 'aspect-[4/3]'
-                    }`}
+                    className="w-full h-auto object-contain block transition-transform duration-500 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/75 via-slate-900/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
-                  <figcaption className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 flex items-end justify-between gap-3">
-                    <div>
-                      <span className="text-[10px] sm:text-xs font-display font-bold uppercase tracking-wider text-brand-gold">
-                        {item.category}
-                      </span>
-                      <p className="font-display font-bold text-white text-base sm:text-lg leading-tight mt-0.5">
-                        {item.title}
-                      </p>
-                    </div>
-                    <span className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:bg-brand-red transition-colors duration-300">
-                      <ZoomIn className="w-4 h-4" aria-hidden />
-                    </span>
-                  </figcaption>
                 </motion.figure>
               ))}
             </AnimatePresence>
@@ -152,48 +168,78 @@ export default function Gallery() {
       </section>
 
       <AnimatePresence>
-        {lightboxItem && (
+        {lightboxItem && lightboxIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-sm"
-            onClick={() => setLightboxId(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-sm"
+            onClick={closeLightbox}
             role="dialog"
             aria-modal="true"
-            aria-label={lightboxItem.title}
+            aria-label="Gallery image preview"
           >
+            {filtered.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goPrev();
+                  }}
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goNext();
+                  }}
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </>
+            )}
+
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 16 }}
               transition={defaultTransition}
-              className="relative max-w-4xl w-full"
+              className="relative w-full max-w-[min(95vw,1400px)] flex flex-col items-center"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
-                onClick={() => setLightboxId(null)}
-                className="absolute -top-12 right-0 sm:-right-2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                onClick={closeLightbox}
+                className="absolute -top-11 right-0 sm:-right-1 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
                 aria-label="Close preview"
               >
                 <X className="w-5 h-5" />
               </button>
+
               <img
+                key={lightboxItem.id}
                 src={lightboxItem.image}
                 alt={lightboxItem.title}
-                className="w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl"
+                className="w-full max-h-[min(88vh,900px)] object-contain rounded-xl shadow-2xl"
               />
-              <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-white">
-                <div>
-                  <p className="text-brand-gold text-xs font-display font-bold uppercase tracking-wider">
-                    {lightboxItem.category}
-                  </p>
-                  <p className="font-display font-bold text-xl">{lightboxItem.title}</p>
-                </div>
+
+              {filtered.length > 1 && (
+                <p className="mt-3 text-center text-white/50 text-sm">
+                  {lightboxIndex + 1} / {filtered.length}
+                </p>
+              )}
+
+              <div className="mt-4 flex justify-center">
                 <Link
                   to="/contact"
-                  className="btn-primary text-sm px-6 py-2.5 shrink-0 justify-center"
+                  className="btn-primary text-sm px-6 py-2.5 justify-center"
                 >
                   Get a Quote
                 </Link>

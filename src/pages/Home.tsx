@@ -603,14 +603,24 @@ export default function Home() {
               >
                 <Quote className="w-8 h-8 text-brand-red/30 mb-4" />
                 <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5 italic">&ldquo;{t.quote}&rdquo;</p>
-                <div className="border-t border-slate-200 pt-4">
-                  <div className="flex mb-1">
-                    {Array.from({ length: t.rating }).map((_, j) => (
-                      <Star key={j} className="w-3.5 h-3.5 fill-brand-gold text-brand-gold" />
-                    ))}
+                <div className="border-t border-slate-200 pt-4 flex items-center gap-3">
+                  <img
+                    src={t.avatar}
+                    alt={t.name}
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shrink-0 ring-2 ring-white shadow-md"
+                    loading="lazy"
+                  />
+                  <div className="min-w-0">
+                    <div className="flex mb-1">
+                      {Array.from({ length: t.rating }).map((_, j) => (
+                        <Star key={j} className="w-3.5 h-3.5 fill-brand-gold text-brand-gold" />
+                      ))}
+                    </div>
+                    <div className="font-display font-semibold text-brand-charcoal text-sm truncate">{t.name}</div>
+                    {t.role && (
+                      <div className="text-slate-500 text-xs mt-0.5 truncate">{t.role}</div>
+                    )}
                   </div>
-                  <div className="font-display font-semibold text-brand-charcoal text-sm">{t.name}</div>
-                  <div className="text-slate-500 text-xs mt-0.5">{t.role}</div>
                 </div>
               </motion.div>
             ))}

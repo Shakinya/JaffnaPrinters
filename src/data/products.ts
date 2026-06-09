@@ -1,4 +1,8 @@
 import { productImage } from './productAssets';
+import testimonial1 from '../testimonial/test1.jpg';
+import testimonial2 from '../testimonial/test2.jpg';
+import testimonial3 from '../testimonial/test4.jpg';
+import testimonial4 from '../testimonial/test3.jpg';
 
 export interface Product {
   id: string;
@@ -204,33 +208,42 @@ export const printTechItems: PrintTechItem[] = [
   },
 ];
 
-export const testimonials = [
+export interface Testimonial {
+  id: number;
+  name: string;
+  quote: string;
+  rating: number;
+  avatar: string;
+  role?: string;
+}
+
+export const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: 'Arjun Selvarajah',
-    role: 'Marketing Manager, Northgate Foods',
-    quote: 'JaffnaPrinters consistently delivers exceptional quality. Their business cards and brochures have elevated our brand presentation significantly.',
+    name: 'S. Thanansayan',
+    quote: 'Jaffna Printers delivered our promotional materials with exceptional quality and attention to detail. The banners, flyers, and brochures exceeded our expectations and helped make our campaign a success',
     rating: 5,
+    avatar: testimonial1,
   },
   {
     id: 2,
-    name: 'Priya Krishnamoorthi',
-    role: 'Director, Serenity Weddings',
-    quote: 'We have been using JaffnaPrinters for all our wedding card requirements. The attention to detail and quality is unmatched.',
+    name: 'Jothisha',
+    quote: 'The wedding invitations and function cards were absolutely stunning. Excellent quality, timely delivery, and exceptional service. Jaffna Printers helped make our special day even more memorable.',
     rating: 5,
+    avatar: testimonial2,
   },
   {
     id: 3,
-    name: 'Mohamed Fazil',
-    role: 'Owner, Fazil Packaging',
-    quote: 'The PrintTech division has been a game-changer for our business. Sourcing press parts is now much easier and cost-effective.',
+    name: 'Inkaran Kunavannan',
+    quote: 'We entrusted Jaffna Printers with our event branding and exhibition materials. The print quality was outstanding, and their creative support made the entire process seamless.',
     rating: 5,
+    avatar: testimonial3,
   },
   {
     id: 4,
-    name: 'Kavitha Nagendran',
-    role: 'HR Manager, Lanka Textiles',
-    quote: 'Our corporate uniform printing order was handled flawlessly. Colors were vibrant and delivery was on schedule.',
+    name: 'S. Juvitha',
+    quote: 'The customized packaging and label printing services provided by Jaffna Printers helped elevate the brand image of Pavai Boutique. Their commitment to quality and timely delivery is truly impressive.',
     rating: 5,
+    avatar: testimonial4,
   },
 ];

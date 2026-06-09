@@ -131,7 +131,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="Jaffna Printers"
-              className="w-11 h-11 rounded-full object-cover ring-2 ring-red-200 group-hover:ring-red-300 transition-all"
+              className="w-12 h-12 rounded-full object-cover ring-2 ring-red-200 group-hover:ring-red-300 transition-all"
             />
             <div className="leading-tight hidden sm:block">
               <div className="font-display font-bold text-brand-charcoal text-lg tracking-tight">

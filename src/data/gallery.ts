@@ -1,11 +1,27 @@
-import { productImage } from './productAssets';
+import gallery1 from '../gallery/gallery1.jpeg';
+import gallery2 from '../gallery/gallery2.jpg';
+import gallery3 from '../gallery/gallery3.jpg';
+import gallery4 from '../gallery/gallery4.jpg';
+import gallery5 from '../gallery/gallery5.jpg';
+import gallery6 from '../gallery/gallery6.jpg';
+import gallery7 from '../gallery/gallery7.jpg';
+import gallery8 from '../gallery/gallery8.jpg';
+import gallery9 from '../gallery/gallery9.jpg';
+import gallery10 from '../gallery/gallery10.jpg';
+import gallery11 from '../gallery/gallery11.jpg';
+import gallery12 from '../gallery/gallery12.jpg';
+import gallery13 from '../gallery/gallery13.jpg';
+import gallery14 from '../gallery/gallery14.jpg';
 
 export interface GalleryItem {
   id: string;
   title: string;
   category: string;
   image: string;
+  /** Masonry-style aspect hint */
   tall?: boolean;
+  /** Bento grid span on sm+ screens */
+  featured?: 'wide' | 'tall';
 }
 
 export const galleryCategories = [
@@ -15,146 +31,97 @@ export const galleryCategories = [
   'Signage',
   'Promotional',
   'Personalized',
-  'Facility',
 ] as const;
 
 export type GalleryCategory = (typeof galleryCategories)[number];
 
 export const galleryItems: GalleryItem[] = [
   {
-    id: 'hero-production',
-    title: 'Production Floor',
-    category: 'Facility',
-    image: '/hero-scene.png',
+    id: 'brand-identity',
+    title: 'Brand Identity & Stationery',
+    category: 'Corporate',
+    image: gallery1,
+    featured: 'wide',
+  },
+  {
+    id: 'tshirt-printing',
+    title: 'Custom T-Shirt Printing',
+    category: 'Personalized',
+    image: gallery2,
+  },
+  {
+    id: 'photo-mugs',
+    title: 'Personalized Photo Mugs',
+    category: 'Personalized',
+    image: gallery3,
     tall: true,
   },
   {
-    id: 'flex-banner',
-    title: 'Flex Banner Printing',
-    category: 'Signage',
-    image: productImage('flex banner.jpg'),
+    id: 'wedding-invitations',
+    title: 'Wedding Invitations',
+    category: 'Events',
+    image: gallery4,
+    tall: true,
+  },
+  {
+    id: 'illustrated-wedding-cards',
+    title: 'Illustrated Wedding Cards',
+    category: 'Events',
+    image: gallery5,
+  },
+  {
+    id: 'branded-apparel',
+    title: 'Branded Polo & Cap Sets',
+    category: 'Promotional',
+    image: gallery6,
+  },
+  {
+    id: 'custom-bottles',
+    title: 'Custom Printed Bottles',
+    category: 'Personalized',
+    image: gallery7,
   },
   {
     id: 'business-cards',
-    title: 'Business Cards',
+    title: 'Premium Business Cards',
     category: 'Corporate',
-    image: productImage('Business Cards.jpg'),
+    image: gallery8,
   },
   {
-    id: 'wedding-cards',
-    title: 'Wedding Cards',
+    id: 'menu-signage',
+    title: 'Menu Boards & Signage',
+    category: 'Signage',
+    image: gallery9,
+    featured: 'tall',
+  },
+  {
+    id: 'medals-certificates',
+    title: 'Medals & Certificates',
     category: 'Events',
-    image: productImage('Wedding Cards.jpg'),
-    tall: true,
+    image: gallery10,
   },
   {
-    id: 'festival-cards',
-    title: 'Festival Cards',
+    id: 'thank-you-tags',
+    title: 'Thank You Tags & Packaging',
+    category: 'Promotional',
+    image: gallery11,
+  },
+  {
+    id: 'wedding-greeting-cards',
+    title: 'Wedding Greeting Cards',
     category: 'Events',
-    image: productImage('ganesha.jpg'),
+    image: gallery12,
   },
   {
-    id: 'brochures',
-    title: 'Brochures',
-    category: 'Corporate',
-    image: productImage('brochures.jpg'),
-  },
-  {
-    id: 'led-board',
-    title: 'LED Boards',
-    category: 'Signage',
-    image: productImage('led.jpg'),
-  },
-  {
-    id: 'name-board',
-    title: 'Name Boards',
-    category: 'Signage',
-    image: productImage('name board.jpg'),
-  },
-  {
-    id: 'name-board-alt',
-    title: 'Shop Name Boards',
-    category: 'Signage',
-    image: productImage('Name Boards.jpg'),
-  },
-  {
-    id: 'stamp-ink',
-    title: 'Self-Inking Stamps',
-    category: 'Corporate',
-    image: productImage('stamp.jpg'),
-  },
-  {
-    id: 'glass-print',
-    title: 'Glass Printing',
-    category: 'Signage',
-    image: productImage('glass print.jpg'),
-    tall: true,
-  },
-  {
-    id: 'promo-pen',
-    title: 'Branded Pens',
+    id: 'banner-display-ads',
+    title: 'Banner & Display Ads',
     category: 'Promotional',
-    image: productImage('pen.jpg'),
+    image: gallery13,
   },
   {
-    id: 'promo-umbrella',
-    title: 'Branded Umbrellas',
-    category: 'Promotional',
-    image: productImage('umbrella.jpg'),
-  },
-  {
-    id: 'promo-ball',
-    title: 'Promotional Balls',
-    category: 'Promotional',
-    image: productImage('ball.jpg'),
-  },
-  {
-    id: 'magic-mug',
-    title: 'Magic Mugs',
-    category: 'Personalized',
-    image: productImage('magic mug.jpg'),
-  },
-  {
-    id: 'mug',
-    title: 'Printed Mugs',
-    category: 'Personalized',
-    image: productImage('mug.jpg'),
-  },
-  {
-    id: 'tshirt',
-    title: 'T-Shirt Printing',
-    category: 'Personalized',
-    image: productImage('tshirt.jpg'),
-    tall: true,
-  },
-  {
-    id: 'trophy',
-    title: 'Trophies',
-    category: 'Corporate',
-    image: productImage('trophy.jpg'),
-  },
-  {
-    id: 'medal',
-    title: 'Medals',
-    category: 'Corporate',
-    image: productImage('medal.jpg'),
-  },
-  {
-    id: 'badges',
-    title: 'Badges & Batches',
-    category: 'Events',
-    image: productImage('batch.jpg'),
-  },
-  {
-    id: 'rubber-stamp',
-    title: 'Rubber Stamps',
-    category: 'Corporate',
-    image: productImage('Rubber stamp.jpeg'),
-  },
-  {
-    id: 'hero-products',
-    title: 'Product Showcase',
-    category: 'Facility',
-    image: '/hero-products.png',
+    id: 'illuminated-signage',
+    title: 'Illuminated Shop Signage',
+    category: 'Signage',
+    image: gallery14,
   },
 ];
