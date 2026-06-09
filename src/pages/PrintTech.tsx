@@ -24,7 +24,6 @@ import {
   printTechCta,
   printTechMapUrl,
   printTechHomeMapUrl,
-  printTechServiceGridClass,
 } from '../data/printtech';
 import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 import {
@@ -36,8 +35,48 @@ import {
   viewportOnce,
 } from '../lib/motion';
 
+function PrintTechServiceCard({
+  icon: Icon,
+  title,
+  desc,
+  highlights,
+}: {
+  icon: (typeof printTechServices)[number]['icon'];
+  title: string;
+  desc: string;
+  highlights: string[];
+}) {
+  return (
+    <motion.article
+      variants={fadeUp}
+      whileHover={cardHover}
+      transition={defaultTransition}
+      className="printtech-service-card group"
+    >
+      <div className="printtech-service-card-glow" aria-hidden />
+      <div className="printtech-service-icon">
+        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" aria-hidden />
+      </div>
+      <h3 className="printtech-service-title">{title}</h3>
+      <p className="printtech-service-desc">{desc}</p>
+      <ul className="printtech-service-highlights">
+        {highlights.map((item) => (
+          <li key={item} className="printtech-service-highlight">
+            <CheckCircle className="w-3.5 h-3.5 text-brand-red shrink-0 mt-0.5" aria-hidden />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </motion.article>
+  );
+}
+
 export default function PrintTech() {
   const { companyName, tagline, director, phones, emails, addresses } = printTechInfo;
+  const primaryServices = printTechServices.slice(0, 3);
+  const secondaryServices = printTechServices.slice(3);
+  const primaryBrands = compatibleBrands.slice(0, 5);
+  const secondaryBrands = compatibleBrands.slice(5);
 
   return (
     <div className="overflow-hidden bg-brand-charcoal">
@@ -161,38 +200,24 @@ export default function PrintTech() {
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="grid sm:grid-cols-2 lg:grid-cols-6 gap-5 sm:gap-6"
+            className="space-y-4 sm:space-y-5"
           >
-            {printTechServices.map(({ icon: Icon, title, desc, highlights }, index) => (
-              <motion.article
-                key={title}
-                variants={fadeUp}
-                whileHover={cardHover}
-                transition={defaultTransition}
-                className={`printtech-service-card group ${printTechServiceGridClass(index)}`}
-              >
-                <div className="flex items-start gap-4 mb-5">
-                  <div className="icon-circle w-14 h-14 shrink-0 group-hover:scale-105 transition-transform duration-300">
-                    <Icon className="w-7 h-7 text-white" aria-hidden />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-display font-bold text-white text-xl mb-2">{title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-                <ul className="flex flex-wrap gap-x-4 gap-y-2 border-t border-white/10 pt-4">
-                  {highlights.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-1.5 text-xs text-slate-300 font-medium"
-                    >
-                      <CheckCircle className="w-3.5 h-3.5 text-brand-red shrink-0" aria-hidden />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.article>
-            ))}
+            <motion.div
+              variants={staggerFast}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+            >
+              {primaryServices.map((service) => (
+                <PrintTechServiceCard key={service.title} {...service} />
+              ))}
+            </motion.div>
+            <motion.div
+              variants={staggerFast}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-2xl mx-auto w-full lg:max-w-3xl"
+            >
+              {secondaryServices.map((service) => (
+                <PrintTechServiceCard key={service.title} {...service} />
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -213,27 +238,52 @@ export default function PrintTech() {
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 max-w-4xl mx-auto lg:max-w-5xl items-stretch"
+            className="space-y-4 sm:space-y-5"
           >
-            {compatibleBrands.map((brand) => (
-              <motion.div
-                key={brand.id}
-                variants={fadeUp}
-                whileHover={{ y: -3 }}
-                transition={defaultTransition}
-                className={`printtech-brand-tile group ${
-                  brand.darkLogo ? 'printtech-brand-tile--light' : ''
-                }`}
-              >
-                <img
-                  src={brand.logo}
-                  alt={`${brand.name} — authorized partner`}
-                  className="printtech-brand-logo"
-                  loading="lazy"
-                />
-                <span className="printtech-brand-name">{brand.name}</span>
-              </motion.div>
-            ))}
+            <motion.div variants={staggerFast} className="printtech-brand-grid printtech-brand-grid--primary">
+              {primaryBrands.map((brand) => (
+                <motion.div
+                  key={brand.id}
+                  variants={fadeUp}
+                  whileHover={{ y: -3 }}
+                  transition={defaultTransition}
+                  className="printtech-brand-tile group"
+                >
+                  <div className="printtech-brand-logo-wrap">
+                    <img
+                      src={brand.logo}
+                      alt={`${brand.name} — authorized partner`}
+                      className="printtech-brand-logo"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <span className="printtech-brand-name">{brand.name}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+            <motion.div variants={staggerFast} className="printtech-brand-grid printtech-brand-grid--secondary">
+              {secondaryBrands.map((brand) => (
+                <motion.div
+                  key={brand.id}
+                  variants={fadeUp}
+                  whileHover={{ y: -3 }}
+                  transition={defaultTransition}
+                  className="printtech-brand-tile group"
+                >
+                  <div className="printtech-brand-logo-wrap">
+                    <img
+                      src={brand.logo}
+                      alt={`${brand.name} — authorized partner`}
+                      className="printtech-brand-logo"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <span className="printtech-brand-name">{brand.name}</span>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
 
           <motion.p
@@ -445,8 +495,19 @@ export default function PrintTech() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-brand-red">
-        <FadeIn className="container-custom">
+      <section className="section-padding relative overflow-hidden bg-brand-charcoal">
+        <div className="printtech-cta-media" aria-hidden>
+          <img
+            src="/bgprintTech.jpg"
+            alt=""
+            className="printtech-cta-bg"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="printtech-cta-overlay" />
+          <div className="printtech-cta-vignette" />
+        </div>
+        <FadeIn className="container-custom relative z-10">
           <div className="red-surface-panel">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8">
               <div className="max-w-xl">

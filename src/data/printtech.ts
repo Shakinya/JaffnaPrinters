@@ -93,7 +93,7 @@ export const printTechServices: PrintTechService[] = [
 export const printTechHighlights = [
   { value: '15+', label: 'Years Industry Experience' },
   { value: '5', label: 'Core Service Areas' },
-  { value: '5', label: 'Trusted Global Brands' },
+  { value: '9', label: 'Trusted Global Brands' },
   { value: '24h', label: 'Typical Quote Response' },
 ] as const;
 
@@ -117,8 +117,3 @@ export const printTechBrandNote =
 export const printTechCta = {
   title: 'Ready to upgrade your print & tech setup?',
 } as const;
-
-/** lg: 3-up then 2-up grid placement for five service cards */
-export function printTechServiceGridClass(index: number): string {
-  return index < 3 ? 'sm:col-span-1 lg:col-span-2' : 'sm:col-span-1 lg:col-span-3';
-}

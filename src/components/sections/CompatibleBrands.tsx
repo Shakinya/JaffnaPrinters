@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../ui/SectionHeader';
 import { compatibleBrands } from '../../data/brands';
-import { fadeUp, staggerContainer, defaultTransition } from '../../lib/motion';
+import { fadeUp, staggerContainer, staggerFast, defaultTransition } from '../../lib/motion';
 
 interface CompatibleBrandsProps {
   subtitle?: string;
@@ -17,6 +17,18 @@ export default function CompatibleBrands({
   className = '',
   compact = false,
 }: CompatibleBrandsProps) {
+  const primaryBrands = compatibleBrands.slice(0, 5);
+  const secondaryBrands = compatibleBrands.slice(5);
+
+  const brandTileClass = (darkLogo?: boolean) =>
+    `brand-logo-tile flex flex-col items-center justify-center gap-2 rounded-2xl border transition-all duration-300 hover:border-brand-red/25 hover:shadow-md ${
+      darkLogo
+        ? 'bg-white border-slate-200/90 shadow-sm'
+        : 'bg-slate-50 border-slate-100 hover:bg-white'
+    } ${compact ? 'px-3 py-4 sm:px-4 sm:py-5' : 'px-4 py-5 sm:px-5 sm:py-6'}`;
+
+  const logoClass = compact ? 'h-10 sm:h-12 lg:h-14' : 'h-11 sm:h-14 lg:h-16';
+
   return (
     <section className={`section-padding bg-white border-y border-slate-100/80 ${className}`}>
       <div className="container-custom">
@@ -33,39 +45,56 @@ export default function CompatibleBrands({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-40px' }}
-          className={`grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 max-w-4xl mx-auto ${
-            compact ? 'lg:max-w-3xl' : 'lg:max-w-5xl'
-          }`}
+          className="space-y-4 sm:space-y-5"
         >
-          {compatibleBrands.map((brand) => (
-            <motion.div
-              key={brand.id}
-              variants={fadeUp}
-              whileHover={{ y: -3 }}
-              transition={defaultTransition}
-              className="w-full"
-            >
-              <div
-                className={`brand-logo-tile flex flex-col items-center justify-center gap-2 rounded-2xl border transition-all duration-300 hover:border-brand-red/25 hover:shadow-md ${
-                  brand.darkLogo
-                    ? 'bg-white border-slate-200/90 shadow-sm'
-                    : 'bg-slate-50 border-slate-100 hover:bg-white'
-                } ${compact ? 'px-3 py-4 sm:px-4 sm:py-5' : 'px-4 py-5 sm:px-5 sm:py-6'}`}
+          <motion.div variants={staggerFast} className="brand-grid--primary">
+            {primaryBrands.map((brand) => (
+              <motion.div
+                key={brand.id}
+                variants={fadeUp}
+                whileHover={{ y: -3 }}
+                transition={defaultTransition}
+                className="w-full"
               >
-                <img
-                  src={brand.logo}
-                  alt={`${brand.name} — compatible print brand`}
-                  className={`w-auto max-w-full object-contain ${
-                    compact ? 'h-10 sm:h-12 lg:h-14' : 'h-11 sm:h-14 lg:h-16'
-                  }`}
-                  loading="lazy"
-                />
-                <span className="font-display text-[0.65rem] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">
-                  {brand.name}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+                <div className={brandTileClass(brand.darkLogo)}>
+                  <img
+                    src={brand.logo}
+                    alt={`${brand.name} — compatible print brand`}
+                    className={`w-auto max-w-full object-contain ${logoClass}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="font-display text-[0.65rem] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">
+                    {brand.name}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.div variants={staggerFast} className="brand-grid--secondary">
+            {secondaryBrands.map((brand) => (
+              <motion.div
+                key={brand.id}
+                variants={fadeUp}
+                whileHover={{ y: -3 }}
+                transition={defaultTransition}
+                className="w-full"
+              >
+                <div className={brandTileClass(brand.darkLogo)}>
+                  <img
+                    src={brand.logo}
+                    alt={`${brand.name} — compatible print brand`}
+                    className={`w-auto max-w-full object-contain ${logoClass}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="font-display text-[0.65rem] sm:text-xs font-semibold text-slate-500 tracking-wide uppercase">
+                    {brand.name}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
 
         {showCta && (

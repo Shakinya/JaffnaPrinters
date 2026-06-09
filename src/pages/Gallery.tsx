@@ -1,17 +1,63 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Expand } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/ui/PageHero';
 import SectionHeader from '../components/ui/SectionHeader';
 import GradientButton from '../components/ui/GradientButton';
-import { galleryItems, galleryCategories } from '../data/gallery';
-import { fadeUp, staggerContainer, defaultTransition } from '../lib/motion';
+import { galleryItems, galleryCategories, type GalleryItem } from '../data/gallery';
+import { defaultTransition, viewportOnce } from '../lib/motion';
+import { splitIntoMasonryColumns, useMasonryColumnCount } from '../lib/masonry';
 import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
+
+function GalleryPin({
+  item,
+  onOpen,
+}: {
+  item: GalleryItem;
+  onOpen: (id: string) => void;
+}) {
+  return (
+    <motion.figure
+      layout
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={defaultTransition}
+      className="gallery-pin group"
+      onClick={() => onOpen(item.id)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onOpen(item.id);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${item.title}`}
+    >
+      <img
+        src={item.image}
+        alt={item.title}
+        className="gallery-pin-img"
+        loading="lazy"
+        decoding="async"
+      />
+      <span className="gallery-pin-zoom" aria-hidden>
+        <Expand className="w-4 h-4" />
+      </span>
+      <figcaption className="gallery-pin-overlay">
+        <span className="gallery-pin-category">{item.category}</span>
+        <span className="gallery-pin-title">{item.title}</span>
+      </figcaption>
+    </motion.figure>
+  );
+}
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const columnCount = useMasonryColumnCount();
 
   const filtered = useMemo(
     () =>
@@ -19,6 +65,11 @@ export default function Gallery() {
         ? galleryItems
         : galleryItems.filter((item) => item.category === activeCategory),
     [activeCategory],
+  );
+
+  const masonryColumns = useMemo(
+    () => splitIntoMasonryColumns(filtered, columnCount),
+    [filtered, columnCount],
   );
 
   const lightboxItem =
@@ -80,7 +131,7 @@ export default function Gallery() {
         backgroundAlt={pageHeroBackgrounds.gallery.alt}
       />
 
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-gradient-to-b from-white via-slate-50/40 to-white">
         <div className="container-custom">
           <SectionHeader
             badge="Portfolio"
@@ -90,16 +141,16 @@ export default function Gallery() {
             compact
           />
 
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5 mb-8 sm:mb-10">
+          <div className="gallery-filter-bar" role="tablist" aria-label="Filter gallery by category">
             {galleryCategories.map((cat) => (
               <button
                 key={cat}
                 type="button"
+                role="tab"
+                aria-selected={activeCategory === cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-btn text-sm font-display font-semibold transition-all duration-300 ${
-                  activeCategory === cat
-                    ? 'bg-brand-gradient text-white shadow-md shadow-brand-red/25'
-                    : 'bg-slate-50 text-slate-600 border border-slate-100 hover:border-brand-red/25 hover:text-brand-red'
+                className={`gallery-filter-btn ${
+                  activeCategory === cat ? 'gallery-filter-btn--active' : 'gallery-filter-btn--idle'
                 }`}
               >
                 {cat}
@@ -109,40 +160,18 @@ export default function Gallery() {
 
           <motion.div
             layout
-            variants={staggerContainer}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+            className="gallery-masonry"
+            aria-label="Gallery masonry grid"
           >
             <AnimatePresence mode="popLayout">
-              {filtered.map((item) => (
-                <motion.figure
-                  key={item.id}
-                  layout
-                  variants={fadeUp}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={defaultTransition}
-                  className="group rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 cursor-pointer shadow-sm hover:shadow-lg hover:border-brand-red/20 transition-shadow duration-300"
-                  onClick={() => openLightbox(item.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      openLightbox(item.id);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`View ${item.title}`}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-auto object-contain block transition-transform duration-500 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                </motion.figure>
+              {masonryColumns.map((column, columnIndex) => (
+                <div key={`col-${columnIndex}-${columnCount}`} className="gallery-masonry-col">
+                  {column.map((item) => (
+                    <GalleryPin key={item.id} item={item} onOpen={openLightbox} />
+                  ))}
+                </div>
               ))}
             </AnimatePresence>
           </motion.div>
@@ -154,16 +183,24 @@ export default function Gallery() {
       </section>
 
       <section className="section-padding bg-slate-50 border-t border-slate-100">
-        <div className="container-custom text-center max-w-2xl mx-auto">
-          <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl mb-3">
-            Want something like this?
-          </h2>
-          <p className="text-slate-600 mb-6 leading-relaxed">
-            Share your idea or reference image — we&apos;ll quote materials, finishes, and delivery for your project.
-          </p>
-          <GradientButton to="/contact" size="lg">
-            Request a Quote
-          </GradientButton>
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportOnce}
+            transition={defaultTransition}
+            className="gallery-cta-panel"
+          >
+            <h2 className="font-display font-bold text-brand-charcoal text-2xl sm:text-3xl mb-3">
+              Want something like this?
+            </h2>
+            <p className="text-slate-600 mb-6 leading-relaxed text-sm sm:text-base">
+              Share your idea or reference image — we&apos;ll quote materials, finishes, and delivery for your project.
+            </p>
+            <GradientButton to="/contact" size="lg">
+              Request a Quote
+            </GradientButton>
+          </motion.div>
         </div>
       </section>
 
@@ -227,16 +264,24 @@ export default function Gallery() {
                 key={lightboxItem.id}
                 src={lightboxItem.image}
                 alt={lightboxItem.title}
-                className="w-full max-h-[min(88vh,900px)] object-contain rounded-xl shadow-2xl"
+                className="w-full max-h-[min(78vh,900px)] object-contain rounded-xl shadow-2xl"
               />
 
-              {filtered.length > 1 && (
-                <p className="mt-3 text-center text-white/50 text-sm">
-                  {lightboxIndex + 1} / {filtered.length}
-                </p>
-              )}
+              <div className="mt-4 text-center max-w-lg px-2">
+                <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-bold font-display uppercase tracking-wider text-brand-red bg-white/10 mb-2">
+                  {lightboxItem.category}
+                </span>
+                <h3 className="font-display font-bold text-white text-lg sm:text-xl">
+                  {lightboxItem.title}
+                </h3>
+                {filtered.length > 1 && (
+                  <p className="mt-2 text-white/50 text-sm">
+                    {lightboxIndex + 1} / {filtered.length}
+                  </p>
+                )}
+              </div>
 
-              <div className="mt-4 flex justify-center">
+              <div className="mt-5 flex justify-center">
                 <Link
                   to="/contact"
                   className="btn-primary text-sm px-6 py-2.5 justify-center"

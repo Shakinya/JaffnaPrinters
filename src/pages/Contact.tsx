@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Phone, Mail, MapPin, Clock, Send,
-  CheckCircle, ExternalLink, Navigation,
+  CheckCircle, ExternalLink, Navigation, Share2,
 } from 'lucide-react';
 import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
-import { fadeUp, staggerFast, defaultTransition } from '../lib/motion';
+import { fadeUp, staggerFast, defaultTransition, viewportOnce } from '../lib/motion';
 import { companyInfo, mapDirectionsUrl, mapEmbedUrl } from '../data/site';
 import { socialLinks } from '../data/socialLinks';
 import { allProductServiceOptions } from '../data/products';
@@ -95,7 +95,7 @@ export default function Contact() {
         backgroundAlt={pageHeroBackgrounds.contact.alt}
       />
 
-      {/* Quick contact cards */}
+      {/* Quick contact */}
       <section className="py-8 sm:py-10 bg-white border-b border-slate-100">
         <div className="container-custom">
           <motion.div
@@ -110,7 +110,7 @@ export default function Contact() {
                 key={label}
                 variants={fadeUp}
                 transition={{ ...defaultTransition, delay: i * 0.05 }}
-                className="flex items-start gap-3 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-red/20 hover:shadow-sm transition-all duration-300"
+                className="flex items-start gap-3 p-5 rounded-2xl border border-red-100/90 bg-red-50/90 hover:border-brand-red/25 hover:bg-red-50 hover:shadow-sm transition-all duration-300"
               >
                 <div className="icon-circle w-11 h-11 shrink-0">
                   <Icon className="w-5 h-5 text-white" />
@@ -136,25 +136,56 @@ export default function Contact() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap items-center justify-between gap-4 mt-6 pt-5 border-t border-slate-100"
+            viewport={viewportOnce}
+            transition={{ ...defaultTransition, delay: 0.15 }}
+            className="contact-stay-connected mt-8 sm:mt-10 lg:mt-12"
           >
-            <p className="text-slate-500 text-sm font-medium">Follow us on social media</p>
-            <div className="flex gap-3">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-10 h-10 rounded-btn bg-slate-50 border border-slate-200 hover:border-brand-red hover:bg-brand-red/5 hover:text-brand-red text-slate-500 flex items-center justify-center transition-colors duration-300"
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10">
+              <div className="flex items-start gap-4 sm:gap-5 max-w-xl">
+                <motion.div
+                  className="contact-stay-connected-icon"
+                  whileHover={{ scale: 1.06, rotate: 3 }}
+                  transition={{ duration: 0.25 }}
                 >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
+                  <Share2 aria-hidden />
+                </motion.div>
+                <div>
+                  <h3 className="font-display font-bold text-white text-2xl sm:text-3xl mb-2">
+                    Stay Connected
+                  </h3>
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Follow us for print inspiration, seasonal offers, and behind-the-scenes updates from Jaffna Printers.
+                  </p>
+                </div>
+              </div>
+
+              <motion.div
+                variants={staggerFast}
+                initial="hidden"
+                whileInView="show"
+                viewport={viewportOnce}
+                className="flex flex-wrap gap-3 sm:gap-4"
+              >
+                {socialLinks.map(({ icon: Icon, label, href }, i) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow us on ${label}`}
+                    variants={fadeUp}
+                    transition={{ ...defaultTransition, delay: 0.2 + i * 0.06 }}
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="contact-social-btn"
+                  >
+                    <Icon aria-hidden />
+                    <span className="hidden sm:inline">{label}</span>
+                  </motion.a>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         </div>

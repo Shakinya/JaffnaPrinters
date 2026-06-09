@@ -406,7 +406,7 @@ export default function Products() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="relative"
               >
-                <div className="text-brand-red/15 font-display font-black text-7xl leading-none mb-4">{s.step}</div>
+                <div className="text-brand-red/45 font-display font-black text-7xl leading-none mb-4">{s.step}</div>
                 <h3 className="font-display font-bold text-slate-900 text-lg mb-2">{s.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
               </motion.div>
@@ -415,14 +415,24 @@ export default function Products() {
         </div>
       </section>
 
-      <section className="section-padding bg-brand-red">
-        <div className="container-custom">
+      <section className="section-padding relative overflow-hidden mb-10">
+        <div className="product-cta-media" aria-hidden>
+          <img
+            src="/bgproduct.jpg"
+            alt=""
+            className="product-cta-bg"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="product-cta-vignette" />
+        </div>
+        <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="red-surface-panel max-w-3xl mx-auto text-center"
+            className=" max-w-3xl mx-auto text-center"
           >
             <h2 className="font-display font-bold text-white text-3xl sm:text-4xl mb-3">
               Can&apos;t find what you need?
