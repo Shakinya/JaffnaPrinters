@@ -237,7 +237,7 @@
       0 24px 48px -24px rgba(15, 23, 42, 0.06);
   }
 
-  @media (max-width: 639px) {
+  @media (max-width: 150px) {
     /* Home hero */
     .hero-cinematic-stage {
       aspect-ratio: auto;
@@ -573,7 +573,7 @@
     min-height: min(72vh, 640px);
   }
 
-  @media (max-width: 939px) {
+  @media (max-width: 639px) {
     .printtech-hero {
       min-height: min(82vh, 720px);
     }

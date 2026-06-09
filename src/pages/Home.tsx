@@ -201,7 +201,7 @@ export default function Home() {
               loading="eager"
               fetchPriority="high"
               width={1707}
-              height={982}
+              height={782}
             />
             <div className="hero-cinematic-vignette" />
           </div>
