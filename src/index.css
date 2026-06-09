@@ -573,7 +573,7 @@
     min-height: min(72vh, 640px);
   }
 
-  @media (max-width: 639px) {
+  @media (max-width: 939px) {
     .printtech-hero {
       min-height: min(82vh, 720px);
     }
