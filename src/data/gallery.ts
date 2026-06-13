@@ -26,9 +26,9 @@ export const galleryCategories = [
   'All',
   'Corporate',
   'Events',
+  'Personalized',
   'Signage',
   'Promotional',
-  'Personalized',
 ] as const;
 
 export type GalleryCategory = (typeof galleryCategories)[number];
@@ -42,7 +42,7 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 'wedding-greeting-cards',
-    title: 'Wedding Greeting Cards',
+    title: 'Greeting Cards',
     category: 'Events',
     image: gallery12,
   },

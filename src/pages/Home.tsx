@@ -302,7 +302,7 @@ export default function Home() {
                 className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-card ring-1 ring-slate-100 group"
               >
                 <motion.img
-                  src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="/bghome.jpeg"
                   alt="JaffnaPrinters team"
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.06 }}

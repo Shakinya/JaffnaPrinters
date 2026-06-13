@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
-import { companyInfo } from '../../data/site';
+import { Phone, Mail, MapPin, ArrowRight, Navigation } from 'lucide-react';
+import { companyInfo, mapDirectionsUrl } from '../../data/site';
 import { socialLinks } from '../../data/socialLinks';
 
 const footerLinks = {
@@ -147,9 +147,20 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-brand-gold mt-0.5 shrink-0" />
-                <span className="text-slate-400 text-sm leading-relaxed">
-                  {companyInfo.address.line1},<br />{companyInfo.address.line2}
-                </span>
+                <div>
+                  <span className="text-slate-400 text-sm leading-relaxed">
+                    {companyInfo.address.line1},<br />{companyInfo.address.line2}
+                  </span>
+                  <a
+                    href={mapDirectionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-2 text-sm font-medium text-brand-gold hover:text-white transition-colors"
+                  >
+                    <Navigation className="w-3.5 h-3.5 shrink-0" />
+                    Get Directions
+                  </a>
+                </div>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />

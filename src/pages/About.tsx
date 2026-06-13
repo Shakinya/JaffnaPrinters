@@ -244,8 +244,8 @@ export default function About() {
                 className="relative rounded-3xl overflow-hidden aspect-[4/3]"
               >
                 <img
-                  src="https://images.pexels.com/photos/3568518/pexels-photo-3568518.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Facility"
+                  src="/bgabout.jpeg"
+                  alt="JaffnaPrinters facility"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-red/20 to-transparent" />

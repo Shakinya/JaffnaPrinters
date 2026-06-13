@@ -13,17 +13,22 @@ import { pageHeroBackgrounds } from '../data/pageHeroBackgrounds';
 function GalleryPin({
   item,
   onOpen,
+  index,
 }: {
   item: GalleryItem;
   onOpen: (id: string) => void;
+  index: number;
 }) {
   return (
     <motion.figure
-      layout
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.97 }}
-      transition={defaultTransition}
+      initial={{ opacity: 0, scale: 0.82 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.88 }}
+      transition={{
+        duration: 0.38,
+        delay: index * 0.035,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className="gallery-pin group"
       onClick={() => onOpen(item.id)}
       onKeyDown={(e) => {
@@ -161,23 +166,32 @@ export default function Gallery() {
             ))}
           </div>
 
-          <motion.div
-            layout
-            initial="hidden"
-            animate="show"
-            className="gallery-masonry"
-            aria-label="Gallery masonry grid"
-          >
-            <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              className="gallery-masonry"
+              aria-label="Gallery masonry grid"
+            >
               {masonryColumns.map((column, columnIndex) => (
-                <div key={`col-${columnIndex}-${columnCount}`} className="gallery-masonry-col">
-                  {column.map((item) => (
-                    <GalleryPin key={item.id} item={item} onOpen={openLightbox} />
-                  ))}
+                <div key={`${activeCategory}-col-${columnIndex}`} className="gallery-masonry-col">
+                  <AnimatePresence mode="popLayout">
+                    {column.map((item, itemIndex) => (
+                      <GalleryPin
+                        key={item.id}
+                        item={item}
+                        onOpen={openLightbox}
+                        index={columnIndex + itemIndex * masonryColumns.length}
+                      />
+                    ))}
+                  </AnimatePresence>
                 </div>
               ))}
-            </AnimatePresence>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
 
           {filtered.length === 0 && (
             <p className="text-center text-slate-500 py-12">No items in this category yet.</p>
@@ -197,6 +211,19 @@ export default function Gallery() {
             aria-modal="true"
             aria-label="Gallery image preview"
           >
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                closeLightbox();
+              }}
+              className="gallery-lightbox-close"
+              aria-label="Close preview"
+            >
+              <X className="w-5 h-5 shrink-0" />
+              <span>Close</span>
+            </button>
+
             {filtered.length > 1 && (
               <>
                 <button
@@ -225,22 +252,13 @@ export default function Gallery() {
             )}
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 16 }}
+              initial={{ opacity: 0, scale: 0.88 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.88 }}
               transition={defaultTransition}
-              className="relative w-full max-w-[min(95vw,1400px)] flex flex-col items-center"
+              className="relative w-full max-w-[min(95vw,1400px)] flex flex-col items-center pt-12 sm:pt-14"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                type="button"
-                onClick={closeLightbox}
-                className="absolute -top-11 right-0 sm:-right-1 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
-                aria-label="Close preview"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
               <img
                 key={lightboxItem.id}
                 src={lightboxItem.image}
@@ -262,13 +280,21 @@ export default function Gallery() {
                 )}
               </div>
 
-              <div className="mt-5 flex justify-center">
+              <div className="mt-5 flex flex-col items-center gap-3">
                 <Link
                   to="/contact"
                   className="btn-primary text-sm px-6 py-2.5 justify-center"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   Get a Quote
                 </Link>
+                <button
+                  type="button"
+                  onClick={closeLightbox}
+                  className="text-white/60 hover:text-white text-sm font-medium transition-colors"
+                >
+                  Tap outside or press Esc to close
+                </button>
               </div>
             </motion.div>
           </motion.div>

@@ -28,7 +28,7 @@
 
 @layer components {
   .container-custom {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-[1330px] px-4 sm:px-6 lg:px-8;
   }
 
   .page-hero {
@@ -699,6 +699,39 @@
     @apply grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-2xl sm:max-w-3xl mx-auto items-stretch;
   }
 
+  .brand-marquee {
+    @apply overflow-hidden justify-center w-full;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 23%,
+      black 72%,
+      transparent
+    );
+  }
+
+  .brand-marquee-track {
+    @apply flex w-max items-stretch gap-4 sm:gap-5;
+    animation: brand-marquee-scroll 35s linear infinite;
+  }
+
+  .brand-marquee:hover .brand-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .brand-marquee-tile {
+    @apply shrink-0 w-[140px] sm:w-[160px];
+  }
+
+  @keyframes brand-marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   .printtech-brand-grid--primary {
     @apply brand-grid--primary;
   }
@@ -722,7 +755,7 @@
   }
 
   .printtech-process-step {
-    @apply font-display font-black text-4xl text-brand-red/25 leading-none block mb-2;
+    @apply font-display font-black text-4xl text-brand-red/50 leading-none block mb-2;
   }
 
   .printtech-brand-tile {
@@ -820,6 +853,14 @@
     @apply absolute top-3 right-3 w-8 h-8 rounded-full bg-white/95 text-brand-charcoal
       flex items-center justify-center opacity-0 scale-90
       group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-md;
+  }
+
+  .gallery-lightbox-close {
+    @apply fixed top-4 right-4 sm:top-6 sm:right-6 z-[110]
+      inline-flex items-center gap-2 px-4 py-2.5 rounded-full
+      bg-white/15 hover:bg-white/25 text-white text-sm font-semibold font-display
+      border border-white/20 backdrop-blur-sm shadow-lg
+      transition-colors duration-200;
   }
 
   .gallery-cta-panel {
