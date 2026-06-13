@@ -248,7 +248,7 @@ export default function About() {
                   alt="JaffnaPrinters facility"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-red/20 to-transparent" />
+                <div className="absolute inset-0  " />
               </motion.div>
             </FadeIn>
           </div>

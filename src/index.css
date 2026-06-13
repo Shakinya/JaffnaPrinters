@@ -720,7 +720,7 @@
   }
 
   .brand-marquee-tile {
-    @apply shrink-0 w-[140px] sm:w-[160px];
+    @apply shrink-0 w-[10px] sm:w-[180px];
   }
 
   @keyframes brand-marquee-scroll {

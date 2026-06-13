@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Phone, Mail, MapPin, Clock, Send,
-  CheckCircle, ExternalLink, Navigation, Share2,
+  CheckCircle, ExternalLink, Navigation, Share2, ArrowUpRight
 } from 'lucide-react';
 import PageHero from '../components/ui/PageHero';
 import FadeIn from '../components/ui/FadeIn';
@@ -95,45 +95,90 @@ export default function Contact() {
         backgroundAlt={pageHeroBackgrounds.contact.alt}
       />
 
-      {/* Quick contact */}
-      <section className="py-8 sm:py-10 bg-white border-b border-slate-100">
-        <div className="container-custom">
+
+
+<section className="py-10 sm:py-12 bg-white border-b border-slate-100">
+  <div className="container-custom">
+    <motion.div
+      variants={staggerFast}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      {contactDetails.map(
+        ({ icon: Icon, label, primary, secondary, href }, i) => (
           <motion.div
-            variants={staggerFast}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            key={label}
+            variants={fadeUp}
+            transition={{ ...defaultTransition, delay: i * 0.05 }}
           >
-            {contactDetails.map(({ icon: Icon, label, primary, secondary, href }, i) => (
-              <motion.div
-                key={label}
-                variants={fadeUp}
-                transition={{ ...defaultTransition, delay: i * 0.05 }}
-                className="flex items-start gap-3 p-5 rounded-2xl border border-red-100/90 bg-red-50/90 hover:border-brand-red/25 hover:bg-red-50 hover:shadow-sm transition-all duration-300"
+            {href ? (
+              <a
+                href={href}
+                target={label === "Address" ? "_blank" : undefined}
+                rel={label === "Address" ? "noopener noreferrer" : undefined}
+                className="group relative overflow-hidden flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-2xl hover:border-brand-red/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="icon-circle w-11 h-11 shrink-0">
+                {/* Background Glow */}
+                <div className="absolute -top-10 -right-10 w-24 h-24 bg-red-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Icon */}
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-red to-red-800 flex items-center justify-center shadow-md shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                <div className="min-w-0">
-                  <div className="text-slate-400 text-xs font-medium mb-1">{label}</div>
-                  {href ? (
-                    <a
-                      href={href}
-                      target={label === 'Address' ? '_blank' : undefined}
-                      rel={label === 'Address' ? 'noopener noreferrer' : undefined}
-                      className="font-semibold text-brand-charcoal text-sm hover:text-brand-red transition-colors block truncate"
-                    >
-                      {primary}
-                    </a>
-                  ) : (
-                    <div className="font-semibold text-brand-charcoal text-sm">{primary}</div>
-                  )}
-                  <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{secondary}</div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                    {label}
+                  </p>
+
+                  <h3 className="text-base font-semibold text-slate-900 group-hover:text-brand-red transition-colors truncate">
+                    {primary}
+                  </h3>
+
+                  <p className="text-sm text-slate-500 mt-1 leading-relaxed">
+                    {secondary}
+                  </p>
                 </div>
-              </motion.div>
-            ))}
+
+                {/* Arrow */}
+                <div className="opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <ArrowUpRight className="w-4 h-4 text-brand-red" />
+                </div>
+              </a>
+            ) : (
+              <div className="group relative overflow-hidden flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-2xl hover:border-brand-red/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                {/* Background Glow */}
+                <div className="absolute -top-10 -right-10 w-24 h-24 bg-red-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Icon */}
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-red to-red-800 flex items-center justify-center shadow-md shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                    {label}
+                  </p>
+
+                  <h3 className="text-base font-semibold text-slate-900 group-hover:text-brand-red transition-colors">
+                    {primary}
+                  </h3>
+
+                  <p className="text-sm text-slate-500 mt-1 leading-relaxed">
+                    {secondary}
+                  </p>
+                </div>
+              </div>
+            )}
           </motion.div>
+        )
+      )}
+    </motion.div>
+
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}

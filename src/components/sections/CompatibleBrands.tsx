@@ -56,7 +56,7 @@ export default function CompatibleBrands({
         />
       </div>
 
-      <div className="brand-marquee mt-2 sm:mt-4" aria-label="Compatible print brands">
+      <div className="brand-marquee mt-2 sm:mt-4 max-w-6xl mx-auto" aria-label="Compatible print brands">
         <div className="brand-marquee-track">
           {marqueeBrands.map((brand, index) => (
             <BrandTile key={`${brand.id}-${index}`} brand={brand} compact={compact} />
