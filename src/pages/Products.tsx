@@ -264,7 +264,7 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [detailProduct, setDetailProduct] = useState<Product | null>(null);
   const [cartNotice, setCartNotice] = useState<string | null>(null);
-  const { addToCart, isInCart } = useCart();
+  const { addToCart, isInCart, removeFromCart } = useCart();
 
   useEffect(() => {
     if (!cartNotice) return;
@@ -280,6 +280,11 @@ export default function Products() {
   }, [activeCategory]);
 
   const handleQuickAdd = (product: Product) => {
+    if (isInCart(product.id)) {
+      removeFromCart(product.id);
+      setCartNotice(`${product.name} removed from cart`);
+      return;
+    }
     addToCart(product, 1);
     setCartNotice(`${product.name} added to cart`);
   };

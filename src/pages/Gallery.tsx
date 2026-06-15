@@ -157,25 +157,34 @@ export default function Gallery() {
                 role="tab"
                 aria-selected={activeCategory === cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`gallery-filter-btn ${
-                  activeCategory === cat ? 'gallery-filter-btn--active' : 'gallery-filter-btn--idle'
+                className={`relative px-4 sm:px-5 py-2.5 rounded-btn text-sm font-semibold font-display transition-colors duration-300 ${
+                  activeCategory === cat ? 'text-white' : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-red hover:text-brand-red'
                 }`}
               >
-                {cat}
+                {activeCategory === cat && (
+                  <motion.span
+                    layoutId="gallery-filter-pill"
+                    className="absolute inset-0 bg-brand-red rounded-btn shadow-md shadow-brand-red/25"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{cat}</span>
               </button>
             ))}
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              className="gallery-masonry"
-              aria-label="Gallery masonry grid"
-            >
+          <div className="min-h-[500px] flex flex-col">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={activeCategory}
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                className="gallery-masonry"
+                aria-label="Gallery masonry grid"
+              >
               {masonryColumns.map((column, columnIndex) => (
                 <div key={`${activeCategory}-col-${columnIndex}`} className="gallery-masonry-col">
                   <AnimatePresence mode="popLayout">
@@ -191,11 +200,12 @@ export default function Gallery() {
                 </div>
               ))}
             </motion.div>
-          </AnimatePresence>
+            </AnimatePresence>
 
-          {filtered.length === 0 && (
-            <p className="text-center text-slate-500 py-12">No items in this category yet.</p>
-          )}
+            {filtered.length === 0 && (
+              <p className="text-center text-slate-500 py-12">No items in this category yet.</p>
+            )}
+          </div>
         </div>
       </section>
 
